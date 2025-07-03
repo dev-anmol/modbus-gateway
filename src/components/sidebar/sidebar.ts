@@ -1,10 +1,11 @@
-import { Component, signal, input, output } from '@angular/core';
+import { Component, signal, input, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
@@ -17,6 +18,7 @@ export class Sidebar {
   onClose = output<void>();
   
   isAnimating = signal(false);
+  private router = inject(Router)
   
   toggleSidebar() {
     this.isAnimating.set(true);
@@ -37,5 +39,10 @@ export class Sidebar {
         this.isAnimating.set(false);
       }, 300);
     }
+  }
+
+  handleNavigation(path: string) {
+    console.log(path)
+    this.router.navigate([path]);
   }
 }

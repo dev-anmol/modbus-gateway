@@ -1,19 +1,42 @@
 @import "tailwindcss";
 
 html {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .geist {
-    font-family: "Geist", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-  }
-  
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 
-  ::-webkit-scrollbar {
-    width: 5px;
-  }
+*::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 30px; /* Minimum scrollbar height */
+  border: 2px solid transparent; /* Creates spacing */
+  background-clip: padding-box; /* Contains background within padding */
+}
+*::-webkit-scrollbar-track {
+  background: transparent; /* Removes default track */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+/* Custom scrollbar for IE, Edge and Firefox */
+* {
+  scrollbar-width: thin; /* Thin scrollbar */
+  /*scrollbar-color: #888 #f1f1f1; !* Thumb and track color *!*/
+  scrollbar-color: #555555 #fff;
+}
