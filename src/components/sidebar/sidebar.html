@@ -1,0 +1,116 @@
+<!-- Sidebar Container -->
+<div
+  class="geist text-white/90 not-even:fixed top-0 h-full shadow-2xl z-50 transition-all duration-300 ease-in-out border-r border-slate-700/50 overflow-auto"
+  [class.translate-x-0]="isOpen()"
+  [class.-translate-x-full]="!isOpen() && position() === 'left'"
+  [class.translate-x-full]="!isOpen() && position() === 'right'"
+  [class.left-0]="position() === 'left'"
+  [class.right-0]="position() === 'right'"
+  [style.width]="width()"
+>
+  <!-- Sidebar Header -->
+  <div
+    class="flex items-center justify-between p-6 border-b border-slate-700/50"
+  >
+    <p class="text-lg font-bold cursor-pointer">RightWatts</p>
+    <!-- Close Button -->
+    <button
+      (click)="closeSidebar()"
+      class="p-2 rounded-lg hover:bg-slate-700/50 transition-colors duration-200 group"
+    >
+      <svg
+        class="w-5 h-5 group-hover:text-white transition-colors"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        ></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Sidebar Content -->
+  <div class="flex-1 overflow-y-auto p-6 space-y-4">
+    <!-- Navigation Items -->
+    <nav class="space-y-2">
+      <a
+        href="#"
+        class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700/50 transition-all duration-200 group"
+      >
+        <svg
+          class="w-5 h-5 text-slate-400 group-hover:text-blue-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+          ></path>
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"
+          ></path>
+        </svg>
+        <span class=" text-sm"
+          >Modbus Slave</span
+        >
+      </a>
+
+      <a
+        href="#"
+        class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-slate-700/50 transition-all duration-200 group"
+      >
+        <svg
+          class="w-5 h-5 text-slate-400 group-hover:text-green-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+          ></path>
+        </svg>
+        <span class=" text-sm"
+          >Openmuc Server</span
+        >
+      </a>
+    </nav>
+  </div>
+</div>
+
+<!-- Toggle Button (when sidebar is closed) -->
+<button
+  *ngIf="!isOpen()"
+  (click)="toggleSidebar()"
+  class="fixed top-5 z-40 p-1 bg-neutral-200 rounded-md shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 text-[10px]"
+  [class.left-4]="position() === 'left'"
+  [class.right-4]="position() === 'right'"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="size-5"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+    />
+  </svg>
+</button>
