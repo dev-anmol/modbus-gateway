@@ -4,12 +4,8 @@ import { AfterViewInit, Component } from '@angular/core';
   selector: 'app-header',
   imports: [],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrl: './header.css',
 })
 export class Header implements AfterViewInit {
-
-  ngAfterViewInit(): void {
-      console.log("header is loaded and working")
-  }
-
+  ngAfterViewInit(): void {}
 }

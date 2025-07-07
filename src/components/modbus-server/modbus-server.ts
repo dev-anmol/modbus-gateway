@@ -13,7 +13,7 @@ import {
 })
 export class ModbusServer {
   serverForm = new FormGroup({
-    serverIpAddress: new FormControl(''),
+    serverIpAddress: new FormControl<string | null>(null),
     serverPort: new FormControl<number | null>(null),
     poolSize: new FormControl<number | null>(null),
     unitId: new FormControl<number | null>(null),

@@ -5,16 +5,12 @@ import { Router } from '@angular/router';
   selector: 'app-device',
   imports: [],
   templateUrl: './device.html',
-  styleUrl: './device.css'
+  styleUrl: './device.css',
 })
 export class Device {
-
   private router = inject(Router);
 
-  
   handleNavigation() {
-    console.log("triggered")
-    this.router.navigate(['/device/1'])
-
+    this.router.navigate(['/device/1']);
   }
 }
