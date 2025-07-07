@@ -57,7 +57,7 @@ export class ModbusServer {
       this.serverForm.value.poolSize === ''
     ) {
       this.generateToast(
-        'Please Enter the Transmission poolSize',
+        'Please Enter the Transmission Pool Size',
         this.poolSize
       );
     }
