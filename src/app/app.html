@@ -1,25 +1,23 @@
-<div class="min-h-screen bg-neutral-950 geist flex flex-col gap-10">
-  <!-- Header at the top -->
+<div class="min-h-screen bg-neutral-100 geist flex flex-col gap-10">
+  <!-- Header -->
   <div>
     <app-header></app-header>
   </div>
 
-  <!-- Main area: sidebar + content -->
-  <div class="flex flex-1">
-    <!-- Sidebar -->
+  <!-- Main content area -->
+  <div class="flex flex-1 overflow-hidden">
+    <!-- Sidebar (fixed width) -->
     <app-sidebar
       [isOpen]="sidebarOpen()"
       [position]="'left'"
       (onToggle)="handleSidebarToggle($event)"
       (onClose)="handleSidebarClose()"
+      class="w-60 transition-all duration-300 md:block hidden"
     ></app-sidebar>
 
-    <!-- Main content -->
-    <div class="p-8 flex-1 text-white/90 text-sm" [class.ml-60]="sidebarOpen()">
-      <!-- Your main content goes here -->
+    <!-- Main content (flex-grow) -->
+    <div class="flex-1 text-neutral-700 p-8 text-sm overflow-auto">
       <router-outlet></router-outlet>
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. At laborum, amet voluptas facere ea, quae voluptate dolores sint inventore, facilis placeat repellendus illo. Doloremque labore veritatis expedita sit nesciunt, nihil aliquam corporis ut reprehenderit quaerat earum, ipsa dolores similique quia perspiciatis et debitis id molestiae ex quibusdam. Magnam culpa obcaecati dignissimos consectetur quasi, tempore facilis doloribus, libero expedita neque, eum eos ea. Dicta dolorum repellendus, laboriosam autem doloribus cumque enim earum accusantium iure esse deleniti iusto ad natus architecto dignissimos iste pariatur maiores? Est, pariatur! Assumenda fugit rem quaerat tenetur reiciendis quia laudantium, ex iste blanditiis possimus ea est voluptatibus cum labore ab culpa minus provident soluta quidem animi exercitationem minima deserunt aliquam recusandae? Error magnam consequatur obcaecati, repudiandae accusamus tempore quo ex excepturi voluptates, in quaerat aperiam alias vel ad cumque minima eius maxime. Eaque consequatur deleniti, reiciendis debitis tempore at expedita vero consequuntur facilis necessitatibus magnam sint quis. Voluptate quis, vel voluptatem itaque modi eum sed hic quia ipsam! Maxime nesciunt suscipit, magnam magni ut fuga eveniet perferendis. Voluptate reprehenderit id nobis laborum deserunt quis praesentium repellat perspiciatis ex aliquam explicabo nihil quo aut sint placeat beatae, eveniet, dicta harum! Maxime fugiat tempora rerum ducimus nesciunt dolorum exercitationem placeat impedit? Odit, praesentium atque, nisi impedit quae est nihil accusamus dolores itaque qui placeat quaerat at quam quia laboriosam aliquam. Dolores id officiis reprehenderit ut error rem quaerat autem! Rem totam, quibusdam vitae consequuntur nostrum unde pariatur, inventore sed dolores perferendis neque perspiciatis consequatur accusamus qui! Qui necessitatibus suscipit deserunt, aut sint ipsa dignissimos iure sed voluptas est modi dolorem ad quaerat beatae explicabo quisquam veniam voluptatibus incidunt ratione ipsum pariatur? Inventore ea veniam numquam cum? A doloribus maxime velit unde minima, ipsum obcaecati autem nemo quos quia est laboriosam voluptatum, odio deserunt fuga animi mollitia, assumenda quod! Odit blanditiis nostrum doloremque assumenda, quia sit laudantium eos delectus dolorem? Harum modi eum cum in laborum, dolor quidem sed dolore culpa corporis earum! Temporibus, laboriosam sunt. Officiis repellendus corrupti cupiditate architecto neque suscipit voluptatum ex doloribus veniam quae modi deserunt libero voluptates, voluptatem perferendis expedita corporis accusamus doloremque magnam dolores adipisci rem necessitatibus? Delectus harum voluptas ipsum impedit voluptatum voluptatibus, beatae temporibus minus nihil, esse cupiditate, est quis alias! Nostrum soluta velit quia impedit facilis placeat saepe deserunt ullam hic unde itaque a delectus dignissimos, possimus mollitia. Mollitia similique in excepturi quo? Alias ut corrupti minima quidem? Eligendi doloribus aspernatur aut quas harum non soluta atque repellendus officiis adipisci, deleniti blanditiis ipsa minus necessitatibus corporis nihil nulla veniam nesciunt modi eaque amet similique consequatur in! Ex est soluta commodi fugiat debitis magni nostrum aut repellendus laboriosam excepturi fugit enim sapiente cupiditate molestiae atque explicabo accusamus harum velit illum deleniti consequatur veniam, minus officiis voluptas? Consequuntur rerum sunt repellat voluptatem sint facilis eum veritatis minima molestiae, natus doloribus placeat quibusdam aliquid eaque, ducimus asperiores voluptatum? Dignissimos nemo debitis natus sunt. Itaque placeat, non voluptatum eius, dicta incidunt reprehenderit quis, deserunt mollitia numquam porro aperiam velit delectus officia eligendi iste facilis eum!
-
     </div>
   </div>
 </div>

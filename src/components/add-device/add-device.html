@@ -1,66 +1,66 @@
 <div class="container-wrapper">
-  <div class="container-holder min-lg:ml-8">
+  <div class="container-holder min-sm:ml-8">
     <div>
       <h2 class="bg-neutral-800 text-white/90 p-2">Manage Device</h2>
     </div>
 
     <form
-      [formGroup]="serverForm"
+      [formGroup]="deviceForm"
       class="flex flex-col gap-6 mt-10"
       (ngSubmit)="handleFormData()"
     >
-      <div class="flex flex-col gap-2">
-        <label for="unitId" class="font-semibold">Unit Id</label>
+      <div class="flex flex-col gap-2 text-neutral-700">
+        <label for="device-name" class="font-semibold">Device Name</label>
         <input
-          id="unitId"
+          id="device-name"
           type="text"
-          formControlName="unitId"
+          formControlName="deviceName"
           class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
-          placeholder="Enter Unit Id"
+          placeholder="Enter the Device name"
         />
       </div>
 
-      <div class="flex flex-col gap-2 text-neutral-700">
-        <label for="ipAddress" class="font-semibold">Server IP Address</label>
+      <div class="flex flex-col gap-2">
+        <label for="ipaddress" class="font-semibold">IP Address</label>
         <input
-          id="ipAddress"
+          id="ipaddress"
           type="text"
-          formControlName="serverIpAddress"
+          formControlName="ipAddress"
           class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
           placeholder="Enter the IP Address"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="port" class="font-semibold">Server Port</label>
-        <input
-          id="port"
-          type="text"
-          formControlName="serverPort"
+        <label for="device-name" class="font-semibold">Transmission Mode</label>
+        <select
+          name=""
+          id=""
           class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
-          placeholder="Enter the Port"
+        >
+          <option value="Tcp" selected class="text-neutral-700">Tcp</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <label for="device-name" class="font-semibold">Sampling Interval</label>
+        <input
+          id="device-name"
+          type="text"
+          formControlName="samplingInterval"
+          class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
+          placeholder="Enter Sampling Interval (ms)"
         />
       </div>
 
       <div class="flex flex-col gap-2">
-        <label for="poolSize" class="font-semibold">Pool Size</label>
+        <label for="device-name" class="font-semibold">Timeout</label>
         <input
-          id="poolSize"
+          id="timout"
           type="text"
-          formControlName="poolSize"
+          formControlName="timeout"
           class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
-          placeholder="Enter the Pool Size"
-        />
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <label for="interval" class="font-semibold">Interval</label>
-        <input
-          id="interval"
-          type="text"
-          formControlName="interval"
-          class="border border-neutral-600/20 py-2 pl-1 focus:outline-none text-md placeholder:text-gray-400 font-normal"
-          placeholder="Enter the Interval"
+          placeholder="Enter the Timeout (ms)"
         />
       </div>
 

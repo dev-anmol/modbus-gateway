@@ -12,7 +12,7 @@ import { Router, RouterModule } from '@angular/router';
 export class Sidebar {
   isOpen = input<boolean>(false);
   position = input<'left' | 'right'>('left');
-  width = input<string>('250px');
+  width = input<string>('230px');
   
   onToggle = output<boolean>();
   onClose = output<void>();
@@ -42,7 +42,6 @@ export class Sidebar {
   }
 
   handleNavigation(path: string) {
-    console.log(path)
     this.router.navigate([path]);
   }
 }

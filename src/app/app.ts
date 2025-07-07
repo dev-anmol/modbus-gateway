@@ -1,12 +1,12 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, signal, PLATFORM_ID, Inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { Header } from '../components/header/header';
 import { Sidebar } from '../components/sidebar/sidebar';
-import { RouterOutlet, Scroll } from '@angular/router';
-import { Router } from 'express';
 
 @Component({
   selector: 'app-root',
-  imports: [Sidebar, Header, RouterOutlet],
+  imports: [Sidebar, Header, RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -14,15 +14,21 @@ export class App implements OnInit {
   protected title = 'modbusgateway';
   sidebarOpen = signal(false);
 
-  ngOnInit(): void {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
       const initializeScroll = async () => {
-        const scroll = (await (import ('locomotive-scroll'))).default;
-        const locomotiveScroll = new scroll();
-        locomotiveScroll.start();
-      }
+        const LocomotiveScroll = (await import('locomotive-scroll') as any).default;
+
+        const scroll = new LocomotiveScroll({
+          el: document.querySelector('[data-scroll-container]'),
+          smooth: true
+        });
+      };
 
       initializeScroll();
+    }
   }
   
   toggleSidebar() {

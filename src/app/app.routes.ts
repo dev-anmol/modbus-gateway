@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { Device } from '../components/device/device';
-import { ModbusServer } from '../components/modbus-server/modbus-server';
 
 export const routes: Routes = [
   {
@@ -10,6 +8,9 @@ export const routes: Routes = [
   }, {
     path: 'device',
     loadComponent: () => import('../components/device/device').then(m => m.Device)
+  }, {
+    path: 'device/:id',
+    loadComponent: () => import('../components/add-device/add-device').then(m => m.AddDevice)
   }, {
     path: 'modbus-server',
     pathMatch: 'full',
