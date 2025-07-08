@@ -11,6 +11,6 @@ export class Device {
   private router = inject(Router);
 
   handleNavigation() {
-    this.router.navigate(['/device/1']);
+    this.router.navigate(['/device/0']);
   }
 }

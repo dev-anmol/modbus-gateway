@@ -68,6 +68,8 @@ export class ModbusServer {
     ) {
       this.generateToast('Please Enter the Sampling Interval', this.interval);
     }
+    console.log('server data', this.serverForm.value);
+    this.serverForm.reset();
   }
 
   generateToast(msg: string, key: WritableSignal<string>) {
