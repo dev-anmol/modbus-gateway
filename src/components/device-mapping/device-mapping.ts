@@ -1,8 +1,19 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { registers } from '../../models/register.type';
+import { FormsModule } from '@angular/forms';
+
+interface DeviceMappingRow {
+  id: string;
+  parameter: string;
+  registerAddress: string;
+  registerType: string;
+  dataType: string;
+  interval: string;
+}
+
 @Component({
   selector: 'app-device-mapping',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './device-mapping.html',
   styleUrl: './device-mapping.css',
 })
@@ -33,4 +44,35 @@ export class DeviceMapping {
     'FLOAT',
     'DOUBLE',
   ]);
+
+  public rows = signal<DeviceMappingRow[]>([
+    {
+      id: '',
+      parameter: '',
+      registerAddress: '',
+      registerType: '',
+      dataType: '',
+      interval: '',
+    },
+  ]);
+
+  addRow() {
+    this.rows.update((rows) => [
+      ...rows,
+      {
+        id: '',
+        parameter: '',
+        registerAddress: '',
+        registerType: '',
+        dataType: '',
+        interval: '',
+      },
+    ]);
+  }
+
+  removeRow() {
+    if (this.rows().length !== 1) {
+      this.rows.update((rows) => rows.slice(0, -1));
+    }
+  }
 }
