@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './sidebar.css'
 })
 export class Sidebar {
-  isOpen = input<boolean>(false);
+  isOpen = input<boolean>(true);
   position = input<'left' | 'right'>('left');
   width = input<string>('230px');
   

@@ -1,6 +1,7 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { registers } from '../../models/register.type';
 import { FormsModule } from '@angular/forms';
+import { FileIcon, LucideAngularModule, MinusCircleIcon, PlusCircleIcon } from 'lucide-angular';
 
 interface DeviceMappingRow {
   id: string;
@@ -13,11 +14,14 @@ interface DeviceMappingRow {
 
 @Component({
   selector: 'app-device-mapping',
-  imports: [FormsModule],
+  imports: [FormsModule, LucideAngularModule],
   templateUrl: './device-mapping.html',
   styleUrl: './device-mapping.css',
 })
 export class DeviceMapping {
+  readonly addIcon = PlusCircleIcon;
+  readonly removeIcon = MinusCircleIcon
+
   public registers: WritableSignal<registers> = signal([
     'HOLDING_REGISTERS',
     'INPUT_REGISTERS',
