@@ -15,6 +15,20 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'profile',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('../components/profile/profile').then((m) => m.Profile),
+  },
+  {
+    path: 'profile/:id',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('../components/device-profile/device-profile').then(
+        (m) => m.DeviceProfile
+      ),
+  },
+  {
     path: 'device',
     loadComponent: () =>
       import('../components/device/device').then((m) => m.Device),

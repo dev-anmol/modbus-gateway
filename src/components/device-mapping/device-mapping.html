@@ -1,7 +1,16 @@
+<p-toast></p-toast>
 <div class="container-wrapper">
-  <div class="overflow-x-auto mt-10 flex flex-col gap-10">
+  <div class="overflow-x-auto mt-10 flex flex-col gap-10 pb-10">
     <div class="bg-black/90 p-2">
       <p class="text-white/90">Device Mapping</p>
+      @if (currentDevice) {
+      <div class="text-white/70 text-xs mt-2">
+        <p>
+          Device: {{ currentDevice.deviceName }} (ID: {{ currentDevice.id }})
+        </p>
+        <p>IP: {{ currentDevice.ipAddress }}:{{ currentDevice.devicePort }}</p>
+      </div>
+      }
     </div>
     <table class="table table-xs">
       <thead class="text-xs">
@@ -22,6 +31,7 @@
               type="text"
               class="custom-input"
               [(ngModel)]="row.parameter"
+              placeholder="Enter the Parameter"
             />
           </td>
           <td>
@@ -29,17 +39,25 @@
               type="text"
               class="custom-input"
               [(ngModel)]="row.registerAddress"
+              placeholder="Register Address e.g 1001"
             />
           </td>
           <td>
-            <select class="focus:outline-none" [(ngModel)]="row.registerType" class="custom-input">
+            <select
+              class="focus:outline-none custom-input"
+              [(ngModel)]="row.registerType"
+            >
               @for (register of registers(); track $index) {
               <option [value]="register">{{ register }}</option>
               }
             </select>
           </td>
           <td>
-            <select class="focus:outline-none" [(ngModel)]="row.dataType" class="custom-input">
+            <select
+              class="focus:outline-none"
+              [(ngModel)]="row.dataType"
+              class="custom-input"
+            >
               @for (datatype of dataTypes(); track $index) {
               <option [value]="datatype">{{ datatype }}</option>
               }
@@ -50,6 +68,7 @@
               type="text"
               class="custom-input w-20"
               [(ngModel)]="row.interval"
+              placeholder="in ms"
             />
           </td>
         </tr>
@@ -60,21 +79,32 @@
     <div class="flex flex-row items-center gap-4 justify-end">
       <button
         (click)="addRow()"
-        class="bg-neutral-400/50 text-neutral-700 rounded-md px-4 py-1 text-xs cursor-pointer"
+        class="bg-neutral-400/50 text-neutral-700 rounded-sm px-3 py-1 text-xs cursor-pointer"
       >
-      <lucide-angular [img]="addIcon" class="my-icon h-4 w-4"></lucide-angular>
+        <lucide-angular
+          [img]="addIcon"
+          class="my-icon h-3 w-3"
+        ></lucide-angular>
       </button>
 
       <button
         (click)="removeRow()"
-        class="bg-neutral-400/50 text-neutral-700 rounded-md px-4 py-1 text-xs cursor-pointer"
+        class="bg-neutral-400/50 text-neutral-700 rounded-sm px-3 py-1 text-xs cursor-pointer"
       >
-      <lucide-angular [img]="removeIcon" class="my-icon h-4 w-4"></lucide-angular>
+        <lucide-angular
+          [img]="removeIcon"
+          class="my-icon h-3 w-3"
+        ></lucide-angular>
       </button>
     </div>
 
     <div class="flex items-end justify-center h-1/2">
-      <p class="w-fit px-4 py-1 bg-black/90 rounded-lg text-white/90 cursor-pointer">Save</p>
+      <p
+        class="w-fit px-4 py-1 bg-black/90 rounded-sm text-white/90 cursor-pointer hover:bg-black/60 transition-all duration-300"
+        (click)="saveDeviceWithMappings()"
+      >
+        Save
+      </p>
     </div>
   </div>
 </div>

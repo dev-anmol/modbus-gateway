@@ -1,8 +1,28 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+
+interface DeviceMappingRow {
+  id: string;
+  parameter: string;
+  registerAddress: string;
+  registerType: string;
+  dataType: string;
+  interval: string;
+}
+
+interface Device {
+  id: string | null;
+  deviceName: string | null;
+  devicePort: string | null;
+  ipAddress: string | null;
+  mode: string | null;
+  samplingInterval: string | null;
+  timeout: string | null;
+  deviceMappings?: DeviceMappingRow[];
+}
 
 @Component({
   selector: 'app-add-device',
@@ -13,6 +33,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class AddDevice {
   private messageService = inject(MessageService);
+  private router = inject(Router);
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
@@ -77,6 +98,27 @@ export class AddDevice {
 
     console.log('device data', this.deviceForm.value);
     this.deviceForm.reset();
+  }
+
+  navigateToDeviceMapping() {
+    // Get current device data
+    const deviceData: Device = {
+      id: this.deviceForm.value.id || null,
+      deviceName: this.deviceForm.value.deviceName || null,
+      devicePort: this.deviceForm.value.devicePort || null,
+      ipAddress: this.deviceForm.value.ipAddress || null,
+      mode: this.deviceForm.value.mode || null,
+      samplingInterval: this.deviceForm.value.samplingInterval || null,
+      timeout: this.deviceForm.value.timeout || null,
+    };
+
+    // Store device data in localStorage or pass as route parameter
+    localStorage.setItem('currentDevice', JSON.stringify(deviceData));
+    
+    // Navigate to device mapping with device ID
+    this.router.navigate(['/device-mapping'], {
+      queryParams: { deviceId: deviceData.id }
+    });
   }
 
   generateToast(msg: string, key: WritableSignal<string>) {
