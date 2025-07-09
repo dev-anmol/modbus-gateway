@@ -47,6 +47,7 @@ export class AddDevice {
     id: new FormControl<string | null>(null),
     deviceName: new FormControl<string | null>(null),
     devicePort: new FormControl<string | null>(null),
+    deviceProfile: new FormControl<string | null>(null),
     ipAddress: new FormControl<string | null>(null),
     mode: new FormControl<string | null>(null),
     samplingInterval: new FormControl<string | null>(null),
