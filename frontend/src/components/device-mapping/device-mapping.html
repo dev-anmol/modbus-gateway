@@ -12,69 +12,73 @@
       </div>
       }
     </div>
-    <table class="table table-xs">
-      <thead class="text-xs">
-        <tr class="text-neutral-700 text-center">
-          @for (item of header(); track $index) {
-          <th>{{ item }}</th>
+
+    <div class="w-full overflow-x-auto">
+      <table class="table table-xs w-full min-w-[600px]">
+        <thead class="text-xs">
+          <tr class="text-neutral-700 text-center">
+            @for (item of header(); track $index) {
+            <th>{{ item }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          @for (row of rows(); track $index) {
+          <tr>
+            <td>
+              {{ $index + 1 }}
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input"
+                [(ngModel)]="row.parameter"
+                placeholder="Enter the Parameter"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input"
+                [(ngModel)]="row.registerAddress"
+                placeholder="Register Address e.g 1001"
+              />
+            </td>
+            <td>
+              <select
+                class="focus:outline-none custom-input"
+                [(ngModel)]="row.registerType"
+              >
+                @for (register of registers(); track $index) {
+                <option [value]="register">{{ register }}</option>
+                }
+              </select>
+            </td>
+            <td>
+              <select
+                class="focus:outline-none"
+                [(ngModel)]="row.dataType"
+                class="custom-input"
+              >
+                @for (datatype of dataTypes(); track $index) {
+                <option [value]="datatype">{{ datatype }}</option>
+                }
+              </select>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input w-20"
+                [(ngModel)]="row.interval"
+                placeholder="in ms"
+              />
+            </td>
+          </tr>
           }
-        </tr>
-      </thead>
-      <tbody class="text-center">
-        @for (row of rows(); track $index) {
-        <tr>
-          <td>
-            {{ $index + 1 }}
-          </td>
-          <td>
-            <input
-              type="text"
-              class="custom-input"
-              [(ngModel)]="row.parameter"
-              placeholder="Enter the Parameter"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="custom-input"
-              [(ngModel)]="row.registerAddress"
-              placeholder="Register Address e.g 1001"
-            />
-          </td>
-          <td>
-            <select
-              class="focus:outline-none custom-input"
-              [(ngModel)]="row.registerType"
-            >
-              @for (register of registers(); track $index) {
-              <option [value]="register">{{ register }}</option>
-              }
-            </select>
-          </td>
-          <td>
-            <select
-              class="focus:outline-none"
-              [(ngModel)]="row.dataType"
-              class="custom-input"
-            >
-              @for (datatype of dataTypes(); track $index) {
-              <option [value]="datatype">{{ datatype }}</option>
-              }
-            </select>
-          </td>
-          <td>
-            <input
-              type="text"
-              class="custom-input w-20"
-              [(ngModel)]="row.interval"
-              placeholder="in ms"
-            />
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+
+    </div>
 
     <div class="flex flex-row items-center gap-4 justify-end">
       <button
