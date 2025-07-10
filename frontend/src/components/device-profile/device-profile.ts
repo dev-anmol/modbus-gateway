@@ -19,5 +19,7 @@ export class DeviceProfile {
     profileDescription: new FormControl<string | null>(null),
   });
 
-  handleFormData() {}
+  handleFormData() {
+    console.log(this.profileForm.value);
+  }
 }
