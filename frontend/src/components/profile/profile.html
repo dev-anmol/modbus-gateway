@@ -18,6 +18,27 @@
           New
         </button>
       </div>
+
+      <!-- device profile list -->
+       <div class = "w-full overflow-x-auto">
+        <table class="table table-xs w-full min-w-[600px]">
+          <thead class="text-xs">
+            <tr class="text-neutral-700 text-center">
+              @for (item of header(); track $index) {
+                <th>{{item}}</th>
+              }
+            </tr>
+
+          </thead>
+        </table>
+
+
+       </div>
+
+
+
+
+
     </div>
   </div>
   

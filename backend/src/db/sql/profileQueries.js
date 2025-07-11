@@ -1,13 +1,19 @@
 module.exports = {
-    insertProfile: `INSERT INTO DeviceProfile (
+    getAllProfiles: `
+     SELECT * FROM DeviceProfile
+    `,
+    insertProfile: `
+      INSERT INTO DeviceProfile (
         ProfileName,
         ProfileDescription,
         DeviceMake,
         ProfileModel
-    ) VALUES (
-        @ProfileName, 
+      ) VALUES (
+        @ProfileName,
         @ProfileDescription,
         @DeviceMake,
-        @ProfileModel 
-    )`
-}
+        @ProfileModel
+      )
+    `
+  };
+  
