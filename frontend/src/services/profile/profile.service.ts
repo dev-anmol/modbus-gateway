@@ -33,7 +33,7 @@ export class ProfileService {
   }
 
   updateDeviceProfile(Id: number, profile: ProfileModel) {
-    return this.http.post(`${environment.apiBaseUrl}/device-profile/${Id}`, profile, {
+    return this.http.put(`${environment.apiBaseUrl}/device-profile/${Id}`, profile, {
       headers : this.httpHeaders,
     });
   }

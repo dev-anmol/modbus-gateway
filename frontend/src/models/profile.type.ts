@@ -1,5 +1,5 @@
 export type ProfileModel =  {
-    Id?: number | '',
+    Id?: any,
     ProfileName: string;
     DeviceMake: string;
     ProfileModel: string;

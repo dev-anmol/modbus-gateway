@@ -20,7 +20,7 @@ exports.getAllProfiles = async (req, res) => {
 }
 
 exports.getDeviceProfile = async (req, res) => {
-    const profileId = req.params.id;  // This gets the id from URL param like /device-profile/7
+    const profileId = req.params.id;
 
     try {
         const request = new sql.Request()
@@ -38,7 +38,7 @@ exports.getDeviceProfile = async (req, res) => {
         console.error("Error fetching the Device Profile", error.message);
         res.status(500).json({ error: "Internal server error" });
     }
-};  
+};
 
 
 exports.addProfile = async (req, res) => {
@@ -64,3 +64,23 @@ exports.addProfile = async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 };
+
+exports.updateDeviceProfile = async (req, res) => {
+    const id = req.params.id;
+    const { ProfileName, DeviceMake, ProfileModel, ProfileDescription } = req.body;
+
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, id)
+            .input('ProfileName', sql.NVarChar, ProfileName)
+            .input('DeviceMake', sql.NVarChar, DeviceMake)
+            .input('ProfileModel', sql.NVarChar, ProfileModel)
+            .input('ProfileDescription', sql.NVarChar, ProfileDescription)
+
+        await request.query(queries.updateProfile);
+        res.status(200).json({ message: 'Device Profile Updated' })
+    } catch (err) {
+        console.error('Update error:', err.message);
+        res.status(500).json({ error: 'Failed to update the device profile' })
+    }
+}

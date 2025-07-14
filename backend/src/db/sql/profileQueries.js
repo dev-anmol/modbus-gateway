@@ -1,8 +1,11 @@
 module.exports = {
-    getAllProfiles: `
+  getAllProfiles: `
      SELECT * FROM DeviceProfile
     `,
-    insertProfile: `
+  getDeviceProfileById: `
+    SELECT * FROM DeviceProfile WHERE Id = @Id
+  `,
+  insertProfile: `
       INSERT INTO DeviceProfile (
         ProfileName,
         ProfileDescription,
@@ -15,8 +18,12 @@ module.exports = {
         @ProfileModel
       )
     `,
-    getDeviceProfileById: `
-      SELECT * FROM DeviceProfile WHERE Id = @Id
+  updateProfile: `
+      UPDATE DeviceProfile 
+      SET ProfileName = @ProfileName,
+      DeviceMake = @DeviceMake,
+      ProfileModel = @ProfileModel,
+      ProfileDescription = @ProfileDescription
+      WHERE Id = @Id    
     `
-  };
-  
+};
