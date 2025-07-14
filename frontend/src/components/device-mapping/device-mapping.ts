@@ -3,9 +3,7 @@ import {
   inject,
   OnInit,
   signal,
-  WritableSignal,
-  PLATFORM_ID,
-  Inject,
+  WritableSignal
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,10 +12,9 @@ import {
   MinusCircleIcon,
   PlusCircleIcon,
 } from 'lucide-angular';
-import { registers } from '../../models/register.type';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { isPlatformBrowser } from '@angular/common';
+import { registers } from '../../models/register.type';
 
 interface DeviceMappingRow {
   id: string;
@@ -93,27 +90,13 @@ export class DeviceMapping implements OnInit {
 
   private router = inject(Router);
   private messageService = inject(MessageService);
+  id = signal<any | null>(null);
 
-  constructor(
-    private route: ActivatedRoute,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
-    // Get device ID from route params
-    this.route.queryParams.subscribe((params) => {
-      this.deviceId = params['deviceId'];
-
-      // Retrieve device data from localStorage
-
-      if (isPlatformBrowser(this.platformId)) {
-        const deviceData = localStorage.getItem('currentDevice');
-        if (deviceData) {
-          this.currentDevice = JSON.parse(deviceData);
-          console.log('Current device:', this.currentDevice);
-        }
-      }
-    });
+    this.id.set(Number(this.route.snapshot.paramMap.get('id')));
+    console.log(this.id());
   }
 
   addRow() {

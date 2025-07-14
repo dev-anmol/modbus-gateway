@@ -42,7 +42,7 @@ export class Profile implements OnInit {
   }
 
   //for editing/managing the device profile
-  navigateToDeviceMapping(id: number | '' | undefined) {
+  navigateToDeviceProfile(id: number | '' | undefined) {
     if (typeof id === 'number') {
       this.router.navigate([`/profile/${id}`]);
     } else {
@@ -50,10 +50,8 @@ export class Profile implements OnInit {
     }
   }
 
-  navigateToDeviceProfile() {}
-
-  navigateToAddressMapping() {
-    this.router.navigate(['/device-mapping']);
+  navigateToAddressMapping(id: number) {
+    this.router.navigate([`/device-mapping/${id}`]);
   }
 
   handleNavigation() {

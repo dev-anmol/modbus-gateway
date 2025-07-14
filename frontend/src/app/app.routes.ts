@@ -7,7 +7,7 @@ export const routes: Routes = [
     redirectTo: 'device',
   },
   {
-    path: 'device-mapping',
+    path: 'device-mapping/:id',
     pathMatch: 'full',
     loadComponent: () =>
       import('../components/device-mapping/device-mapping').then(

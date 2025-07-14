@@ -1,6 +1,6 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 
@@ -100,27 +100,6 @@ export class AddDevice {
     console.log('device data', this.deviceForm.value);
     this.deviceForm.reset();
   }
-
-  // navigateToDeviceMapping() {
-  //   // Get current device data
-  //   const deviceData: Device = {
-  //     id: this.deviceForm.value.id || null,
-  //     deviceName: this.deviceForm.value.deviceName || null,
-  //     devicePort: this.deviceForm.value.devicePort || null,
-  //     ipAddress: this.deviceForm.value.ipAddress || null,
-  //     mode: this.deviceForm.value.mode || null,
-  //     samplingInterval: this.deviceForm.value.samplingInterval || null,
-  //     timeout: this.deviceForm.value.timeout || null,
-  //   };
-
-  //   // Store device data in localStorage or pass as route parameter
-  //   localStorage.setItem('currentDevice', JSON.stringify(deviceData));
-    
-  //   // Navigate to device mapping with device ID
-  //   this.router.navigate(['/device-mapping'], {
-  //     queryParams: { deviceId: deviceData.id }
-  //   });
-  // }
 
   generateToast(msg: string, key: WritableSignal<string>) {
     this.messageService.add({

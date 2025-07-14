@@ -50,13 +50,13 @@
           <td class="py-2 px-2 flex gap-2 justify-center">
             <button
               class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
-              (click)="navigateToDeviceMapping(profile.Id)"
+              (click)="navigateToDeviceProfile(profile.Id)"
               >
               Manage Profile
             </button>
             <button
               class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
-              (click)="navigateToAddressMapping()"
+              (click)="navigateToAddressMapping(profile.Id)"
             >
               Manage Address Map
             </button>

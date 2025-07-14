@@ -31,10 +31,8 @@ export class DeviceProfile implements OnInit {
 
   ngOnInit(): void {
     this.id.set(Number(this.route.snapshot.paramMap.get('id')));
-    console.log('Device Profile', this.id);
     this.profileService.getDeviceProfileById(this.id()).subscribe({
       next: (res: ProfileModel) => {
-        console.log(res);
         this.profileForm.patchValue({
           profileMake: res.DeviceMake,
           profileDescription: res.ProfileDescription,
@@ -62,24 +60,20 @@ export class DeviceProfile implements OnInit {
     };
 
     if (this.id() && this.id() > 0) {
-      console.log(profile);
       this.profileService.updateDeviceProfile(this.id(), profile).subscribe({
         next: (response) => {
-          console.log('Updated successfully', response);
           this.generateToast('Device Profile Updated', this.successFlag);
           setTimeout(() => {
             this.handleNavigation();
-          }, 300);
+          }, 500);
         },
         error: (err) => {
-          console.log('Updated error', err);
           this.generateToast('Error Updating Device Profile', this.failureFlag);
         },
       });
     } else {
       this.profileService.createDeviceProfile(profile).subscribe({
-        next: (response) => {
-          console.log(response);
+        next: (res) => {
           this.generateToast('Device Profile Created', this.successFlag);
         },
         error: (err) => {
