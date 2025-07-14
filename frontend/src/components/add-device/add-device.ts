@@ -6,7 +6,7 @@ import {
   WritableSignal,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ProfileModel } from '../../models/profile.type';
@@ -24,15 +24,19 @@ export class AddDevice implements OnInit {
   private messageService = inject(MessageService);
   private deviceService = inject(DeviceService);
   private profileService = inject(ProfileService);
+  private router = inject(Router);
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
   private deviceId: WritableSignal<string> = signal('Device unitId');
-  private samplingInterval: WritableSignal<string> = signal('Sampling Interval');
+  private samplingInterval: WritableSignal<string> =
+    signal('Sampling Interval');
   private ipAddress: WritableSignal<string> = signal('Ip Address');
   private mode: WritableSignal<string> = signal('Mode');
   private devicePayload: WritableSignal<any | null> = signal(null);
   public deviceProfiles: WritableSignal<ProfileModel[] | null> = signal(null);
+
+  successFlag: boolean = false;
 
   deviceForm = new FormGroup({
     unitId: new FormControl<string | null>(null),
@@ -54,56 +58,73 @@ export class AddDevice implements OnInit {
       this.deviceForm.value.deviceName === null ||
       this.deviceForm.value.deviceName === ''
     ) {
-      this.generateToast('Please Enter the Device Name', this.deviceName);
+      this.generateWarningToast(
+        'Please Enter the Device Name',
+        this.deviceName
+      );
     }
 
     if (
       this.deviceForm.value.devicePort === null ||
       this.deviceForm.value.devicePort === ''
     ) {
-      this.generateToast('Please Enter the Device Port', this.devicePort);
+      this.generateWarningToast(
+        'Please Enter the Device Port',
+        this.devicePort
+      );
     }
 
-    if (this.deviceForm.value.unitId === null || this.deviceForm.value.unitId === '') {
-      this.generateToast('Please Enter the Device unitId', this.deviceId);
+    if (
+      this.deviceForm.value.unitId === null ||
+      this.deviceForm.value.unitId === ''
+    ) {
+      this.generateWarningToast(
+        'Please Enter the Device unitId',
+        this.deviceId
+      );
     }
 
     if (
       this.deviceForm.value.ipAddress === null ||
       this.deviceForm.value.ipAddress === ''
     ) {
-      this.generateToast('Please Enter the IP Address', this.ipAddress);
+      this.generateWarningToast('Please Enter the IP Address', this.ipAddress);
     }
 
     if (
       this.deviceForm.value.mode === null ||
       this.deviceForm.value.mode === ''
     ) {
-      this.generateToast('Please Enter the Transmission Mode', this.mode);
+      this.generateWarningToast(
+        'Please Enter the Transmission Mode',
+        this.mode
+      );
     }
 
     if (
       this.deviceForm.value.samplingInterval === null ||
       this.deviceForm.value.samplingInterval === ''
     ) {
-      this.generateToast(
+      this.generateWarningToast(
         'Please Enter the Sampling Interval',
         this.samplingInterval
       );
     }
 
     this.devicePayload.set(this.deviceForm.value);
-    console.log(this.devicePayload());
     this.deviceService.addDevice(this.deviceForm.value).subscribe({
       next: (response) => {
-        console.log(response);
+        this.successFlag = true;
+        this.generateToast('Device Added Succesfully', this.successFlag);
+        this.router.navigate(['/device']);
+        this.deviceForm.reset();
       },
       error: (err) => {
+        this.successFlag = false;
+        this.generateToast('Error Adding Device', this.successFlag);
         console.error('Error Adding Device', err);
       },
     });
-
-    this.deviceForm.reset();
   }
 
   fetchAllDeviceProfiles() {
@@ -118,11 +139,21 @@ export class AddDevice implements OnInit {
     });
   }
 
-  generateToast(msg: string, key: WritableSignal<string>) {
+  generateWarningToast(msg: string, key: WritableSignal<string>) {
     this.messageService.add({
+      key: key(),
       severity: 'warn',
       summary: msg,
       detail: 'Invalid Fields',
+      life: 3000,
+      closable: true,
+    });
+  }
+
+  generateToast(msg: string, flag: boolean) {
+    this.messageService.add({
+      severity: flag ? 'success' : 'warn',
+      summary: msg,
       life: 3000,
       closable: true,
     });
