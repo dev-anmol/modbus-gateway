@@ -1,6 +1,6 @@
 module.exports = {
 
-    insertAddressMapping: `
+  insertAddressMapping: `
   INSERT INTO DeviceProfileAddressMap (
     DeviceProfileId,
     Parameter,
