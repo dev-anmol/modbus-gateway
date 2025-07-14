@@ -1,16 +1,25 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../env/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DeviceService {
-
   private http = inject(HttpClient);
-  constructor() { }
+
+  httpHeaders = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+  constructor() {}
 
   addDevice(data: any) {
-    return this.http.post(`${environment.apiBaseUrl}`, data);
+    return this.http.post(`${environment.apiBaseUrl}/device`, data, {
+      headers: this.httpHeaders,
+    });
+  }
+
+  getAllDevices() {
+    return this.http.get(`${environment.apiBaseUrl}/device`);
   }
 }

@@ -1,10 +1,17 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { ProfileModel } from '../../models/profile.type';
 import { DeviceService } from '../../services/device/device.service';
-import { Device } from '../device/device';
+import { ProfileService } from '../../services/profile/profile.service';
 
 @Component({
   selector: 'app-add-device',
@@ -13,28 +20,34 @@ import { Device } from '../device/device';
   styleUrl: './add-device.css',
   providers: [MessageService],
 })
-export class AddDevice {
+export class AddDevice implements OnInit {
   private messageService = inject(MessageService);
   private deviceService = inject(DeviceService);
+  private profileService = inject(ProfileService);
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
-  private deviceId: WritableSignal<string> = signal('Device Id');
-  private samplingInterval: WritableSignal<string> =
-    signal('Sampling Interval');
+  private deviceId: WritableSignal<string> = signal('Device unitId');
+  private samplingInterval: WritableSignal<string> = signal('Sampling Interval');
   private ipAddress: WritableSignal<string> = signal('Ip Address');
   private mode: WritableSignal<string> = signal('Mode');
-  private devicePayload!: WritableSignal<any>;
+  private devicePayload: WritableSignal<any | null> = signal(null);
+  public deviceProfiles: WritableSignal<ProfileModel[] | null> = signal(null);
+
   deviceForm = new FormGroup({
-    id: new FormControl<string | null>(null),
+    unitId: new FormControl<string | null>(null),
     deviceName: new FormControl<string | null>(null),
     devicePort: new FormControl<string | null>(null),
-    deviceProfile: new FormControl<string | null>(null),
+    deviceProfileId: new FormControl<number | null>(null),
     ipAddress: new FormControl<string | null>(null),
     mode: new FormControl<string | null>(null),
     samplingInterval: new FormControl<string | null>(null),
     timeout: new FormControl<string | null>(null),
   });
+
+  ngOnInit(): void {
+    this.fetchAllDeviceProfiles();
+  }
 
   handleFormData() {
     if (
@@ -51,8 +64,8 @@ export class AddDevice {
       this.generateToast('Please Enter the Device Port', this.devicePort);
     }
 
-    if (this.deviceForm.value.id === null || this.deviceForm.value.id === '') {
-      this.generateToast('Please Enter the Device Id', this.deviceId);
+    if (this.deviceForm.value.unitId === null || this.deviceForm.value.unitId === '') {
+      this.generateToast('Please Enter the Device unitId', this.deviceId);
     }
 
     if (
@@ -79,8 +92,8 @@ export class AddDevice {
       );
     }
 
-    console.log('device data', this.deviceForm.value);
     this.devicePayload.set(this.deviceForm.value);
+    console.log(this.devicePayload());
     this.deviceService.addDevice(this.deviceForm.value).subscribe({
       next: (response) => {
         console.log(response);
@@ -91,6 +104,18 @@ export class AddDevice {
     });
 
     this.deviceForm.reset();
+  }
+
+  fetchAllDeviceProfiles() {
+    this.profileService.getAllDeviceProfiles().subscribe({
+      next: (response) => {
+        this.deviceProfiles.set(response);
+        console.log(this.deviceProfiles());
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   generateToast(msg: string, key: WritableSignal<string>) {
