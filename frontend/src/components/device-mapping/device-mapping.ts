@@ -18,7 +18,6 @@ import { registers } from '../../models/register.type';
 import { MappingService } from '../../services/mapping/mapping.service';
 
 interface DeviceMappingRow {
-  id: string;
   parameter: string;
   registerAddress: string;
   registerType: string;
@@ -80,7 +79,6 @@ export class DeviceMapping implements OnInit {
 
   public rows = signal<DeviceMappingRow[]>([
     {
-      id: '',
       parameter: '',
       registerAddress: '',
       registerType: '',
@@ -144,30 +142,18 @@ export class DeviceMapping implements OnInit {
       }
     }
 
-    if (this.currentDevice) {
-      const completeDevice: Device = {
-        ...this.currentDevice,
-        deviceMappings: this.rows(),
-      };
+    this.mappingService
+      .createAddressMappings(this.id(), this.rows())
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+        },
+        error: (error) => {
+          console.error('Error Creating Mappings', error);
+        },
+      });
 
-      const savedDevices = JSON.parse(localStorage.getItem('devices') || '[]');
-      savedDevices.push(completeDevice);
-      localStorage.setItem('devices', JSON.stringify(savedDevices));
-      console.log('Saved device with mappings:', completeDevice);
-
-      this.mappingService
-        .createAddressMappings(this.id(), this.rows())
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-          },
-          error: (error) => {
-            console.error('Error Creating Mappings', error);
-          },
-        });
-
-      this.router.navigate(['/device']);
-    }
+    this.router.navigate(['/device']);
   }
 
   generateToast(msg: string) {

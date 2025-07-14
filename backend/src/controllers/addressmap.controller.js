@@ -1,4 +1,4 @@
-const sql = require('mssql');
+const sql = require('mssql/msnodesqlv8');
 const queries = require('../db/sql/addressMapQueries');
 
 exports.addAddressMappings = async (req, res) => {

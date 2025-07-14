@@ -4,7 +4,7 @@ const controller = require('../controllers/addressmap.controller');
 
 
 
-router.post('/device-profile/:id/mappings', controller.addAddressMappings);
+router.post('/:id', controller.addAddressMappings);
 
 
 module.exports = router;

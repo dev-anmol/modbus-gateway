@@ -12,6 +12,6 @@ export class MappingService {
   constructor() { }
 
   createAddressMappings(profileId: number, mappings: any[]) {
-    return this.http.post(`${environment.apiBaseUrl}/device-profile/${profileId}/mappings`, mappings);
+    return this.http.post(`${environment.apiBaseUrl}/address-maps/${profileId}`, mappings);
   }
 }
