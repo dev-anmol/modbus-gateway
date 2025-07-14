@@ -1,8 +1,10 @@
 type Device = {
-    id: any ,
-    deviceName: string ,
-    ipAddress: string ,
-    mode: string ,
-    samplingInterval?: any,
-    timeout?: any
-}
+    id: string;
+    deviceName: string;
+    devicePort: string;
+    ipAddress: string;
+    mode: string;
+    samplingInterval: string;
+    timeout: string;
+    deviceProfileId: number;
+  }

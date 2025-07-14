@@ -3,26 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-
-interface DeviceMappingRow {
-  id: string;
-  parameter: string;
-  registerAddress: string;
-  registerType: string;
-  dataType: string;
-  interval: string;
-}
-
-interface Device {
-  id: string | null;
-  deviceName: string | null;
-  devicePort: string | null;
-  ipAddress: string | null;
-  mode: string | null;
-  samplingInterval: string | null;
-  timeout: string | null;
-  deviceMappings?: DeviceMappingRow[];
-}
+import { DeviceService } from '../../services/device/device.service';
+import { Device } from '../device/device';
 
 @Component({
   selector: 'app-add-device',
@@ -33,7 +15,7 @@ interface Device {
 })
 export class AddDevice {
   private messageService = inject(MessageService);
-  private router = inject(Router);
+  private deviceService = inject(DeviceService);
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
@@ -42,7 +24,7 @@ export class AddDevice {
     signal('Sampling Interval');
   private ipAddress: WritableSignal<string> = signal('Ip Address');
   private mode: WritableSignal<string> = signal('Mode');
-
+  private devicePayload!: WritableSignal<any>;
   deviceForm = new FormGroup({
     id: new FormControl<string | null>(null),
     deviceName: new FormControl<string | null>(null),
@@ -98,6 +80,16 @@ export class AddDevice {
     }
 
     console.log('device data', this.deviceForm.value);
+    this.devicePayload.set(this.deviceForm.value);
+    this.deviceService.addDevice(this.deviceForm.value).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (err) => {
+        console.error('Error Adding Device', err);
+      },
+    });
+
     this.deviceForm.reset();
   }
 

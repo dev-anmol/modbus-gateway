@@ -1,5 +1,5 @@
 const sql = require('mssql/msnodesqlv8');
-// const queries = require('../db/sql')
+const queries = require('../db/sql/deviceQueries');
 
 exports.getAllDevices = async (req, res) => {
     try {
@@ -11,9 +11,14 @@ exports.getAllDevices = async (req, res) => {
 
 
 exports.addDevice = async (req, res) => {
+
+    const {} = req.body;
+    
     try {
 
+
+
     } catch(error) {
-        
+        console.error('Error Adding Device', error.message);
     }
 }

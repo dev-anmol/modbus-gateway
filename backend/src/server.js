@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/api/devices', require('./routes/device.routes'));
+app.use('/api/device', require('./routes/device.routes'));
 app.use('/api/device-profile', require('./routes/profile.routes'));
 app.use('/api/address-maps', require('./routes/addressmap.routes'));
 
