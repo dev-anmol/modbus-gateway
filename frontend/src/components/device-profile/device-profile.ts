@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ProfileModel } from '../../models/profile.type';
@@ -13,9 +13,12 @@ import { ProfileService } from '../../services/profile/profile.service';
   styleUrl: './device-profile.css',
   providers: [MessageService],
 })
-export class DeviceProfile {
+export class DeviceProfile implements OnInit {
   private profileService = inject(ProfileService);
   private messageService = inject(MessageService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
   successFlag: boolean = true;
   failureFlag: boolean = false;
   profileForm = new FormGroup({
@@ -24,6 +27,25 @@ export class DeviceProfile {
     profileModel: new FormControl<string>(''),
     profileDescription: new FormControl<string>(''),
   });
+
+
+  ngOnInit(): void {
+      const id = Number (this.route.snapshot.paramMap.get('id'));
+      console.log('Device Profile', id);
+      this.profileService.getDeviceProfileById(id).subscribe({
+        next: (res: ProfileModel) => {
+          console.log(res);
+          this.profileForm.value.profileMake = res.DeviceMake;
+          this.profileForm.value.profileDescription = res.ProfileDescription;
+          this.profileForm.value.profileModel = res.ProfileModel;
+          this.profileForm.value.profileName = res.ProfileName;
+        }, 
+        error : (err) => {
+          console.error('Error while fetching', err)
+        }
+      })
+    
+  }
 
   handleFormData() {
     const profile: ProfileModel = {
@@ -52,5 +74,9 @@ export class DeviceProfile {
       life: 3000,
       closable: true,
     });
+  }
+
+  handleNavigation() {
+    this.router.navigate(['/profile'])
   }
 }

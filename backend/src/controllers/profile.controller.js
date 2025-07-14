@@ -6,11 +6,11 @@ exports.getAllProfiles = async (req, res) => {
     try {
         const request = new sql.Request();
         const data = await request.query(queries.getAllProfiles);
-        if(data.recordset) {
+        if (data.recordset) {
             const profiles = data.recordset;
-            res.status(201).json({profiles});
+            res.status(201).json({ profiles });
         } else {
-            res.status(404).json({msg: 'No device profile found !!!'})
+            res.status(404).json({ msg: 'No device profile found !!!' })
         }
 
     } catch (error) {
@@ -18,6 +18,27 @@ exports.getAllProfiles = async (req, res) => {
         res.status(500).json({ error: err.message })
     }
 }
+
+exports.getDeviceProfile = async (req, res) => {
+    const profileId = req.params.id;  // This gets the id from URL param like /device-profile/7
+
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, profileId);
+
+        const data = await request.query(queries.getDeviceProfileById);
+
+        if (data.recordset && data.recordset.length > 0) {
+            const profile = data.recordset[0];
+            res.status(200).send(profile);
+        } else {
+            res.status(404).json({ message: "Device Profile not found" });
+        }
+    } catch (error) {
+        console.error("Error fetching the Device Profile", error.message);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};  
 
 
 exports.addProfile = async (req, res) => {

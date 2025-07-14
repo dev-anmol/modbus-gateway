@@ -3,6 +3,7 @@ const router = express.Router();
 const controller = require('../controllers/profile.controller');
 
 router.get('/', controller.getAllProfiles);
+router.get('/:id', controller.getDeviceProfile);
 router.post('/', controller.addProfile);
 
 

@@ -27,4 +27,14 @@ export class ProfileService {
         map(response => response.profiles)
       );
   }
+
+  getDeviceProfileById(Id : number) {
+    return this.http.get<ProfileModel>(`${environment.apiBaseUrl}/device-profile/${Id}`);
+  }
+
+  updateDeviceProfile(Id: number, profile: ProfileModel) {
+    return this.http.post(`${environment.apiBaseUrl}/device-profile/${Id}`, profile, {
+      headers : this.httpHeaders,
+    });
+  }
 }

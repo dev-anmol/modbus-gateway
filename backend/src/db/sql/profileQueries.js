@@ -14,6 +14,9 @@ module.exports = {
         @DeviceMake,
         @ProfileModel
       )
+    `,
+    getDeviceProfileById: `
+      SELECT * FROM DeviceProfile WHERE Id = @Id
     `
   };
   
