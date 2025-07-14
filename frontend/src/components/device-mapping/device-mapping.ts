@@ -90,6 +90,8 @@ export class DeviceMapping implements OnInit {
   private router = inject(Router);
   private messageService = inject(MessageService);
   private mappingService = inject(MappingService);
+
+  successFlag: boolean = false;
   id = signal<any | null>(null);
 
   constructor(private route: ActivatedRoute) {}
@@ -125,19 +127,19 @@ export class DeviceMapping implements OnInit {
 
     for (let row of this.rows()) {
       if (row.registerAddress === null || row.registerAddress === '') {
-        this.generateToast('Please Add RegisterAddress');
+        this.generateWarning('Please Add RegisterAddress');
         return;
       }
       if (row.dataType === null || row.dataType === '') {
-        this.generateToast('Please Add DataType');
+        this.generateWarning('Please Add DataType');
         return;
       }
       if (row.parameter === null || row.parameter === '') {
-        this.generateToast('Please Add Parameter');
+        this.generateWarning('Please Add Parameter');
         return;
       }
       if (row.registerType === null || row.registerType === '') {
-        this.generateToast('Please Add Register Type');
+        this.generateWarning('Please Add Register Type');
         return;
       }
     }
@@ -147,17 +149,32 @@ export class DeviceMapping implements OnInit {
       .subscribe({
         next: (response) => {
           console.log(response);
+          this.successFlag = true;
+          this.generateToast('Device Address Mapping Added', this.successFlag);
         },
         error: (error) => {
           console.error('Error Creating Mappings', error);
+          this.successFlag = false;
+          this.generateToast('Error Adding Mappings', this.successFlag);
         },
       });
 
-    this.router.navigate(['/device']);
+    setTimeout(() => {
+      this.router.navigate(['/device']);
+    }, 800);
   }
 
-  generateToast(msg: string) {
-    console.log(msg);
+  generateToast(msg: string, flag: boolean) {
+    this.messageService.add({
+      severity: flag ? 'success' : 'error',
+      summary: msg,
+      detail: 'Invalid Fields',
+      life: 3000,
+      closable: true,
+    });
+  }
+
+  generateWarning(msg: string) {
     this.messageService.add({
       severity: 'warn',
       summary: msg,
