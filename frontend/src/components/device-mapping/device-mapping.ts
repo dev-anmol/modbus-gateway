@@ -3,7 +3,7 @@ import {
   inject,
   OnInit,
   signal,
-  WritableSignal
+  WritableSignal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import {
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { registers } from '../../models/register.type';
+import { MappingService } from '../../services/mapping/mapping.service';
 
 interface DeviceMappingRow {
   id: string;
@@ -90,6 +91,7 @@ export class DeviceMapping implements OnInit {
 
   private router = inject(Router);
   private messageService = inject(MessageService);
+  private mappingService = inject(MappingService);
   id = signal<any | null>(null);
 
   constructor(private route: ActivatedRoute) {}
@@ -152,6 +154,18 @@ export class DeviceMapping implements OnInit {
       savedDevices.push(completeDevice);
       localStorage.setItem('devices', JSON.stringify(savedDevices));
       console.log('Saved device with mappings:', completeDevice);
+
+      this.mappingService
+        .createAddressMappings(this.id(), this.rows())
+        .subscribe({
+          next: (response) => {
+            console.log(response);
+          },
+          error: (error) => {
+            console.error('Error Creating Mappings', error);
+          },
+        });
+
       this.router.navigate(['/device']);
     }
   }
