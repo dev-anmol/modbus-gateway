@@ -15,7 +15,7 @@ module.exports = {
     Mode = @Mode,
     DeviceProfileId = @DeviceProfileId,
     SamplingInterval = @SamplingInterval,
-    Timeout = @Timeout
+    Timeout = @Timeout,
     UnitId = @UnitId
     WHERE Id = @Id
   `

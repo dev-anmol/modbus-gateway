@@ -79,7 +79,7 @@ exports.addDevice = async (req, res) => {
 
 
 exports.updateDevice = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.Id;
     const { Name, Port, IPAddress, Mode, DeviceProfileId, SamplingInterval, Timeout, UnitId, Id } = req.body;
 
     try {
@@ -92,7 +92,7 @@ exports.updateDevice = async (req, res) => {
             .input('Mode', sql.NVarChar, Mode)
             .input('DeviceProfileId', sql.NVarChar, DeviceProfileId)
             .input('SamplingInterval', sql.NVarChar, SamplingInterval)
-            .input('Timout', sql.NVarChar, Timeout)
+            .input('Timeout', sql.NVarChar, Timeout)
             .input('UnitId', sql.NVarChar, UnitId);
 
         await request.query(queries.updateDevice);

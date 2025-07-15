@@ -30,7 +30,6 @@ export class Profile implements OnInit {
   ngOnInit(): void {
     this.profileService.getAllDeviceProfiles().subscribe({
       next: (response: ProfileModel[]) => {
-        console.log(response);
         if (response) {
           this.deviceProfile.set(response);
         }

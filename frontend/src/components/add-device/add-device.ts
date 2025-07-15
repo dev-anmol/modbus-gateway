@@ -54,7 +54,7 @@ export class AddDevice implements OnInit, OnDestroy {
     ipAddress: new FormControl<string | null>(null),
     mode: new FormControl<string | null>(null),
     samplingInterval: new FormControl<string | null>(null),
-    timeout: new FormControl<string | null>(null),
+    timeout: new FormControl<number | null>(null),
   });
 
   ngOnInit(): void {
@@ -76,12 +76,12 @@ export class AddDevice implements OnInit, OnDestroy {
       Name: this.deviceForm.value.deviceName ?? '',
       Port: this.deviceForm.value.devicePort ?? '',
       SamplingInterval: this.deviceForm.value.samplingInterval ?? '',
-      Timeout: this.deviceForm.value.timeout ?? '',
+      Timeout: this.deviceForm.value.timeout ?? 0,
       UnitId: this.deviceForm.value.unitId ?? '',
     };
     this.sub3 = this.deviceService.updateDevice(this.id(), device).subscribe({
       next: (res) => {
-        console.log(res);
+        this.router.navigate(['/device'])
       },
       error: (error) => {
         console.log(error);
@@ -178,7 +178,6 @@ export class AddDevice implements OnInit, OnDestroy {
     this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
       next: (response) => {
         this.deviceProfiles.set(response);
-        console.log(this.deviceProfiles());
       },
       error: (error) => {
         console.error(error);
@@ -189,7 +188,6 @@ export class AddDevice implements OnInit, OnDestroy {
   fetchDevice() {
     this.sub2 = this.deviceService.getDeviceById(this.id()).subscribe({
       next: (res: DeviceModel) => {
-        console.log(res);
         this.deviceForm.patchValue({
           unitId: res.UnitId,
           deviceName: res.Name,
@@ -230,5 +228,6 @@ export class AddDevice implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub1.unsubscribe();
     this.sub2.unsubscribe();
+    this.sub3.unsubscribe();
   }
 }

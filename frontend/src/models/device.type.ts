@@ -6,6 +6,6 @@ export type DeviceModel = {
     IPAddress: string;
     Mode: string;
     SamplingInterval: string;
-    Timeout: string;
+    Timeout: number;
     DeviceProfileId: number;
   }
