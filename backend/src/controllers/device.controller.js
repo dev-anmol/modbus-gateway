@@ -3,9 +3,18 @@ const queries = require('../db/sql/deviceQueries');
 
 exports.getAllDevices = async (req, res) => {
     try {
+        const request = new sql.Request();
+        const data = await request.query(queries.getAllDevices);
+        if (data.recordset) {
+            const profiles = data.recordset;
+            res.status(201).send(profiles);
+        } else {
+            res.status(404).json({ msg: 'No devices found' })
+        }
 
     } catch (error) {
-
+        console.error('Error fetching all the devices');
+        res.status(500).json({ error: err.message });
     }
 }
 

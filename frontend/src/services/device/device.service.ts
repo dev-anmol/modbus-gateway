@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../env/environment';
+import { DeviceModel } from '../../models/device.type';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,6 @@ export class DeviceService {
   }
 
   getAllDevices() {
-    return this.http.get(`${environment.apiBaseUrl}/device`);
+    return this.http.get<DeviceModel[]>(`${environment.apiBaseUrl}/device`);
   }
 }

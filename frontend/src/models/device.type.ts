@@ -1,10 +1,11 @@
-type Device = {
-    id: string;
-    deviceName: string;
-    devicePort: string;
-    ipAddress: string;
-    mode: string;
-    samplingInterval: string;
-    timeout: string;
-    deviceProfileId: number;
+export type DeviceModel = {
+    Id: number;
+    UnitId: string;
+    Name: string;
+    Port: string;
+    IPAddress: string;
+    Mode: string;
+    SamplingInterval: string;
+    Timeout: string;
+    DeviceProfileId: number;
   }
