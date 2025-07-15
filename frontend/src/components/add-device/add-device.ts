@@ -14,6 +14,7 @@ import { ProfileModel } from '../../models/profile.type';
 import { DeviceService } from '../../services/device/device.service';
 import { ProfileService } from '../../services/profile/profile.service';
 import { Subscription } from 'rxjs';
+import { DeviceModel } from '../../models/device.type';
 
 @Component({
   selector: 'app-add-device',
@@ -153,8 +154,17 @@ export class AddDevice implements OnInit, OnDestroy {
 
   fetchDevice() {
     this.sub2 = this.deviceService.getDeviceById(this.id()).subscribe({
-      next: (res) => {
+      next: (res: DeviceModel) => {
         console.log(res);
+        this.deviceForm.patchValue({
+          unitId: res.UnitId,
+          deviceName : res.Name,
+          deviceProfileId: res.DeviceProfileId,
+          devicePort: res.Port,
+          mode: res.Mode,
+          samplingInterval : res.SamplingInterval,
+          timeout: res.Timeout
+        })
       },
       error: (error) => {
         console.error('Error getting Device', error);
