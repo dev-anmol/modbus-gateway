@@ -1,17 +1,19 @@
 import {
   Component,
   inject,
+  OnDestroy,
   OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ProfileModel } from '../../models/profile.type';
 import { DeviceService } from '../../services/device/device.service';
 import { ProfileService } from '../../services/profile/profile.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-device',
@@ -20,11 +22,14 @@ import { ProfileService } from '../../services/profile/profile.service';
   styleUrl: './add-device.css',
   providers: [MessageService],
 })
-export class AddDevice implements OnInit {
+export class AddDevice implements OnInit, OnDestroy {
   private messageService = inject(MessageService);
   private deviceService = inject(DeviceService);
   private profileService = inject(ProfileService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private sub1!: Subscription;
+  private sub2!: Subscription;
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
@@ -35,6 +40,8 @@ export class AddDevice implements OnInit {
   private mode: WritableSignal<string> = signal('Mode');
   private devicePayload: WritableSignal<any | null> = signal(null);
   public deviceProfiles: WritableSignal<ProfileModel[] | null> = signal(null);
+  id = signal<any | null>(null);
+
 
   successFlag: boolean = false;
 
@@ -50,6 +57,8 @@ export class AddDevice implements OnInit {
   });
 
   ngOnInit(): void {
+    this.id.set(Number(this.route.snapshot.paramMap.get('id')));
+    this.fetchDevice();
     this.fetchAllDeviceProfiles();
   }
 
@@ -119,10 +128,8 @@ export class AddDevice implements OnInit {
 
         setTimeout(() => {
           this.router.navigate(['/device']);
-        }, 800)
+        }, 800);
         this.deviceForm.reset();
-        
-        
       },
       error: (err) => {
         this.successFlag = false;
@@ -133,13 +140,24 @@ export class AddDevice implements OnInit {
   }
 
   fetchAllDeviceProfiles() {
-    this.profileService.getAllDeviceProfiles().subscribe({
+    this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
       next: (response) => {
         this.deviceProfiles.set(response);
         console.log(this.deviceProfiles());
       },
       error: (error) => {
         console.error(error);
+      },
+    });
+  }
+
+  fetchDevice() {
+    this.sub2 = this.deviceService.getDeviceById(this.id()).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.error('Error getting Device', error);
       },
     });
   }
@@ -162,5 +180,10 @@ export class AddDevice implements OnInit {
       life: 3000,
       closable: true,
     });
+  }
+
+  ngOnDestroy(): void {
+    this.sub1.unsubscribe();
+    this.sub2.unsubscribe();
   }
 }

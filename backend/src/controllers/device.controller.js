@@ -20,7 +20,7 @@ exports.getAllDevices = async (req, res) => {
 
 
 
-exports.getDeviceById = async () => {
+exports.getDeviceById = async (req, res) => {
 
     const deviceId = req.params.Id;
 

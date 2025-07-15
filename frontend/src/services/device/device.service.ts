@@ -20,6 +20,11 @@ export class DeviceService {
     });
   }
 
+  getDeviceById(Id: number) {
+    console.log(Id);
+    return this.http.get(`${environment.apiBaseUrl}/device/${Id}`);
+  }
+
   getAllDevices() {
     return this.http.get<DeviceModel[]>(`${environment.apiBaseUrl}/device`);
   }

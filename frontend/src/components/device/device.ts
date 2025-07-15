@@ -42,7 +42,8 @@ export class Device implements OnInit {
   }
 
   navigateToManageDevice(id: number) {
-    this.router.navigate([`device/:${id}`]);
+    console.log("navigate to manage device", id);
+    this.router.navigate([`device/${id}`]);
   }
 
   handleNavigation() {

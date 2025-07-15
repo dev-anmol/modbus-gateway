@@ -35,6 +35,7 @@ export const routes: Routes = [
   },
   {
     path: 'device/:id',
+    pathMatch: 'full',
     loadComponent: () =>
       import('../components/add-device/add-device').then((m) => m.AddDevice),
   },
