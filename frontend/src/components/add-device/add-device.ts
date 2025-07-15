@@ -116,8 +116,13 @@ export class AddDevice implements OnInit {
       next: (response) => {
         this.successFlag = true;
         this.generateToast('Device Added Succesfully', this.successFlag);
-        this.router.navigate(['/device']);
+
+        setTimeout(() => {
+          this.router.navigate(['/device']);
+        }, 800)
         this.deviceForm.reset();
+        
+        
       },
       error: (err) => {
         this.successFlag = false;
