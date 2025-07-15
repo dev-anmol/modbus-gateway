@@ -1,6 +1,10 @@
 module.exports = {
-    getAllDevices: 'SELECT * FROM Devices',
-    insertDevice: `
+  getAllDevices: 'SELECT * FROM Devices',
+
+  getDeviceById: `SELECT * FROM Devices WHERE Id = @Id`,
+
+
+  insertDevice: `
   INSERT INTO Devices 
   (Name, Port, IPAddress, Mode, SamplingInterval, Timeout, DeviceProfileId, UnitId)
   VALUES 

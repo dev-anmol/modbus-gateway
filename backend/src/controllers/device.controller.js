@@ -20,6 +20,19 @@ exports.getAllDevices = async (req, res) => {
 
 
 
+exports.getDeviceById =  async () => {
+
+    const deviceId = req.params.Id;
+    
+    try {
+
+    } catch(err) {
+        console.error('Error Fetching Device', err.message)
+    }
+}
+
+
+
 exports.addDevice = async (req, res) => {
     const {
         deviceName,
