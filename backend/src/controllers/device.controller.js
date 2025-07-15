@@ -20,14 +20,26 @@ exports.getAllDevices = async (req, res) => {
 
 
 
-exports.getDeviceById =  async () => {
+exports.getDeviceById = async () => {
 
     const deviceId = req.params.Id;
-    
-    try {
 
-    } catch(err) {
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, deviceId);
+
+        const data = await request.query(queries.getDeviceById);
+
+        if (data.recordset && data.recordset.length > 0) {
+            const device = data.recordset[0];
+            res.status(200).send(device);
+        } else {
+            res.status(404).json({ msg: 'Device not found' })
+        }
+
+    } catch (err) {
         console.error('Error Fetching Device', err.message)
+        res.status(500).json({ error: "Internal server error" });
     }
 }
 
