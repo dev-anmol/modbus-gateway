@@ -8,7 +8,7 @@
     <form
       [formGroup]="deviceForm"
       class="flex flex-col gap-6 mt-10"
-      (ngSubmit)="handleFormData()"
+      (ngSubmit)="onSubmit()"
     >
       <div class="flex flex-col gap-2 text-neutral-700">
         <label for="device-id" class="font-semibold">Device Unit Id</label>
@@ -103,15 +103,11 @@
         />
       </div>
 
-      <!-- <div>
-        <p class="cursor-pointer text-indigo-700" (click)="navigateToDeviceMapping()">Create device mapping</p>
-      </div> -->
-
       <div class="text-center">
         <button
           class="bg-black text-white/90 text-md rounded-md px-4 py-2 cursor-pointer hover:bg-black/80 transition-all duration-300"
         >
-          Add
+          {{isEditMode ? 'Update' : 'Add' }}
         </button>
       </div>
     </form>

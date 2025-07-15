@@ -28,4 +28,10 @@ export class DeviceService {
   getAllDevices() {
     return this.http.get<DeviceModel[]>(`${environment.apiBaseUrl}/device`);
   }
+
+  updateDevice(Id: number, data: DeviceModel) {
+    return this.http.post(`${environment.apiBaseUrl}/device/${Id}`, data, {
+      headers: this.httpHeaders,
+    });
+  }
 }

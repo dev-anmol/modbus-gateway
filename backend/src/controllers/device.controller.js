@@ -76,3 +76,31 @@ exports.addDevice = async (req, res) => {
         res.status(500).json({ error: 'Failed to add device' });
     }
 };
+
+
+exports.updateDevice = async (req, res) => {
+    const id = req.params.id;
+    const { Name, Port, IPAddress, Mode, DeviceProfileId, SamplingInterval, Timeout, UnitId, Id } = req.body;
+
+    try {
+
+        const request = new sql.Request()
+            .input('Id', sql.Int, id)
+            .input('Name', sql.NVarChar, Name)
+            .input('Port', sql.NVarChar, Port)
+            .input('IPAddress', sql.NVarChar, IPAddress)
+            .input('Mode', sql.NVarChar, Mode)
+            .input('DeviceProfileId', sql.NVarChar, DeviceProfileId)
+            .input('SamplingInterval', sql.NVarChar, SamplingInterval)
+            .input('Timout', sql.NVarChar, Timeout)
+            .input('UnitId', sql.NVarChar, UnitId);
+
+        await request.query(queries.updateDevice);
+
+        res.status(200).json({ message: 'Device Updated' });
+
+    } catch (err) {
+        console.error('Error while updating', err.message);
+        res.status(500).json({ msg: "Error while update", error: err.message })
+    }
+}

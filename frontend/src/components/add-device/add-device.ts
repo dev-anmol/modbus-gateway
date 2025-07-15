@@ -31,6 +31,7 @@ export class AddDevice implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private sub1!: Subscription;
   private sub2!: Subscription;
+  private sub3!: Subscription;
 
   private deviceName: WritableSignal<string> = signal('Device Name');
   private devicePort: WritableSignal<string> = signal('Device Port');
@@ -42,7 +43,6 @@ export class AddDevice implements OnInit, OnDestroy {
   private devicePayload: WritableSignal<any | null> = signal(null);
   public deviceProfiles: WritableSignal<ProfileModel[] | null> = signal(null);
   id = signal<any | null>(null);
-
 
   successFlag: boolean = false;
 
@@ -63,7 +63,41 @@ export class AddDevice implements OnInit, OnDestroy {
     this.fetchAllDeviceProfiles();
   }
 
-  handleFormData() {
+  get isEditMode() {
+    return this.id() !== null && this.id() > 0;
+  }
+
+  updateDevice() {
+    const device: DeviceModel = {
+      Id: this.id(),
+      DeviceProfileId: this.deviceForm.value.deviceProfileId ?? 0,
+      IPAddress: this.deviceForm.value.ipAddress ?? '',
+      Mode: this.deviceForm.value.mode ?? '',
+      Name: this.deviceForm.value.deviceName ?? '',
+      Port: this.deviceForm.value.devicePort ?? '',
+      SamplingInterval: this.deviceForm.value.samplingInterval ?? '',
+      Timeout: this.deviceForm.value.timeout ?? '',
+      UnitId: this.deviceForm.value.unitId ?? '',
+    };
+    this.sub3 = this.deviceService.updateDevice(this.id(), device).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  onSubmit() {
+    if (this.isEditMode) {
+      this.updateDevice();
+    } else {
+      this.createDevice();
+    }
+  }
+
+  createDevice() {
     if (
       this.deviceForm.value.deviceName === null ||
       this.deviceForm.value.deviceName === ''
@@ -158,13 +192,14 @@ export class AddDevice implements OnInit, OnDestroy {
         console.log(res);
         this.deviceForm.patchValue({
           unitId: res.UnitId,
-          deviceName : res.Name,
+          deviceName: res.Name,
           deviceProfileId: res.DeviceProfileId,
+          ipAddress: res.IPAddress,
           devicePort: res.Port,
           mode: res.Mode,
-          samplingInterval : res.SamplingInterval,
-          timeout: res.Timeout
-        })
+          samplingInterval: res.SamplingInterval,
+          timeout: res.Timeout,
+        });
       },
       error: (error) => {
         console.error('Error getting Device', error);
