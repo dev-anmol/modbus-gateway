@@ -12,7 +12,7 @@ import { Sidebar } from '../components/sidebar/sidebar';
 })
 export class App implements OnInit {
   protected title = 'modbusgateway';
-  sidebarOpen = signal(false);
+  sidebarOpen = signal(true);
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
