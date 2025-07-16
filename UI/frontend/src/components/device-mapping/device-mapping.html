@@ -3,14 +3,6 @@
   <div class="overflow-x-auto mt-10 flex flex-col gap-10 pb-10">
     <div class="bg-black/90 p-2">
       <p class="text-white/90">Device Mapping</p>
-      @if (currentDevice) {
-      <div class="text-white/70 text-xs mt-2">
-        <p>
-          Device: {{ currentDevice.deviceName }} (ID: {{ currentDevice.id }})
-        </p>
-        <p>IP: {{ currentDevice.ipAddress }}:{{ currentDevice.devicePort }}</p>
-      </div>
-      }
     </div>
 
     <div class="w-full overflow-x-auto">
@@ -23,10 +15,61 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          @for (row of rows(); track $index) {
+          @for(mapping of addressMappings(); track $index) {
           <tr>
             <td>
               {{ $index + 1 }}
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input"
+                [(ngModel)]="mapping.parameter"
+                placeholder="Enter the Parameter"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input"
+                [(ngModel)]="mapping.registerAddress"
+                placeholder="Register Address e.g 1001"
+              />
+            </td>
+            <td>
+              <select
+                class="focus:outline-none custom-input"
+                [(ngModel)]="mapping.registerType"
+              >
+                @for (register of registers(); track $index) {
+                <option [value]="register">{{ register }}</option>
+                }
+              </select>
+            </td>
+            <td>
+              <select
+                class="focus:outline-none"
+                [(ngModel)]="mapping.dataType"
+                class="custom-input"
+              >
+                @for (datatype of dataTypes(); track $index) {
+                <option [value]="datatype">{{ datatype }}</option>
+                }
+              </select>
+            </td>
+            <td>
+              <input
+                type="text"
+                class="custom-input w-20"
+                [(ngModel)]="mapping.interval"
+                placeholder="in ms"
+              />
+            </td>
+          </tr>
+          } @for (row of rows(); track $index) {
+          <tr>
+            <td>
+              {{ addressMappings().length + $index + 1 }}
             </td>
             <td>
               <input

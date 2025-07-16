@@ -17,24 +17,14 @@ import { ToastModule } from 'primeng/toast';
 import { registers } from '../../models/register.type';
 import { MappingService } from '../../services/mapping/mapping.service';
 
-interface DeviceMappingRow {
+type DeviceMappingRow = {
+  id?: number;
   parameter: string;
   registerAddress: string;
   registerType: string;
   dataType: string;
   interval: string;
-}
-
-interface Device {
-  id: string | null;
-  deviceName: string | null;
-  devicePort: string | null;
-  ipAddress: string | null;
-  mode: string | null;
-  samplingInterval: string | null;
-  timeout: string | null;
-  deviceMappings?: DeviceMappingRow[];
-}
+};
 
 @Component({
   selector: 'app-device-mapping',
@@ -46,9 +36,6 @@ interface Device {
 export class DeviceMapping implements OnInit {
   readonly addIcon = PlusCircleIcon;
   readonly removeIcon = MinusCircleIcon;
-
-  public currentDevice: Device | null = null;
-  public deviceId: string | null = null;
 
   public registers: WritableSignal<registers> = signal([
     'HOLDING_REGISTERS',
@@ -93,20 +80,39 @@ export class DeviceMapping implements OnInit {
 
   successFlag: boolean = false;
   id = signal<any | null>(null);
+  public addressMappings = signal<any[]>([]);
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.id.set(Number(this.route.snapshot.paramMap.get('id')));
-    console.log(this.id());
+    this.getDeviceMappings();
   }
 
+  getDeviceMappings() {
+    this.mappingService.getAddressMappings(this.id()).subscribe({
+      next: (res) => {
+        const mapped = res.map((item: any) => ({
+          id: item.Id,
+          parameter: item.Parameter,
+          registerAddress: item.RegisterAddress,
+          registerType: item.RegisterType,
+          dataType: item.DataType,
+          interval: item.Interval,
+        }));
+        this.addressMappings.set(mapped);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+  
   addRow() {
     console.log(this.rows());
     this.rows.update((rows) => [
       ...rows,
       {
-        id: '',
         parameter: '',
         registerAddress: '',
         registerType: '',
@@ -117,52 +123,45 @@ export class DeviceMapping implements OnInit {
   }
 
   removeRow() {
-    if (this.rows().length !== 1) {
+    if (this.addressMappings().length !== 0) {
       this.rows.update((rows) => rows.slice(0, -1));
     }
   }
 
   saveDeviceWithMappings() {
-    console.log(this.rows());
-
-    for (let row of this.rows()) {
-      if (row.registerAddress === null || row.registerAddress === '') {
-        this.generateWarning('Please Add RegisterAddress');
-        return;
-      }
-      if (row.dataType === null || row.dataType === '') {
-        this.generateWarning('Please Add DataType');
-        return;
-      }
-      if (row.parameter === null || row.parameter === '') {
-        this.generateWarning('Please Add Parameter');
-        return;
-      }
-      if (row.registerType === null || row.registerType === '') {
-        this.generateWarning('Please Add Register Type');
+    const combinedRows = [...this.addressMappings(), ...this.rows()];
+  
+    for (let row of combinedRows) {
+      if (!row.registerAddress || !row.dataType || !row.parameter || !row.registerType) {
+        this.generateWarning('Please fill all required fields');
         return;
       }
     }
-
-    this.mappingService
-      .createAddressMappings(this.id(), this.rows())
-      .subscribe({
-        next: (response) => {
-          console.log(response);
-          this.successFlag = true;
-          this.generateToast('Device Address Mapping Added', this.successFlag);
-        },
-        error: (error) => {
-          console.error('Error Creating Mappings', error);
-          this.successFlag = false;
-          this.generateToast('Error Adding Mappings', this.successFlag);
-        },
-      });
-
-    setTimeout(() => {
-      this.router.navigate(['/device']);
-    }, 800);
+  
+    const payload = combinedRows.map((row: any) => ({
+      Id: row.id ?? null,
+      parameter: row.parameter,
+      registerAddress: row.registerAddress,
+      registerType: row.registerType,
+      dataType: row.dataType,
+      interval: row.interval,
+    }));
+  
+    this.mappingService.saveOrUpdateAddressMappings(this.id(), payload).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.successFlag = true;
+        this.generateToast('Device Address Mapping Added', this.successFlag);
+        setTimeout(() => this.router.navigate(['/profile']), 800);
+      },
+      error: (error) => {
+        console.error('Error Creating Mappings', error);
+        this.successFlag = false;
+        this.generateToast('Error Adding Mappings', this.successFlag);
+      },
+    });
   }
+  
 
   generateToast(msg: string, flag: boolean) {
     this.messageService.add({
