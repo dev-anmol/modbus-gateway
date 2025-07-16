@@ -30,19 +30,17 @@ export class Device implements OnInit {
   ngOnInit(): void {
     this.deviceService.getAllDevices().subscribe({
       next: (response: DeviceModel[]) => {
-        console.log(response);
         if (response) {
           this.devices.set(response);
         }
       },
       error: (err) => {
-        console.log(err);
+        console.log("Error While Fetching Devices", err);
       },
     });
   }
 
   navigateToManageDevice(id: number) {
-    console.log("navigate to manage device", id);
     this.router.navigate([`device/${id}`]);
   }
 

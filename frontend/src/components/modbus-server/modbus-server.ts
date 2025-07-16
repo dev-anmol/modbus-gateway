@@ -2,6 +2,7 @@ import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { MserverService } from '../../services/mserver/mserver.service';
 
 @Component({
   selector: 'app-modbus-server',
@@ -20,6 +21,7 @@ export class ModbusServer {
   });
 
   private messageService = inject(MessageService);
+  private mserverService = inject(MserverService);
   private serverIpAddress: WritableSignal<string> = signal('Server Ip Address');
   private serverPort: WritableSignal<string> = signal('Server Port');
   private poolSize: WritableSignal<string> = signal('Pool Size');
@@ -69,6 +71,14 @@ export class ModbusServer {
       this.generateToast('Please Enter the Sampling Interval', this.interval);
     }
     console.log('server data', this.serverForm.value);
+    this.mserverService.createModbusServer(this.serverForm.value).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
     this.serverForm.reset();
   }
 

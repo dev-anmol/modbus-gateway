@@ -15,10 +15,8 @@ export class MserverService {
   constructor() { }
 
   createModbusServer(server : any) {
-    this.http.post(`${environment.apiBaseUrl}/server`, server, {
+    return this.http.post(`${environment.apiBaseUrl}/mserver`, server, {
       headers: this.httpHeaders
     })
   }
-
-  
 }
