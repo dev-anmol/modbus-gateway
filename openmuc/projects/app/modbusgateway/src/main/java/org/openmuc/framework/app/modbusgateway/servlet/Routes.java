@@ -4,7 +4,7 @@ public class Routes {
 
     private static final String device = "http://localhost:5000/api/device";
     private static final String profile = "http://localhost:5000/api/device-profile";
-    private static final String mapping = "http://locahost:5000/api/address-profile";
+    private static final String mapping = "http://localhost:5000/api/address-maps";
 
 
     public static String getDeviceUrl() {

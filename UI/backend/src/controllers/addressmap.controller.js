@@ -26,6 +26,25 @@ exports.getAddressMappings = async (req, res) => {
 }
 
 
+exports.getAllAddressMappings = async (req, res) => {
+
+    try {
+        const request = new sql.Request();
+
+        const response = await request.query(queries.getAllAddressMapping);
+        if (response && response.recordset && response.recordset.length > 0) {
+            res.status(200).send(response.recordset);
+        }
+
+    } catch (error) {
+        console.error("Error While fetching the mappings", error.message);
+        res.status(500).json({ msg: error.message, err: error })
+    }
+
+}
+
+
+
 // exports.addAddressMappings = async (req, res) => {
 //     const deviceProfileId = Number(req.params.id);
 //     const mappings = req.body;

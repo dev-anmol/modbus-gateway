@@ -22,8 +22,8 @@ public class ModbusConfigServlet {
     public void activate() {
         logger.info("Starting activation of {}", APP_NAME);
         getDeviceData();
-//        getProfileData();
-//        getMappingData();
+        getProfileData();
+        getMappingData();
     }
 
     public static void getDeviceData() {
