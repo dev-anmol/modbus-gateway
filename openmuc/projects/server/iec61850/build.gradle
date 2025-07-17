@@ -28,7 +28,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonBOMVersion
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jacksonBOMVersion
 
-    testImplementation project(':openmuc-integrationtest')
+//    testImplementation project(':openmuc-integrationtest')
     testImplementation("org.assertj:assertj-core:3.25.3")
 
     testImplementation group: 'org.apache.felix', name:'org.apache.felix.framework', version: apacheFelixVersion
