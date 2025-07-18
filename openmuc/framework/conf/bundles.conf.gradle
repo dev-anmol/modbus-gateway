@@ -42,6 +42,9 @@ dependencies {
     osgibundles group: 'com.ghgande', name: 'j2mod', version: '3.2.1'
     osgibundles group: 'com.fazecast', name: 'jSerialComm', version: '2.10.4'
 
+//     https:mvnrepository.com/artifact/com.google.code.gson/gson
+    osgibundles group: 'com.google.code.gson', name: 'gson', version: '2.13.1'
+
     osgibundles group: 'org.openmuc.framework', name: 'openmuc-webui-spi', version: openmucVersion
     osgibundles group: 'org.openmuc.framework', name: 'openmuc-webui-base', version: openmucVersion
     osgibundles group: 'org.openmuc.framework', name: 'openmuc-webui-channelconfigurator', version: openmucVersion

@@ -1,7 +1,13 @@
 plugins {
     id 'java'
     id 'biz.aQute.bnd.builder'
+    id 'application'
 }
+
+application {
+    mainClass = 'org.openmuc.modbusgateway.Main' // Replace with your actual main class
+}
+
 
 def projectName = "OpenMUC App - Modbus Gateway"
 
@@ -10,7 +16,7 @@ jar {
             'Bundle-Name' : projectName,
             'Bundle-SymbolicName' : 'org.openmuc.framework.app.modbusgateway',
             'Bundle-Version' : '0.20.1',
-            'Import-Package': 'javax.servlet;version="[2.6,4.0)",javax.servlet.http;version="[2.6,4.0)",org.osgi.service.component;version="[1.5,2)",org.osgi.service.component.annotations;version="[1.5,2)",org.openmuc.framework.data;version="[0.20,1)",org.openmuc.framework.dataaccess;version="[0.20,1)",org.slf4j;version="[1.7,2)",com.ghgande.j2mod.modbus;version="[3.0,4)",com.ghgande.j2mod.modbus.net;version="[3.0,4)",com.ghgande.j2mod.modbus.procimg;version="[3.0,4)",com.ghgande.j2mod.modbus.slave;version="[3.0,4)",com.ghgande.j2mod.modbus.util;version="[3.0,4)",org.apache.felix.http.api,org.apache.commons.fileupload,org.apache.commons.fileupload.disk,org.apache.commons.fileupload.servlet,org.apache.commons.io,org.osgi.service.http,org.w3c.dom,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.stream,javax.annotation;version="[1.0,2)",*',
+            'Import-Package': 'javax.servlet;version="[2.6,4.0)",javax.servlet.http;version="[2.6,4.0)",org.osgi.service.component;version="[1.5,2)",org.osgi.service.component.annotations;version="[1.5,2)",org.openmuc.framework.data;version="[0.20,1)",org.openmuc.framework.dataaccess;version="[0.20,1)",org.slf4j;version="[1.7,2)",com.ghgande.j2mod.modbus;version="[3.0,4)",com.ghgande.j2mod.modbus.net;version="[3.0,4)",com.ghgande.j2mod.modbus.procimg;version="[3.0,4)",com.ghgande.j2mod.modbus.slave;version="[3.0,4)",com.ghgande.j2mod.modbus.util;version="[3.0,4)",org.apache.felix.http.api,org.apache.commons.fileupload,org.apache.commons.fileupload.disk,org.apache.commons.fileupload.servlet,org.apache.commons.io,org.osgi.service.http,org.w3c.dom,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.stream,javax.annotation;version="[1.0,2)",com.google.gson,com.google.gson.reflect,com.google.gson.stream,*',
             'Export-Package': 'org.openmuc.framework.app.modbusgateway;version=0.20.1,org.openmuc.framework.app.modbusgatway.service;version=0.20.1,org.openmuc.framework.app.modbusgateway.servlet;version=0.20.1',
             '-dsannotations' : '*',
             '-metatype' : '*',
@@ -30,6 +36,7 @@ dependencies {
     compileOnly 'javax.servlet:javax.servlet-api:3.1.0'
     compileOnly 'org.osgi:org.osgi.service.http:1.2.1'
     compileOnly 'org.snmp4j:snmp4j:3.7.7'
+    implementation 'com.google.code.gson:gson:2.13.1'
     implementation 'com.ghgande:j2mod:3.2.1'
 }
 

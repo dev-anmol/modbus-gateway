@@ -8,7 +8,7 @@ exports.getAllProfiles = async (req, res) => {
         const data = await request.query(queries.getAllProfiles);
         if (data.recordset) {
             const profiles = data.recordset;
-            res.status(201).json({ profiles });
+            res.status(201).send(profiles);
         } else {
             res.status(404).json({ msg: 'No device profile found !!!' })
         }
