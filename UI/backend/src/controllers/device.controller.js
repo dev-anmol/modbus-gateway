@@ -83,7 +83,6 @@ exports.updateDevice = async (req, res) => {
     const { Name, Port, IPAddress, Mode, DeviceProfileId, SamplingInterval, Timeout, UnitId, Id } = req.body;
 
     try {
-
         const request = new sql.Request()
             .input('Id', sql.Int, id)
             .input('Name', sql.NVarChar, Name)
@@ -102,5 +101,19 @@ exports.updateDevice = async (req, res) => {
     } catch (err) {
         console.error('Error while updating', err.message);
         res.status(500).json({ msg: "Error while update", error: err.message })
+    }
+}
+
+
+exports.deleteDevice = async (req, res) => {
+    const deviceId = req.params.Id;
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, deviceId);
+        await request.query(queries.deleteDevice);
+        res.status(200).json({ message: "Device Deleted" })
+
+    } catch (error) {
+        console.error('Error while deleting the Device', err.message);
     }
 }

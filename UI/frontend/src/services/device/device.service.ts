@@ -34,4 +34,9 @@ export class DeviceService {
       headers: this.httpHeaders,
     });
   }
+
+  deleteDevice(Id: number) {
+    return this.http.delete(`${environment.apiBaseUrl}/device/${Id}`);
+  }
+  
 }

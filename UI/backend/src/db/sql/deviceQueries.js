@@ -18,5 +18,9 @@ module.exports = {
     Timeout = @Timeout,
     UnitId = @UnitId
     WHERE Id = @Id
+  `,
+  deleteDevice: `
+    DELETE FROM Devices 
+    WHERE Id = @Id  
   `
 }

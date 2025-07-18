@@ -52,8 +52,15 @@
               class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
               (click)="navigateToManageDevice(device.Id)"
               >
-              Manage Profile
+              Manage Device
             </button>
+
+            <button
+            class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
+            (click)="deleteDevice(device.Id)"
+            >
+            Delete
+          </button>
           </td>
         </tr>
         }

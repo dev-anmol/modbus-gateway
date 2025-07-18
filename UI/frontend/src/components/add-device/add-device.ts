@@ -81,7 +81,7 @@ export class AddDevice implements OnInit, OnDestroy {
     };
     this.sub3 = this.deviceService.updateDevice(this.id(), device).subscribe({
       next: (res) => {
-        this.router.navigate(['/device'])
+        this.router.navigate(['/device']);
       },
       error: (error) => {
         console.log(error);
@@ -226,8 +226,8 @@ export class AddDevice implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub1.unsubscribe();
-    this.sub2.unsubscribe();
-    this.sub3.unsubscribe();
+    if (this.sub1) this.sub1.unsubscribe();
+    if (this.sub2) this.sub2.unsubscribe();
+    if (this.sub3) this.sub3.unsubscribe();
   }
 }
