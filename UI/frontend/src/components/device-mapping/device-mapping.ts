@@ -123,7 +123,7 @@ export class DeviceMapping implements OnInit {
   }
 
   removeRow() {
-    if (this.addressMappings().length !== 0) {
+    if (this.rows().length > 1) {
       this.rows.update((rows) => rows.slice(0, -1));
     }
   }
