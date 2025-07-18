@@ -22,16 +22,28 @@ export class ProfileService {
   }
 
   getAllDeviceProfiles() {
-    return this.http.get<ProfileModel[]>(`${environment.apiBaseUrl}/device-profile`);
+    return this.http.get<ProfileModel[]>(
+      `${environment.apiBaseUrl}/device-profile`
+    );
   }
 
-  getDeviceProfileById(Id : number) {
-    return this.http.get<ProfileModel>(`${environment.apiBaseUrl}/device-profile/${Id}`);
+  getDeviceProfileById(Id: number) {
+    return this.http.get<ProfileModel>(
+      `${environment.apiBaseUrl}/device-profile/${Id}`
+    );
   }
 
   updateDeviceProfile(Id: number, profile: ProfileModel) {
-    return this.http.put(`${environment.apiBaseUrl}/device-profile/${Id}`, profile, {
-      headers : this.httpHeaders,
-    });
+    return this.http.put(
+      `${environment.apiBaseUrl}/device-profile/${Id}`,
+      profile,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
+
+  deleteDeviceProfile(Id: number) {
+    return this.http.delete(`${environment.apiBaseUrl}/device-profile/${Id}`);
   }
 }

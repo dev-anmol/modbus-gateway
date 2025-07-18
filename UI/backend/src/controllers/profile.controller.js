@@ -84,3 +84,18 @@ exports.updateDeviceProfile = async (req, res) => {
         res.status(500).json({ error: 'Failed to update the device profile' })
     }
 }
+
+exports.deleteDeviceProfile = async (req, res) => {
+    const profileId = req.params.id;
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, profileId);
+
+        await request.query(queries.disableProfile);
+        res.status(200).json({ msg: "Profile marked as inactive" });
+
+    } catch (err) {
+        console.error("Error while soft deleting the Profile");
+        res.status(500).json({ msg: 'Error soft deleting profile', err: err.message });
+    }
+}

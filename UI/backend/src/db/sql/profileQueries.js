@@ -1,6 +1,6 @@
 module.exports = {
   getAllProfiles: `
-     SELECT * FROM DeviceProfile
+     SELECT * FROM DeviceProfile WHERE isActive = 1
     `,
   getDeviceProfileById: `
     SELECT * FROM DeviceProfile WHERE Id = @Id
@@ -25,5 +25,8 @@ module.exports = {
       ProfileModel = @ProfileModel,
       ProfileDescription = @ProfileDescription
       WHERE Id = @Id    
+    `,
+  disableProfile: `
+      UPDATE DeviceProfile SET isActive = 0 WHERE Id = @Id
     `
 };

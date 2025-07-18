@@ -4,10 +4,12 @@ import {
   OnInit,
   WritableSignal,
   signal,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
 import { ProfileModel } from '../../models/profile.type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +17,7 @@ import { ProfileModel } from '../../models/profile.type';
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
-export class Profile implements OnInit {
+export class Profile implements OnInit, OnDestroy {
   private router = inject(Router);
   private profileService = inject(ProfileService);
   public deviceProfile: WritableSignal<ProfileModel[]> = signal([]);
@@ -26,9 +28,11 @@ export class Profile implements OnInit {
     'Make',
     'Model',
   ]);
+  public sub1!: Subscription;
+  public sub2!: Subscription;
 
   ngOnInit(): void {
-    this.profileService.getAllDeviceProfiles().subscribe({
+    this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
       next: (response: ProfileModel[]) => {
         if (response) {
           this.deviceProfile.set(response);
@@ -40,7 +44,20 @@ export class Profile implements OnInit {
     });
   }
 
-  //for editing/managing the device profile
+  deleteDeviceProfile(Id: number) {
+    this.profileService.deleteDeviceProfile(Id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.deviceProfile.update((profiles) =>
+          profiles.filter((profile) => profile.Id !== Id)
+        );
+      },
+      error: (error) => {
+        console.error('Error deleting Device profile', error);
+      },
+    });
+  }
+
   navigateToDeviceProfile(id: number | '' | undefined) {
     if (typeof id === 'number') {
       this.router.navigate([`/profile/${id}`]);
@@ -55,5 +72,10 @@ export class Profile implements OnInit {
 
   handleNavigation() {
     this.router.navigate(['/profile/0']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub1) this.sub1.unsubscribe();
+    if (this.sub2) this.sub2.unsubscribe();
   }
 }

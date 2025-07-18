@@ -4,8 +4,9 @@ const controller = require('../controllers/profile.controller');
 
 router.get('/', controller.getAllProfiles);
 router.get('/:id', controller.getDeviceProfile);
-router.put('/:id', controller.updateDeviceProfile )
+router.put('/:id', controller.updateDeviceProfile)
 router.post('/', controller.addProfile);
+router.delete('/:id', controller.deleteDeviceProfile);
 
 
 module.exports = router;
