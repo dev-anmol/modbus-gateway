@@ -22,10 +22,7 @@ export class ProfileService {
   }
 
   getAllDeviceProfiles() {
-    return this.http.get<{profiles: ProfileModel[]}>(`${environment.apiBaseUrl}/device-profile`)
-      .pipe(
-        map(response => response.profiles)
-      );
+    return this.http.get<ProfileModel[]>(`${environment.apiBaseUrl}/device-profile`);
   }
 
   getDeviceProfileById(Id : number) {

@@ -36,7 +36,6 @@ import org.openmuc.framework.app.modbusgateway.pojo.Profile;
 public class ModbusConfigServlet {
     private static final Logger logger = LoggerFactory.getLogger(ModbusConfigServlet.class);
     private static final String APP_NAME = "Open MUC | Modbus gateway";
-    //    private static final String CHANNELS_XML_PATH = "conf/channels.xml";
     private static final String CHANNELS_XML_PATH = System.getProperty("user.dir") + "/conf/channels.xml";
 
     private static List<Device> deviceList;
