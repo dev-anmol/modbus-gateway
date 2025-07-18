@@ -1,10 +1,11 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ProfileModel } from '../../models/profile.type';
 import { ProfileService } from '../../services/profile/profile.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-device-profile',
@@ -13,11 +14,14 @@ import { ProfileService } from '../../services/profile/profile.service';
   styleUrl: './device-profile.css',
   providers: [MessageService],
 })
-export class DeviceProfile implements OnInit {
+export class DeviceProfile implements OnInit, OnDestroy {
   private profileService = inject(ProfileService);
   private messageService = inject(MessageService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  public sub1!: Subscription;
+  public sub2!: Subscription;
+  public sub3!: Subscription;
 
   successFlag: boolean = true;
   failureFlag: boolean = false;
@@ -31,7 +35,7 @@ export class DeviceProfile implements OnInit {
 
   ngOnInit(): void {
     this.id.set(Number(this.route.snapshot.paramMap.get('id')));
-    this.profileService.getDeviceProfileById(this.id()).subscribe({
+    this.sub1 = this.profileService.getDeviceProfileById(this.id()).subscribe({
       next: (res: ProfileModel) => {
         this.profileForm.patchValue({
           profileMake: res.DeviceMake,
@@ -60,19 +64,24 @@ export class DeviceProfile implements OnInit {
     };
 
     if (this.id() && this.id() > 0) {
-      this.profileService.updateDeviceProfile(this.id(), profile).subscribe({
-        next: (response) => {
-          this.generateToast('Device Profile Updated', this.successFlag);
-          setTimeout(() => {
-            this.handleNavigation();
-          }, 500);
-        },
-        error: (err) => {
-          this.generateToast('Error Updating Device Profile', this.failureFlag);
-        },
-      });
+      this.sub2 = this.profileService
+        .updateDeviceProfile(this.id(), profile)
+        .subscribe({
+          next: (response) => {
+            this.generateToast('Device Profile Updated', this.successFlag);
+            setTimeout(() => {
+              this.handleNavigation();
+            }, 500);
+          },
+          error: (err) => {
+            this.generateToast(
+              'Error Updating Device Profile',
+              this.failureFlag
+            );
+          },
+        });
     } else {
-      this.profileService.createDeviceProfile(profile).subscribe({
+      this.sub3 = this.profileService.createDeviceProfile(profile).subscribe({
         next: (res) => {
           this.generateToast('Device Profile Created', this.successFlag);
         },
@@ -95,5 +104,11 @@ export class DeviceProfile implements OnInit {
 
   handleNavigation() {
     this.router.navigate(['/profile']);
+  }
+
+  ngOnDestroy(): void {
+    if (this.sub1) this.sub1.unsubscribe();
+    if (this.sub2) this.sub2.unsubscribe();
+    if (this.sub3) this.sub3.unsubscribe();
   }
 }
