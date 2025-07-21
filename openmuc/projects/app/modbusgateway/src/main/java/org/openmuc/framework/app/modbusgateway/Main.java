@@ -1,12 +1,15 @@
 package org.openmuc.framework.app.modbusgateway;
 
-import org.openmuc.framework.app.modbusgateway.ModbusConfigServlet;
+import org.openmuc.framework.app.modbusgateway.services.ModbusConfigService;
+import org.openmuc.framework.app.modbusgateway.services.ModbusDataReaderService;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            ModbusConfigServlet servlet = new ModbusConfigServlet();
-            servlet.activate();
+//            ModbusConfigService servlet = new ModbusConfigService();
+            ModbusDataReaderService reader = new ModbusDataReaderService();
+//            servlet.activate();
+            reader.activate();
 
         } catch (Exception e) {
             System.out.println("Error while activating" + e + e.getMessage());

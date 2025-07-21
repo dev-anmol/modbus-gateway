@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <configuration>
     <driver id="modbus">
-        <device id="mdevice1">
+        <device id="devTest">
             <deviceAddress>127.0.0.1:502</deviceAddress>
             <settings>TCP</settings>
-            <channel id="mdevice1_A_18">
+            <channel id="devTest_A_18">
                 <channelAddress>1:HOLDING_REGISTERS:1000:INT16</channelAddress>
                 <valueType>INTEGER</valueType>
                 <samplingInterval>1000</samplingInterval>
-                <loggingInterval>1000</loggingInterval>
+                <loggingInterval>2000</loggingInterval>
                 <settings>
-                    <setting id="TIMEOUT">3000</setting>
+                    <setting id="TIMEOUT">6000</setting>
                 </settings>
             </channel>
         </device>
