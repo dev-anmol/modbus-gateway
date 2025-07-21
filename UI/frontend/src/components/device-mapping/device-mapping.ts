@@ -51,6 +51,7 @@ export class DeviceMapping implements OnInit {
     'Register Type',
     'Data Type',
     'Interval',
+    'Action',
   ]);
 
   public dataTypes: WritableSignal<string[]> = signal([
@@ -64,23 +65,13 @@ export class DeviceMapping implements OnInit {
     'DOUBLE',
   ]);
 
-  public rows = signal<DeviceMappingRow[]>([
-    {
-      parameter: '',
-      registerAddress: '',
-      registerType: '',
-      dataType: '',
-      interval: '',
-    },
-  ]);
-
   private router = inject(Router);
   private messageService = inject(MessageService);
   private mappingService = inject(MappingService);
 
   successFlag: boolean = false;
   id = signal<any | null>(null);
-  public addressMappings = signal<any[]>([]);
+  public mappings = signal<DeviceMappingRow[]>([]);
 
   constructor(private route: ActivatedRoute) {}
 
@@ -100,18 +91,17 @@ export class DeviceMapping implements OnInit {
           dataType: item.DataType,
           interval: item.Interval,
         }));
-        this.addressMappings.set(mapped);
+        this.mappings.set(mapped);
       },
       error: (error) => {
         console.error(error);
       },
     });
   }
-  
+
   addRow() {
-    console.log(this.rows());
-    this.rows.update((rows) => [
-      ...rows,
+    this.mappings.update((mappings) => [
+      ...mappings,
       {
         parameter: '',
         registerAddress: '',
@@ -122,46 +112,70 @@ export class DeviceMapping implements OnInit {
     ]);
   }
 
-  removeRow() {
-    if (this.rows().length > 1) {
-      this.rows.update((rows) => rows.slice(0, -1));
+  removeRow(index: number, mappingId: number | undefined) {
+    console.log(mappingId);
+
+    this.mappings.update((mappings) => {
+      const newMappings = [...mappings];
+      newMappings.splice(index, 1);
+      return newMappings;
+    });
+    if (mappingId) {
+      this.mappingService.deleteAddressMapping(mappingId).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.successFlag = true;
+          this.generateToast('Deleted Address Mapping', this.successFlag);
+        },
+        error: (error) => {
+          this.successFlag = false;
+          console.error('Error while deleting mapping', error, error.message);
+        },
+      });
     }
   }
 
   saveDeviceWithMappings() {
-    const combinedRows = [...this.addressMappings(), ...this.rows()];
-  
-    for (let row of combinedRows) {
-      if (!row.registerAddress || !row.dataType || !row.parameter || !row.registerType) {
+    const mappings = this.mappings();
+
+    for (let row of mappings) {
+      if (
+        !row.registerAddress ||
+        !row.dataType ||
+        !row.parameter ||
+        !row.registerType
+      ) {
         this.generateWarning('Please fill all required fields');
         return;
       }
     }
-  
-    const payload = combinedRows.map((row: any) => ({
+
+    const payload = mappings.map((row: any) => ({
       Id: row.id ?? null,
       parameter: row.parameter,
       registerAddress: row.registerAddress,
       registerType: row.registerType,
       dataType: row.dataType,
       interval: row.interval,
+      deviceProfileId: this.id(),
     }));
-  
-    this.mappingService.saveOrUpdateAddressMappings(this.id(), payload).subscribe({
-      next: (response) => {
-        console.log(response);
-        this.successFlag = true;
-        this.generateToast('Device Address Mapping Added', this.successFlag);
-        setTimeout(() => this.router.navigate(['/profile']), 800);
-      },
-      error: (error) => {
-        console.error('Error Creating Mappings', error);
-        this.successFlag = false;
-        this.generateToast('Error Adding Mappings', this.successFlag);
-      },
-    });
+
+    this.mappingService
+      .saveOrUpdateAddressMappings(this.id(), payload)
+      .subscribe({
+        next: (response) => {
+          console.log(response);
+          this.successFlag = true;
+          this.generateToast('Device Address Mapping Added', this.successFlag);
+          setTimeout(() => this.router.navigate(['/profile']), 800);
+        },
+        error: (error) => {
+          console.error('Error Creating Mappings', error);
+          this.successFlag = false;
+          this.generateToast('Error Adding Mappings', this.successFlag);
+        },
+      });
   }
-  
 
   generateToast(msg: string, flag: boolean) {
     this.messageService.add({

@@ -15,11 +15,9 @@
           </tr>
         </thead>
         <tbody class="text-center">
-          @for(mapping of addressMappings(); track $index) {
+          @for (mapping of mappings(); track $index; let idx = $index) {
           <tr>
-            <td>
-              {{ $index + 1 }}
-            </td>
+            <td>{{ idx + 1 }}</td>
             <td>
               <input
                 type="text"
@@ -48,9 +46,8 @@
             </td>
             <td>
               <select
-                class="focus:outline-none"
+                class="focus:outline-none custom-input"
                 [(ngModel)]="mapping.dataType"
-                class="custom-input"
               >
                 @for (datatype of dataTypes(); track $index) {
                 <option [value]="datatype">{{ datatype }}</option>
@@ -65,56 +62,17 @@
                 placeholder="in ms"
               />
             </td>
-          </tr>
-          } @for (row of rows(); track $index) {
-          <tr>
             <td>
-              {{ addressMappings().length + $index + 1 }}
-            </td>
-            <td>
-              <input
-                type="text"
-                class="custom-input"
-                [(ngModel)]="row.parameter"
-                placeholder="Enter the Parameter"
-              />
-            </td>
-            <td>
-              <input
-                type="text"
-                class="custom-input"
-                [(ngModel)]="row.registerAddress"
-                placeholder="Register Address e.g 1001"
-              />
-            </td>
-            <td>
-              <select
-                class="focus:outline-none custom-input"
-                [(ngModel)]="row.registerType"
+              <!-- Delete button for this row -->
+              <button
+                (click)="removeRow(idx, mapping.id)"
+                class="text-red-500 hover:text-red-700"
               >
-                @for (register of registers(); track $index) {
-                <option [value]="register">{{ register }}</option>
-                }
-              </select>
-            </td>
-            <td>
-              <select
-                class="focus:outline-none"
-                [(ngModel)]="row.dataType"
-                class="custom-input"
-              >
-                @for (datatype of dataTypes(); track $index) {
-                <option [value]="datatype">{{ datatype }}</option>
-                }
-              </select>
-            </td>
-            <td>
-              <input
-                type="text"
-                class="custom-input w-20"
-                [(ngModel)]="row.interval"
-                placeholder="in ms"
-              />
+                <lucide-angular
+                  [img]="removeIcon"
+                  class="h-4 w-4"
+                ></lucide-angular>
+              </button>
             </td>
           </tr>
           }
@@ -123,22 +81,13 @@
     </div>
 
     <div class="flex flex-row items-center gap-4 justify-end">
+      <!-- Only keep add button -->
       <button
         (click)="addRow()"
         class="bg-neutral-400/50 text-neutral-700 rounded-sm px-3 py-1 text-xs cursor-pointer"
       >
         <lucide-angular
           [img]="addIcon"
-          class="my-icon h-3 w-3"
-        ></lucide-angular>
-      </button>
-
-      <button
-        (click)="removeRow()"
-        class="bg-neutral-400/50 text-neutral-700 rounded-sm px-3 py-1 text-xs cursor-pointer"
-      >
-        <lucide-angular
-          [img]="removeIcon"
           class="my-icon h-3 w-3"
         ></lucide-angular>
       </button>

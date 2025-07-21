@@ -33,5 +33,6 @@ module.exports = {
     Interval = @Interval
   WHERE Id = @Id
 `,
-  getAllAddressMapping: `SELECT * FROM DeviceProfileAddressMap`
+  getAllAddressMapping: `SELECT * FROM DeviceProfileAddressMap`,
+  deleteAddressMapping: `DELETE FROM DeviceProfileAddressMap Where Id = @Id`
 }

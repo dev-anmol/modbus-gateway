@@ -84,7 +84,6 @@ exports.getAllAddressMappings = async (req, res) => {
 
 
 exports.saveOrUpdateMappings = async (req, res) => {
-    const deviceProfileId = Number(req.params.id);
     const mappings = req.body;
 
     if (!Array.isArray(mappings)) {
@@ -99,7 +98,8 @@ exports.saveOrUpdateMappings = async (req, res) => {
                 registerAddress,
                 registerType,
                 dataType,
-                interval
+                interval,
+                deviceProfileId
             } = mapping;
 
             const request = new sql.Request();
@@ -129,5 +129,23 @@ exports.saveOrUpdateMappings = async (req, res) => {
     } catch (err) {
         console.error('Error updating address mappings:', err.message);
         res.status(500).json({ error: 'Failed to update mappings.' });
+    }
+}
+
+
+exports.deleteAddressMapping = async (req, res) => {
+    const Id = req.params.id;
+    try {
+        const request = new sql.Request()
+            .input('Id', sql.Int, Id);
+
+        await request.query(queries.deleteAddressMapping);
+        res.status(200).json({
+            msg: "Address Mapping Deleted successfully"
+        })
+
+    } catch (error) {
+        console.error('Error Deleting the address mapping');
+        res.status(500).send('Error Deleting the address mapping');
     }
 }

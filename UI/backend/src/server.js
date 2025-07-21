@@ -13,8 +13,6 @@ app.use('/api/device-profile', require('./routes/profile.routes'));
 app.use('/api/address-maps', require('./routes/addressmap.routes'));
 app.use('/api/mserver', require('./routes/mserver.routes'));
 
-
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)

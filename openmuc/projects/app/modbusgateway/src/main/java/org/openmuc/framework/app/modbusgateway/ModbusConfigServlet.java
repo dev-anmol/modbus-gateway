@@ -1,6 +1,7 @@
 package org.openmuc.framework.app.modbusgateway;
 
 import com.google.gson.JsonSyntaxException;
+import org.openmuc.framework.app.modbusgateway.pojo.Server;
 import org.openmuc.framework.app.modbusgateway.servlet.Routes;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -171,6 +172,46 @@ public class ModbusConfigServlet {
             return null;
         } catch (Exception e) {
             logger.error("Error in getMappingData: {}", e.getMessage(), e);
+            return null;
+        }
+    }
+
+    public static List<Server> getServerData() {
+        logger.info("Get Server Data Method Activated");
+        try {
+            String apiUrl = Routes.getMappingUrl();
+            URL url = new URL(apiUrl);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+
+            int responseCode = conn.getResponseCode();
+
+            if (responseCode == 200 || responseCode == 201) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+                logger.info("Server API Response: {}", response.toString());
+
+                Type serverData = new TypeToken<List<Server>>() {
+
+                }.getType();
+                return gson.fromJson(response.toString(), serverData);
+            } else {
+                logger.warn("Server Api call failed with response code {}", responseCode);
+                return null;
+            }
+
+        } catch (JsonSyntaxException e) {
+            logger.error("JSON parse error in getServerData: {}", e.getMessage());
+            return null;
+        } catch (Exception e) {
+            logger.error("Error in getServerData(): {}", e.getMessage());
             return null;
         }
     }

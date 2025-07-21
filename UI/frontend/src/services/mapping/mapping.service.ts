@@ -20,4 +20,8 @@ export class MappingService {
   getAddressMappings(Id: number) {
     return this.http.get<any[]>(`${environment.apiBaseUrl}/address-maps/${Id}`);
   }
+
+  deleteAddressMapping(Id: number | undefined) {
+    return this.http.delete(`${environment.apiBaseUrl}/address-maps/${Id}`);
+  }
 }
