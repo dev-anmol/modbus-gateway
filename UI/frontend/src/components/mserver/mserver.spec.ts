@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Server } from './server';
+import { Mserver } from './mserver';
 
-describe('Server', () => {
-  let component: Server;
-  let fixture: ComponentFixture<Server>;
+describe('Mserver', () => {
+  let component: Mserver;
+  let fixture: ComponentFixture<Mserver>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Server]
+      imports: [Mserver]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Server);
+    fixture = TestBed.createComponent(Mserver);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
