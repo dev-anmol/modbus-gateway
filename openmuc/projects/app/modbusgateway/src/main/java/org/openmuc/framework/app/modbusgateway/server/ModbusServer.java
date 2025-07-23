@@ -8,8 +8,9 @@ import org.openmuc.framework.app.modbusgateway.pojo.Device;
 import org.openmuc.framework.app.modbusgateway.pojo.Mapping;
 import org.openmuc.framework.app.modbusgateway.pojo.Server;
 import org.openmuc.framework.app.modbusgateway.services.ModbusConfigService;
-import org.openmuc.framework.dataaccess.DataAccessService;
-import org.osgi.service.component.annotations.*;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +54,7 @@ public class ModbusServer {
 
         } catch (Exception e) {
             logger.error("Failed to activate Modbus Server Service", e);
-            throw new RuntimeException("Server activation failed", e); // FIXED: Fail fast
+            throw new RuntimeException("Server activation failed", e);
         }
     }
 
@@ -228,7 +229,7 @@ public class ModbusServer {
 
         if (deviceConfigs != null) {
             for (Device device : deviceConfigs) {
-                // You might want to add logic here to determine which devices
+                // we might want to add logic here to determine which devices
                 // should be served by which server based on your business logic
                 // For now, we'll include all devices for each server
                 relevantDevices.add(device);
@@ -275,6 +276,7 @@ public class ModbusServer {
                     processImage.updateHoldingRegister(regEntry.getKey(), regEntry.getValue());
                 }
 
+                // commented as input registers are read only
                 // Synchronize input registers
 //                Map<Integer, Integer> inputRegs = dataHolder.getAllInputRegisters();
 //                for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
@@ -282,11 +284,13 @@ public class ModbusServer {
 //                }
 
                 // Synchronize coils
+
                 Map<Integer, Boolean> coils = dataHolder.getAllCoils();
                 for (Map.Entry<Integer, Boolean> coilEntry : coils.entrySet()) {
                     processImage.updateCoil(coilEntry.getKey(), coilEntry.getValue());
                 }
 
+                // commented as descrete inputs are readonly
                 // Synchronize discrete inputs
 //                Map<Integer, Boolean> discreteInputs = dataHolder.getAllDiscreteInputs();
 //                for (Map.Entry<Integer, Boolean> diEntry : discreteInputs.entrySet()) {
