@@ -8,6 +8,7 @@ exports.createServer = async (req, res) => {
     poolSize,
     unitId,
     interval,
+    serverName
   } = req.body;
 
   try {
@@ -16,7 +17,8 @@ exports.createServer = async (req, res) => {
       .input('ServerPort', sql.NVarChar, serverPort)
       .input('PoolSize', sql.NVarChar, poolSize)
       .input('UnitId', sql.NVarChar, unitId)
-      .input('Interval', sql.NVarChar, interval);
+      .input('Interval', sql.NVarChar, interval)
+      .input('Name', sql.NVarChar, serverName)
 
     await request.query(queries.createServer);
 

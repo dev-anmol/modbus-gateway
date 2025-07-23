@@ -1,37 +1,148 @@
+//package org.openmuc.framework.app.modbusgateway.services;
+//
+//import org.openmuc.framework.app.modbusgateway.dataholder.ModbusDataHolder;
+//import org.openmuc.framework.app.modbusgateway.pojo.Device;
+//import org.openmuc.framework.app.modbusgateway.pojo.Mapping;
+//import org.openmuc.framework.data.Record;
+//import org.openmuc.framework.dataaccess.Channel;
+//import org.openmuc.framework.dataaccess.DataAccessService;
+//import org.osgi.service.component.annotations.Activate;
+//import org.osgi.service.component.annotations.Component;
+//import org.osgi.service.component.annotations.Reference;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//
+//import java.util.List;
+//import java.util.concurrent.Executors;
+//import java.util.concurrent.ScheduledExecutorService;
+//import java.util.concurrent.TimeUnit;
+//
+//@Component(immediate = true)
+//public class ModbusDataReaderService {
+//
+//    private static final Logger logger = LoggerFactory.getLogger(ModbusDataReaderService.class);
+//
+//    @Reference
+//    private DataAccessService dataAccessService;
+//
+//    private final ModbusDataHolder dataStore = ModbusDataHolder.getInstance();
+//    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
+//
+//    @Activate
+//    public void activate() {
+//        logger.info("Starting Enhanced Modbus Data Reader Service");
+//        // Wait a bit for channels to be created
+//        scheduler.schedule(this::initializeDataReading, 5, TimeUnit.SECONDS);
+//    }
+//
+//    private void initializeDataReading() {
+//        List<Device> deviceList = ModbusConfigService.accessDeviceData();
+//        List<Mapping> mappingList = ModbusConfigService.accessMappingData();
+//
+//        if (deviceList == null || mappingList == null) {
+//            logger.error("Configuration data not available");
+//            return;
+//        }
+//
+//        for (Device device : deviceList) {
+//            scheduler.scheduleAtFixedRate(
+//                    () -> readDeviceData(device, mappingList),
+//                    0,
+//                    Integer.parseInt(device.getSamplingInterval()),
+//                    TimeUnit.MILLISECONDS
+//            );
+//        }
+//    }
+//
+//    private void readDeviceData(Device device, List<Mapping> mappingList) {
+//        try {
+//            for (Mapping mapping : mappingList) {
+//                if (mapping.getDeviceProfileId() == device.getDeviceProfileId()) {
+//                    String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+//
+//                    Channel channel = dataAccessService.getChannel(channelId);
+//                    if (channel != null) {
+//                        Record record = channel.getLatestRecord();
+//                        if (record != null && record.getValue() != null) {
+//                            // Store in shared cache
+//                            dataStore.setChannelData(channelId, record.getValue());
+//
+//                            // Map to Modbus registers based on register type
+//                            mapToModbusRegisters(mapping, record.getValue(), device.getUnitId());
+//
+//                            logger.info("Updated data for channel {} : {}", channelId, record.getValue());
+//                        }
+//                    }
+//                }
+//            }
+//        } catch (Exception e) {
+//            logger.error("Error reading device data for {}: {}", device.getName(), e.getMessage());
+//        }
+//    }
+//
+//    private void mapToModbusRegisters(Mapping mapping, Object value, int unitId) {
+//        int address = Integer.parseInt(mapping.getRegisterAddress());
+//
+//        switch (mapping.getRegisterType().toUpperCase()) {
+//            case "HOLDING_REGISTER":
+//                if (value instanceof Number) {
+//                    dataStore.setHoldingRegister(address, ((Number) value).intValue());
+//                }
+//                break;
+//            case "INPUT_REGISTER":
+//                if (value instanceof Number) {
+//                    dataStore.setInputRegister(address, ((Number) value).intValue());
+//                }
+//                break;
+//            case "COIL":
+//                if (value instanceof Boolean) {
+//                    dataStore.setCoil(address, (Boolean) value);
+//                }
+//                break;
+//            case "DISCRETE_INPUT":
+//                if (value instanceof Boolean) {
+//                    dataStore.setDiscreteInput(address, (Boolean) value);
+//                }
+//                break;
+//        }
+//    }
+//}
+
+
 package org.openmuc.framework.app.modbusgateway.services;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
+import org.openmuc.framework.app.modbusgateway.dataholder.ModbusDataHolder;
 import org.openmuc.framework.app.modbusgateway.pojo.Device;
 import org.openmuc.framework.app.modbusgateway.pojo.Mapping;
-import org.openmuc.framework.app.modbusgateway.pojo.Server;
 import org.openmuc.framework.data.Record;
 import org.openmuc.framework.dataaccess.Channel;
 import org.openmuc.framework.dataaccess.DataAccessService;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
-
+/**
+ * FIXED: Proper dependency management and activation order
+ */
 @Component(immediate = true)
 public class ModbusDataReaderService {
+
     private static final Logger logger = LoggerFactory.getLogger(ModbusDataReaderService.class);
 
     private DataAccessService dataAccessService;
 
-    private final Map<String, Record> channelDataCache = new ConcurrentHashMap<>();
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
+    private final ModbusDataHolder dataStore = ModbusDataHolder.getInstance();
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(10);
+    private final Map<String, ScheduledFuture<?>> scheduledTasks = new ConcurrentHashMap<>();
 
-    private List<Device> deviceList;
-    private List<Mapping> mappingList;
-    private List<Server> serverList;
 
     @Reference
     public void setDataAccessService(DataAccessService dataAccessService) {
@@ -40,64 +151,244 @@ public class ModbusDataReaderService {
 
     @Activate
     public void activate() {
-        logger.info("Starting Modbus Data Reader Service");
-        initializeConfigurationData();
-        startDataReading();
-//        startModbusServer();
+        logger.info("Activating Modbus Data Reader Service");
+
+        // FIXED: Add delay to ensure all channels are created
+        scheduler.schedule(this::initializeDataReading, 15, TimeUnit.SECONDS);
+
+        // FIXED: Add periodic check for new channels
+        scheduler.scheduleAtFixedRate(this::checkForNewChannels, 30, 30, TimeUnit.SECONDS);
     }
 
-    private void initializeConfigurationData() {
-        deviceList = ModbusConfigService.accessDeviceData();
-        mappingList = ModbusConfigService.accessMappingData();
-        serverList = ModbusConfigService.accessServerData();
-    }
-
-    private void startDataReading() {
-        if (deviceList == null || mappingList == null) {
-            logger.error("Cannot start data reading - configuration data is not available");
-            return;
-        }
-
-        //Create reading tasks for each device
-        for (Device device : deviceList) {
-            scheduler.scheduleAtFixedRate(
-                    () -> readDeviceData(device), 0, Integer.parseInt(device.getSamplingInterval()), TimeUnit.MILLISECONDS
-            );
-        }
-    }
-
-    private void readDeviceData(Device device) {
+    private void initializeDataReading() {
         try {
-            for (Mapping mapping : mappingList) {
-                if (mapping.getDeviceProfileId() == device.getDeviceProfileId()) {
-                    String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+            List<Device> deviceList = ModbusConfigService.accessDeviceData();
+            List<Mapping> mappingList = ModbusConfigService.accessMappingData();
 
-                    Channel channel = dataAccessService.getChannel(channelId);
-                    logger.info("Found channel Id, {} : {}", channelId, channel);
-                    if (channel != null) {
-                        Record record = channel.getLatestRecord();
-                        if (record != null && record.getValue() != null) {
-                            channelDataCache.put(channelId, record);
-                            logger.info("Updated data for channel {} : {}", channelId, record.getValue());
-                        }
-                    }
+            if (deviceList == null || mappingList == null) {
+                logger.error("Configuration data not available, retrying in 10 seconds");
+                scheduler.schedule(this::initializeDataReading, 10, TimeUnit.SECONDS);
+                return;
+            }
+
+            logger.info("Initializing data reading for {} devices", deviceList.size());
+
+            for (Device device : deviceList) {
+                String taskKey = "device_" + device.getName();
+
+                // FIXED: Cancel existing task if present
+                ScheduledFuture<?> existingTask = scheduledTasks.get(taskKey);
+                if (existingTask != null && !existingTask.isCancelled()) {
+                    existingTask.cancel(false);
+                }
+
+                // FIXED: Add validation for device configuration
+                if (isValidDevice(device)) {
+                    ScheduledFuture<?> task = scheduler.scheduleAtFixedRate(
+                            () -> readDeviceDataSafely(device, mappingList),
+                            5, // Initial delay to let channels initialize
+                            Math.max(1000, Integer.parseInt(device.getSamplingInterval())), // Minimum 1 second
+                            TimeUnit.MILLISECONDS
+                    );
+                    scheduledTasks.put(taskKey, task);
+                    logger.info("Started data reading for device: {}", device.getName());
+                } else {
+                    logger.warn("Invalid device configuration: {}", device.getName());
                 }
             }
 
-        }
-        catch (NullPointerException e) {
-            logger.error("NullPointerException caught : {}", e.getMessage());
-        }
-        catch (Exception e) {
-            logger.error("Error reading the data, {}", e.getMessage());
+        } catch (Exception e) {
+            logger.error("Failed to initialize data reading", e);
+            // FIXED: Retry initialization
+            scheduler.schedule(this::initializeDataReading, 30, TimeUnit.SECONDS);
         }
     }
 
-    public Record getChannelData(String channelId) {
-        return channelDataCache.get(channelId);
+    // FIXED: Add validation method
+    private boolean isValidDevice(Device device) {
+        return device != null
+                && device.getName() != null
+                && !device.getName().isEmpty()
+                && device.getSamplingInterval() != null
+                && !device.getSamplingInterval().isEmpty();
     }
 
-    public Map<String, Record> getAllChannelData() {
-        return new ConcurrentHashMap<>(channelDataCache);
+    // FIXED: Wrap in safety method to prevent task failure
+    private void readDeviceDataSafely(Device device, List<Mapping> mappingList) {
+        try {
+            readDeviceData(device, mappingList);
+        } catch (Exception e) {
+            logger.error("Error reading device data for {} (will retry): {}", device.getName(), e.getMessage());
+            // Task continues running for next iteration
+        }
+    }
+
+    private void readDeviceData(Device device, List<Mapping> mappingList) {
+        int successCount = 0;
+        int totalCount = 0;
+
+        for (Mapping mapping : mappingList) {
+            if (mapping.getDeviceProfileId() == device.getDeviceProfileId()) {
+                totalCount++;
+                String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+
+                try {
+                    Channel channel = dataAccessService.getChannel(channelId);
+                    if (channel != null) {
+                        Record record = channel.getLatestRecord();
+                        if (record != null && record.getValue() != null) {
+                            dataStore.setChannelData(channelId, record.getValue());
+                            logger.info("record info {} {}", record.getValue().getValueType(), record.getValue());
+                            mapToModbusRegistersWithValidation(mapping, record.getValue(), device.getUnitId());
+                            successCount++;
+
+                            if (logger.isDebugEnabled()) {
+                                logger.info("Updated data for channel {}: {}", channelId, record.getValue());
+                            }
+                        } else {
+                            logger.info("No record/value available for channel: {}", channelId);
+                        }
+                    } else {
+                        logger.info("Channel not found: {}", channelId);
+                    }
+                } catch (Exception e) {
+                    logger.warn("Error reading channel {}: {}", channelId, e.getMessage());
+                }
+            }
+        }
+
+        if (successCount > 0) {
+            logger.info("Device {}: read {}/{} channels successfully",
+                    device.getName(), successCount, totalCount);
+        } else if (totalCount > 0) {
+            logger.warn("Device {}: failed to read any of {} channels",
+                    device.getName(), totalCount);
+        }
+    }
+
+    // FIXED: Add validation to prevent register conflicts
+    private void mapToModbusRegistersWithValidation(Mapping mapping, Object value, int unitId) {
+        try {
+            int address = Integer.parseInt(mapping.getRegisterAddress());
+
+            // FIXED: Add range validation
+            if (address < 0 || address > 65535) {
+                logger.error("Invalid register address: {} for mapping {}", address, mapping.getId());
+                return;
+            }
+
+            switch (mapping.getRegisterType().toUpperCase()) {
+                case "HOLDING_REGISTERS":
+                    Integer holdingRegValue = extractIntValue(value);
+                    if (holdingRegValue != null) {
+                        dataStore.setHoldingRegister(address, holdingRegValue);
+                        logger.debug("Set holding register {}: {}", address, holdingRegValue);
+                    } else {
+                        logger.warn("Cannot extract integer from value for register {}: {}", address, value.getClass());
+                    }
+                    break;
+
+                case "INPUT_REGISTERS":
+                    Integer inputRegValue = extractIntValue(value);
+                    if (inputRegValue != null) {
+                        dataStore.setInputRegister(address, inputRegValue);
+                    } else {
+                        logger.warn("Invalid value type for input register {}: {}", address, value.getClass());
+                    }
+                    break;
+
+                case "COILS":
+                    Boolean coilRegValue = extractBoolValue(value);
+                    if (coilRegValue != null) {
+                        dataStore.setCoil(address, coilRegValue);
+                    } else {
+                        logger.warn("Invalid value type for coil {}: {}", address, value.getClass());
+                    }
+                    break;
+
+                case "DISCRETE_INPUTS":
+                    Boolean discreteRegValue = extractBoolValue(value);
+                    if (discreteRegValue != null) {
+                        dataStore.setDiscreteInput(address, discreteRegValue);
+                    } else {
+                        logger.warn("Invalid value type for discrete input {}: {}", address, value.getClass());
+                    }
+                    break;
+
+                default:
+                    logger.warn("Unknown register type: {} for mapping {}",
+                            mapping.getRegisterType(), mapping.getId());
+            }
+        } catch (NumberFormatException e) {
+            logger.error("Invalid register address format: {} for mapping {}",
+                    mapping.getRegisterAddress(), mapping.getId());
+        } catch (Exception e) {
+            logger.error("Error mapping register for mapping {}: {}", mapping.getId(), e.getMessage());
+        }
+    }
+
+    private Integer extractIntValue(Object value) {
+        if (value instanceof org.openmuc.framework.data.Value) {
+            try {
+                return ((org.openmuc.framework.data.Value) value).asInt();
+            } catch (Exception e) {
+                logger.debug("Cannot convert OpenMUC value to int: {}", e.getMessage());
+            }
+        }
+        return null;
+    }
+
+    private Boolean extractBoolValue(Object value) {
+        if (value instanceof org.openmuc.framework.data.Value) {
+            try {
+                return ((org.openmuc.framework.data.Value) value).asBoolean();
+            } catch (Exception e) {
+                logger.debug("Cannot convert OpenMUC value to boolean: {}", e.getMessage());
+            }
+        }
+        return null;
+    }
+
+
+    // FIXED: Add method to handle dynamic channel updates
+    private void checkForNewChannels() {
+        try {
+            List<Device> currentDevices = ModbusConfigService.accessDeviceData();
+            if (currentDevices != null && hasDeviceListChanged(currentDevices)) {
+                logger.info("Device configuration changed, reinitializing data reading");
+                initializeDataReading();
+            }
+        } catch (Exception e) {
+            logger.error("Error checking for new channels", e);
+        }
+    }
+
+    private boolean hasDeviceListChanged(List<Device> newDevices) {
+        return newDevices.size() != scheduledTasks.size();
+    }
+
+    @Deactivate
+    public void deactivate() {
+        logger.info("Deactivating Modbus Data Reader Service");
+
+        // Cancel all scheduled tasks
+        for (Map.Entry<String, ScheduledFuture<?>> entry : scheduledTasks.entrySet()) {
+            entry.getValue().cancel(true);
+            logger.info("Cancelled task: {}", entry.getKey());
+        }
+        scheduledTasks.clear();
+
+        // Shutdown scheduler
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(10, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+
+        logger.info("Modbus Data Reader Service deactivated");
     }
 }

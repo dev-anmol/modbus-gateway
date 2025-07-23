@@ -15,14 +15,17 @@ export class ModbusServer {
   serverForm = new FormGroup({
     serverIpAddress: new FormControl<string | null>(null),
     serverPort: new FormControl<string | null>(null),
+    serverName : new FormControl<string | null>(null),
     poolSize: new FormControl<string | null>(null),
     unitId: new FormControl<string | null>(null),
     interval: new FormControl<string | null>(null),
+    
   });
 
   private messageService = inject(MessageService);
   private mserverService = inject(MserverService);
   private serverIpAddress: WritableSignal<string> = signal('Server Ip Address');
+  private serverName : WritableSignal<string> = signal('Server Name');
   private serverPort: WritableSignal<string> = signal('Server Port');
   private poolSize: WritableSignal<string> = signal('Pool Size');
   private unitId: WritableSignal<string> = signal('Unit Id');
@@ -37,6 +40,16 @@ export class ModbusServer {
       this.generateToast(
         'Please Enter Server Ip Address',
         this.serverIpAddress
+      );
+    }
+
+    if (
+      this.serverForm.value.serverName === null ||
+      this.serverForm.value.serverName === ''
+    ) {
+      this.generateToast(
+        'Please Enter Server Name',
+        this.serverName
       );
     }
 

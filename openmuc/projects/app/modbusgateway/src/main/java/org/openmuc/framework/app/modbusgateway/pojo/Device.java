@@ -9,7 +9,7 @@ public class Device {
     private String SamplingInterval;
     private String Timeout;
     private int DeviceProfileId;
-    private String UnitId;
+    private int UnitId;
 
     // Getters and Setters
     public int getId() {
@@ -76,11 +76,11 @@ public class Device {
         this.DeviceProfileId = deviceProfileId;
     }
 
-    public String getUnitId() {
+    public int getUnitId() {
         return UnitId;
     }
 
-    public void setUnitId(String unitId) {
+    public void setUnitId(int unitId) {
         this.UnitId = unitId;
     }
 

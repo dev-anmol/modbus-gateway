@@ -202,6 +202,13 @@ public class ModbusConfigService {
                 Type serverListType = new TypeToken<List<Server>>() {
 
                 }.getType();
+                List<Server> servers = gson.fromJson(response.toString(), serverListType);
+                if (servers != null) {
+                    for (Server server : servers) {
+                        logger.info("Parsed server: Name={}, IP={}, Port={}, UnitId={}",
+                                server.getName(), server.getIPAddress(), server.getPort(), server.getUnitId());
+                    }
+                }
                 return gson.fromJson(response.toString(), serverListType);
             } else {
                 logger.warn("Server Api call failed with response code {}", responseCode);
