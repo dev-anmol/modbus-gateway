@@ -43,6 +43,12 @@ export const routes: Routes = [
     path: 'modbus-server',
     pathMatch: 'full',
     loadComponent: () =>
+      import('../components/mserver/mserver').then((m) => m.Mserver),
+  },
+  {
+    path: 'modbus-server/:id',
+    pathMatch: 'full',
+    loadComponent: () =>
       import('../components/modbus-server/modbus-server').then(
         (m) => m.ModbusServer
       ),

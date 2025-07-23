@@ -1,8 +1,16 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MserverService } from '../../services/mserver/mserver.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-modbus-server',
@@ -11,27 +19,56 @@ import { MserverService } from '../../services/mserver/mserver.service';
   styleUrl: './modbus-server.css',
   providers: [MessageService],
 })
-export class ModbusServer {
+export class ModbusServer implements OnInit, OnDestroy {
   serverForm = new FormGroup({
     serverIpAddress: new FormControl<string | null>(null),
     serverPort: new FormControl<string | null>(null),
-    serverName : new FormControl<string | null>(null),
+    serverName: new FormControl<string | null>(null),
     poolSize: new FormControl<string | null>(null),
     unitId: new FormControl<string | null>(null),
     interval: new FormControl<string | null>(null),
-    
   });
 
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private messageService = inject(MessageService);
   private mserverService = inject(MserverService);
   private serverIpAddress: WritableSignal<string> = signal('Server Ip Address');
-  private serverName : WritableSignal<string> = signal('Server Name');
+  private serverName: WritableSignal<string> = signal('Server Name');
   private serverPort: WritableSignal<string> = signal('Server Port');
   private poolSize: WritableSignal<string> = signal('Pool Size');
   private unitId: WritableSignal<string> = signal('Unit Id');
   private interval: WritableSignal<string> = signal('Interval');
+  id = signal<any | null>(null);
 
-  handleFormData() {
+  ngOnInit(): void {
+    this.id.set(Number(this.route.snapshot.paramMap.get('id')));
+    this.mserverService.getServerDetailsById(this.id()).subscribe({
+      next: (res) => {
+        this.serverForm.patchValue({
+          unitId: res.UnitId,
+          serverName: res.Name,
+          serverPort: res.ServerPort,
+          interval: res.Interval,
+          serverIpAddress: res.ServerIpAddress,
+          poolSize: res.PoolSize,
+        });
+      },
+      error: (error) => {
+        console.error(`Error while getting the data`, error);
+      },
+    });
+  }
+
+  onSubmit() {
+    if (this.isEditMode) {
+      this.updateServer();
+    } else {
+      this.createServer();
+    }
+  }
+
+  createServer() {
     console.log(this.serverForm.value, 'and testing ng prime');
     if (
       this.serverForm.value.serverIpAddress === null ||
@@ -47,10 +84,7 @@ export class ModbusServer {
       this.serverForm.value.serverName === null ||
       this.serverForm.value.serverName === ''
     ) {
-      this.generateToast(
-        'Please Enter Server Name',
-        this.serverName
-      );
+      this.generateToast('Please Enter Server Name', this.serverName);
     }
 
     if (
@@ -95,6 +129,27 @@ export class ModbusServer {
     this.serverForm.reset();
   }
 
+  updateServer() {
+    const server = {
+      Id: this.id(),
+      UnitId: this.serverForm.value.unitId,
+      ServerIpAddress: this.serverForm.value.serverIpAddress,
+      Name: this.serverForm.value.serverName,
+      Interval: this.serverForm.value.interval,
+      PoolSize: this.serverForm.value.poolSize,
+      ServerPort: this.serverForm.value.serverPort,
+    };
+
+    this.mserverService.updateServerProfile(this.id(), server).subscribe({
+      next: () => {
+        console.log('udpated successfully');
+      },
+      error: (err) => {
+        console.error('Error while updating');
+      },
+    });
+  }
+
   generateToast(msg: string, key: WritableSignal<string>) {
     this.messageService.add({
       severity: 'warn',
@@ -104,4 +159,10 @@ export class ModbusServer {
       closable: true,
     });
   }
+
+  get isEditMode() {
+    return this.id() !== null && this.id() > 0;
+  }
+
+  ngOnDestroy(): void {}
 }
