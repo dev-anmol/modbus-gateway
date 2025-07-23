@@ -8,6 +8,7 @@ router.post('/', controller.createServer);
 router.get('/', controller.getServerDetails);
 router.get('/:id', controller.getServerById);
 router.post('/:id', controller.updateServer);
+router.delete('/:id', controller.deleteServerProfile);
 
 
 

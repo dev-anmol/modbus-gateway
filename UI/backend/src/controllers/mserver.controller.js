@@ -98,3 +98,21 @@ exports.updateServer = async (req, res) => {
   }
 
 }
+
+
+exports.deleteServerProfile = async (req, res) => {
+  const id = req.params.id;
+
+
+  try {
+    const request = new sql.Request()
+      .input('Id', sql.NVarChar, id);
+
+    await request.query(queries.deleteServerProfile);
+    res.status(200).json({ msg: 'server profile deleted' })
+
+  } catch (err) {
+    console.error('Error delete the server profile', err);
+    res.status(500).json({ msg: "error deleting the profile", err })
+  }
+}

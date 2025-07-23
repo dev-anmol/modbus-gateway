@@ -29,7 +29,11 @@ export class MserverService {
 
   updateServerProfile(id: number, server: any) {
     return this.http.post(`${environment.apiBaseUrl}/mserver/${id}`, server, {
-      headers: this.httpHeaders
-    })
+      headers: this.httpHeaders,
+    });
+  }
+
+  deleteServerProfile(id: Number) {
+    return this.http.delete(`${environment.apiBaseUrl}/mserver/${id}`);
   }
 }

@@ -16,5 +16,8 @@ module.exports = {
         UnitId = @UnitId,
         PoolSize = @PoolSize
     WHERE Id = @Id
-`
+`,
+  deleteServerProfile: `
+    DELETE FROM Servers WHERE Id = @Id
+  `
 };

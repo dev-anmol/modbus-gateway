@@ -121,6 +121,10 @@ export class ModbusServer implements OnInit, OnDestroy {
     this.mserverService.createModbusServer(this.serverForm.value).subscribe({
       next: (res) => {
         console.log(res);
+        this.generateSuccessToast("Server Profile Created")
+        setTimeout(() => {
+          this.router.navigate(['/modbus-server'])
+        }, 800)
       },
       error: (error) => {
         console.error(error);
@@ -143,6 +147,10 @@ export class ModbusServer implements OnInit, OnDestroy {
     this.mserverService.updateServerProfile(this.id(), server).subscribe({
       next: () => {
         console.log('udpated successfully');
+        this.generateSuccessToast('Server Updated Successfully');
+        setTimeout(() => {
+          this.router.navigate(['/modbus-server'])
+        }, 800)
       },
       error: (err) => {
         console.error('Error while updating');
@@ -155,6 +163,16 @@ export class ModbusServer implements OnInit, OnDestroy {
       severity: 'warn',
       summary: msg,
       detail: 'Invalid Fields',
+      life: 3000,
+      closable: true,
+    });
+  }
+
+  generateSuccessToast(msg: string) {
+    this.messageService.add({
+      severity: 'success',
+      summary: msg,
+      detail: msg,
       life: 3000,
       closable: true,
     });

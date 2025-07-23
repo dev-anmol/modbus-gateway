@@ -16,7 +16,6 @@ import { Subscription } from 'rxjs';
   templateUrl: './mserver.html',
   styleUrl: './mserver.css',
 })
-
 export class Mserver implements OnInit, OnDestroy {
   private router = inject(Router);
   private mserverService = inject(MserverService);
@@ -45,6 +44,20 @@ export class Mserver implements OnInit, OnDestroy {
   handleNavigation(id: Number) {
     console.log(id);
     this.router.navigate([`modbus-server/${id}`]);
+  }
+
+  deleteSeverProfile(Id: Number) {
+    this.mserverService.deleteServerProfile(Id).subscribe({
+      next : (res) => {
+        console.log(res);
+        this.serverProfile.update((servers) => 
+          servers.filter((server) => server.Id !== Id)
+        )
+      },
+      error(err) {
+        console.log(err);
+      },
+    });
   }
 
   ngOnDestroy(): void {
