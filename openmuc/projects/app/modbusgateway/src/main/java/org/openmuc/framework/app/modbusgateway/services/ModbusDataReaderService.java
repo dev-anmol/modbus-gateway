@@ -111,7 +111,6 @@
 
 package org.openmuc.framework.app.modbusgateway.services;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.openmuc.framework.app.modbusgateway.dataholder.ModbusDataHolder;
 import org.openmuc.framework.app.modbusgateway.pojo.Device;
 import org.openmuc.framework.app.modbusgateway.pojo.Mapping;

@@ -21,7 +21,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-
 @Component(immediate = true)
 public class ModbusServer {
     private static final Logger logger = LoggerFactory.getLogger(ModbusServer.class);
@@ -31,6 +30,10 @@ public class ModbusServer {
     private final Map<String, ModbusSlave> activeServers = new ConcurrentHashMap<>();
     private final Map<String, DynamicProcessImage> processImages = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler;
+
+    // Track register mappings for proper synchronization
+    private final Map<Integer, String> registerToChannelMapping = new ConcurrentHashMap<>();
+    private final Map<String, Set<Integer>> serverToRegistersMapping = new ConcurrentHashMap<>();
 
     private List<Server> serverConfigs;
     private List<Device> deviceConfigs;
@@ -42,7 +45,6 @@ public class ModbusServer {
         try {
             scheduler = Executors.newScheduledThreadPool(5);
 
-            // FIXED: Wait for configuration to be ready before starting servers
             scheduler.schedule(() -> {
                 try {
                     initializeServers();
@@ -50,7 +52,7 @@ public class ModbusServer {
                 } catch (Exception e) {
                     logger.error("Failed to initialize servers: {}", e.getMessage(), e);
                 }
-            }, 20, TimeUnit.SECONDS); // Give config service time to load
+            }, 20, TimeUnit.SECONDS);
 
         } catch (Exception e) {
             logger.error("Failed to activate Modbus Server Service", e);
@@ -63,14 +65,21 @@ public class ModbusServer {
             serverConfigs = ModbusConfigService.accessServerData();
             deviceConfigs = ModbusConfigService.accessDeviceData();
             mappingConfigs = ModbusConfigService.accessMappingData();
-            logger.info("RECIEVED SERVER DATA, {}", serverConfigs);
+
+            logger.info("RECEIVED SERVER DATA: {}", serverConfigs);
+            logger.info("RECEIVED DEVICE DATA: {}", deviceConfigs);
+            logger.info("RECEIVED MAPPING DATA: {}", mappingConfigs);
+
             if (serverConfigs == null || serverConfigs.isEmpty()) {
                 logger.warn("No server configurations available");
                 return;
             }
 
+            // Build register mappings first
+            buildRegisterMappings();
+
             for (Server serverConfig : serverConfigs) {
-                createModbusServerWithRetry(serverConfig, 3); // FIXED: Add retry mechanism
+                createModbusServerWithRetry(serverConfig, 3);
             }
 
             logger.info("Successfully initialized {} Modbus servers", activeServers.size());
@@ -81,6 +90,32 @@ public class ModbusServer {
         }
     }
 
+    private void buildRegisterMappings() {
+        if (deviceConfigs == null || mappingConfigs == null) {
+            logger.warn("Cannot build register mappings - missing configuration data");
+            return;
+        }
+
+        for (Device device : deviceConfigs) {
+            for (Mapping mapping : mappingConfigs) {
+                if (mapping.getDeviceProfileId() == device.getDeviceProfileId()) {
+                    String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+                    int registerAddress = Integer.parseInt(mapping.getRegisterAddress());
+
+                    registerToChannelMapping.put(registerAddress, channelId);
+
+                    logger.info("Mapped register {} to channel {} for register type {}",
+                            registerAddress, channelId, mapping.getRegisterType());
+                }
+            }
+        }
+
+        // Initialize server to registers mapping
+        for (Server serverConfig : serverConfigs) {
+            serverToRegistersMapping.put(serverConfig.getName(), new HashSet<>());
+        }
+    }
+
     private void createModbusServerWithRetry(Server serverConfig, int maxRetries) {
         String serverKey = serverConfig.getName();
         Exception lastException = null;
@@ -88,14 +123,14 @@ public class ModbusServer {
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 createModbusServer(serverConfig);
-                return; // Success
+                return;
             } catch (Exception e) {
                 lastException = e;
                 logger.warn("Attempt {} failed for server {}: {}", attempt, serverKey, e.getMessage());
 
                 if (attempt < maxRetries) {
                     try {
-                        Thread.sleep(1000 * attempt); // Exponential backoff
+                        Thread.sleep(1000 * attempt);
                     } catch (InterruptedException ie) {
                         Thread.currentThread().interrupt();
                         throw new RuntimeException("Server creation interrupted", ie);
@@ -108,11 +143,7 @@ public class ModbusServer {
         throw new RuntimeException("Server creation failed: " + serverKey, lastException);
     }
 
-    // Rest of the implementation stays mostly the same but with better error handling
     private void createModbusServer(Server serverConfig) throws Exception {
-
-        logger.info("serverConfig, {}", serverConfig);
-
         String serverKey = serverConfig.getName();
 
         logger.info("Creating Modbus server: {} on port {}", serverKey, serverConfig.getPort());
@@ -122,7 +153,12 @@ public class ModbusServer {
 
         initializeProcessImageForServer(processImage, serverConfig);
 
-        ModbusSlave modbusSlave = ModbusSlaveFactory.createTCPSlave(InetAddress.getByName(serverConfig.getIPAddress()), serverConfig.getPort(), serverConfig.getPoolSize(), false);
+        ModbusSlave modbusSlave = ModbusSlaveFactory.createTCPSlave(
+                InetAddress.getByName(serverConfig.getIPAddress()),
+                serverConfig.getPort(),
+                serverConfig.getPoolSize(),
+                false
+        );
 
         Set<Integer> unitIds = getUnitIdsForServer(serverConfig);
         for (Integer unitId : unitIds) {
@@ -133,75 +169,74 @@ public class ModbusServer {
         modbusSlave.open();
         activeServers.put(serverKey, modbusSlave);
 
-        logger.info("Successfully started Modbus server: {} on {}:{}", serverKey, serverConfig.getIPAddress(), serverConfig.getPort());
+        logger.info("Successfully started Modbus server: {} on {}:{}",
+                serverKey, serverConfig.getIPAddress(), serverConfig.getPort());
     }
-
-    @Deactivate
-    private void deactivate() {
-        logger.info("Deactivating Modbus Server Service");
-
-        if (scheduler != null && !scheduler.isShutdown()) {
-            scheduler.shutdown();
-            try {
-                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
-                    scheduler.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                scheduler.shutdownNow();
-                Thread.currentThread().interrupt();
-            }
-        }
-
-        // Stop all servers
-        for (Map.Entry<String, ModbusSlave> entry : activeServers.entrySet()) {
-            try {
-                entry.getValue().close();
-                logger.info("Stopped Modbus server: {}", entry.getKey());
-            } catch (Exception e) {
-                logger.warn("Error stopping server {}: {}", entry.getKey(), e.getMessage());
-            }
-        }
-
-        activeServers.clear();
-        processImages.clear();
-        logger.info("Modbus Server Service deactivated");
-    }
-
 
     private void initializeProcessImageForServer(DynamicProcessImage processImage, Server serverConfig) {
-        if (deviceConfigs == null || deviceConfigs.isEmpty()
-                || mappingConfigs == null || mappingConfigs.isEmpty()) {
+        if (deviceConfigs == null || deviceConfigs.isEmpty() ||
+                mappingConfigs == null || mappingConfigs.isEmpty()) {
             logger.warn("Empty device/mapping list – skipping process-image setup");
             return;
         }
 
-        // Find devices that should be served by this server
+        String serverKey = serverConfig.getName();
+        Set<Integer> serverRegisters = serverToRegistersMapping.get(serverKey);
+
         List<Device> relevantDevices = getDevicesForServer(serverConfig);
 
         for (Device device : relevantDevices) {
-            // Get mappings for this device
             List<Mapping> deviceMappings = getMappingsForDevice(device);
 
             for (Mapping mapping : deviceMappings) {
                 int address = Integer.parseInt(mapping.getRegisterAddress());
+                serverRegisters.add(address);
 
-                // Initialize registers based on mapping type
+                // Initialize with current data from holder if available
+                String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+                Object currentValue = dataHolder.getChannelData(channelId);
+
                 switch (mapping.getRegisterType().toLowerCase()) {
-                    case "holding_register":
-                        processImage.initializeHoldingRegister(address, 0);
+                    case "holding_registers":
+                        int holdingValue = 0;
+                        if (currentValue instanceof Number) {
+                            holdingValue = ((Number) currentValue).intValue();
+                        }
+                        processImage.initializeHoldingRegister(address, holdingValue);
+                        // Also update the data holder register mapping
+                        dataHolder.setHoldingRegister(address, holdingValue);
                         break;
-                    case "input_register":
-                        processImage.initializeInputRegister(address, 0);
+
+                    case "input_registers":
+                        int inputValue = 0;
+                        if (currentValue instanceof Number) {
+                            inputValue = ((Number) currentValue).intValue();
+                        }
+                        processImage.initializeInputRegister(address, inputValue);
+                        dataHolder.setInputRegister(address, inputValue);
                         break;
-                    case "coil":
-                        processImage.initializeCoil(address, false);
+
+                    case "coils":
+                        boolean coilValue = false;
+                        if (currentValue instanceof Boolean) {
+                            coilValue = (Boolean) currentValue;
+                        }
+                        processImage.initializeCoil(address, coilValue);
+                        dataHolder.setCoil(address, coilValue);
                         break;
-                    case "discrete_input":
-                        processImage.initializeDiscreteInput(address, false);
+
+                    case "discrete_inputs":
+                        boolean discreteValue = false;
+                        if (currentValue instanceof Boolean) {
+                            discreteValue = (Boolean) currentValue;
+                        }
+                        processImage.initializeDiscreteInput(address, discreteValue);
+                        dataHolder.setDiscreteInput(address, discreteValue);
                         break;
                 }
 
-                logger.info("Initialized {} register at address {} for device {}", mapping.getRegisterType(), address, device.getName());
+                logger.info("Initialized {} register at address {} with value {} for device {}",
+                        mapping.getRegisterType(), address, currentValue, device.getName());
             }
         }
     }
@@ -216,7 +251,6 @@ public class ModbusServer {
             }
         }
 
-        // If no unit IDs found, use default
         if (unitIds.isEmpty()) {
             unitIds.add(1);
         }
@@ -229,9 +263,6 @@ public class ModbusServer {
 
         if (deviceConfigs != null) {
             for (Device device : deviceConfigs) {
-                // we might want to add logic here to determine which devices
-                // should be served by which server based on your business logic
-                // For now, we'll include all devices for each server
                 relevantDevices.add(device);
             }
         }
@@ -254,17 +285,109 @@ public class ModbusServer {
     }
 
     private void startDataSynchronization() {
-        // Schedule periodic synchronization of data from data holder to process images
+        // More frequent synchronization for better responsiveness
         scheduler.scheduleAtFixedRate(() -> {
             try {
-                synchronizeData();
+                synchronizeChannelDataToRegisters();
+                synchronizeRegistersToProcessImages();
             } catch (Exception e) {
                 logger.error("Error during data synchronization: {}", e.getMessage(), e);
             }
-        }, 2, 2, TimeUnit.SECONDS);
+        }, 1, 1, TimeUnit.SECONDS); // Increased frequency to 1 second
     }
 
-    private void synchronizeData() {
+    /**
+     * NEW METHOD: Synchronize channel data to register mappings in data holder
+     */
+    private void synchronizeChannelDataToRegisters() {
+        for (Map.Entry<Integer, String> entry : registerToChannelMapping.entrySet()) {
+            int registerAddress = entry.getKey();
+            String channelId = entry.getValue();
+
+            Object channelValue = dataHolder.getChannelData(channelId);
+            if (channelValue != null) {
+                // Find the mapping to determine register type
+                try {
+                    Mapping relevantMapping = findMappingForChannelId(channelId);
+                    if (relevantMapping != null) {
+                        updateDataHolderRegister(relevantMapping, registerAddress, channelValue);
+                    }
+                } catch (Exception e) {
+                    logger.warn("Type mismatch for register {}: {}", registerAddress, e.getMessage());
+                }
+            }
+        }
+    }
+
+    private Mapping findMappingForChannelId(String channelId) {
+        if (deviceConfigs == null || mappingConfigs == null) return null;
+
+        for (Device device : deviceConfigs) {
+            for (Mapping mapping : mappingConfigs) {
+                if (mapping.getDeviceProfileId() == device.getDeviceProfileId()) {
+                    String expectedChannelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+                    if (expectedChannelId.equals(channelId)) {
+                        return mapping;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private void updateDataHolderRegister(Mapping mapping, int address, Object value) {
+        try {
+            switch (mapping.getRegisterType().toLowerCase()) {
+                case "holding_registers":
+                    if (value instanceof Number) {
+                        int intValue = ((Number) value).intValue();
+                        Integer currentValue = dataHolder.getHoldingRegister(address);
+                        if (currentValue == null || !currentValue.equals(intValue)) {
+                            dataHolder.setHoldingRegister(address, intValue);
+                            logger.debug("Updated holding register {} to {} from channel data", address, intValue);
+                        }
+                    }
+                    break;
+
+                case "input_registers":
+                    if (value instanceof Number) {
+                        int intValue = ((Number) value).intValue();
+                        Integer currentValue = dataHolder.getInputRegister(address);
+                        if (currentValue == null || !currentValue.equals(intValue)) {
+                            dataHolder.setInputRegister(address, intValue);
+                            logger.debug("Updated input register {} to {} from channel data", address, intValue);
+                        }
+                    }
+                    break;
+
+                case "coils":
+                    if (value instanceof Boolean) {
+                        boolean boolValue = (Boolean) value;
+                        Boolean currentValue = dataHolder.getCoil(address);
+                        if (currentValue == null || !currentValue.equals(boolValue)) {
+                            dataHolder.setCoil(address, boolValue);
+                            logger.debug("Updated coil {} to {} from channel data", address, boolValue);
+                        }
+                    }
+                    break;
+
+                case "discrete_inputs":
+                    if (value instanceof Boolean) {
+                        boolean boolValue = (Boolean) value;
+                        Boolean currentValue = dataHolder.getDiscreteInput(address);
+                        if (currentValue == null || !currentValue.equals(boolValue)) {
+                            dataHolder.setDiscreteInput(address, boolValue);
+                            logger.debug("Updated discrete input {} to {} from channel data", address, boolValue);
+                        }
+                    }
+                    break;
+            }
+        } catch (Exception e) {
+            logger.error("Error updating data holder register {}: {}", address, e.getMessage());
+        }
+    }
+
+    private void synchronizeRegistersToProcessImages() {
         for (Map.Entry<String, DynamicProcessImage> entry : processImages.entrySet()) {
             String serverKey = entry.getKey();
             DynamicProcessImage processImage = entry.getValue();
@@ -276,22 +399,19 @@ public class ModbusServer {
                     processImage.updateHoldingRegister(regEntry.getKey(), regEntry.getValue());
                 }
 
-                // commented as input registers are read only
-                // Synchronize input registers
-//                Map<Integer, Integer> inputRegs = dataHolder.getAllInputRegisters();
-//                for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
-//                    processImage.updateInputRegister(regEntry.getKey(), regEntry.getValue());
-//                }
-
                 // Synchronize coils
-
                 Map<Integer, Boolean> coils = dataHolder.getAllCoils();
                 for (Map.Entry<Integer, Boolean> coilEntry : coils.entrySet()) {
                     processImage.updateCoil(coilEntry.getKey(), coilEntry.getValue());
                 }
 
-                // commented as descrete inputs are readonly
-                // Synchronize discrete inputs
+                // Synchronize input registers
+//                Map<Integer, Integer> inputRegs = dataHolder.getAllInputRegisters();
+//                for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
+//                    processImage.updateInputRegister(regEntry.getKey(), regEntry.getValue());
+//                }
+//
+//                // Synchronize discrete inputs
 //                Map<Integer, Boolean> discreteInputs = dataHolder.getAllDiscreteInputs();
 //                for (Map.Entry<Integer, Boolean> diEntry : discreteInputs.entrySet()) {
 //                    processImage.updateDiscreteInput(diEntry.getKey(), diEntry.getValue());
@@ -303,8 +423,38 @@ public class ModbusServer {
         }
     }
 
+    @Deactivate
+    private void deactivate() {
+        logger.info("Deactivating Modbus Server Service");
+
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdown();
+            try {
+                if (!scheduler.awaitTermination(5, TimeUnit.SECONDS)) {
+                    scheduler.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                scheduler.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+        }
+
+        for (Map.Entry<String, ModbusSlave> entry : activeServers.entrySet()) {
+            try {
+                entry.getValue().close();
+                logger.info("Stopped Modbus server: {}", entry.getKey());
+            } catch (Exception e) {
+                logger.warn("Error stopping server {}: {}", entry.getKey(), e.getMessage());
+            }
+        }
+
+        activeServers.clear();
+        processImages.clear();
+        logger.info("Modbus Server Service deactivated");
+    }
+
     /**
-     * Dynamic Process Image implementation that can handle runtime updates
+     * Enhanced Dynamic Process Image implementation
      */
     private class DynamicProcessImage implements ProcessImage {
         private final String serverId;
@@ -323,8 +473,9 @@ public class ModbusServer {
             try {
                 SimpleRegister register = new SimpleRegister(value);
                 holdingRegisters.put(address, register);
-                delegate.addRegister(register);
-                logger.info("Initialized holding register {} with value {} for server {}", address, value, serverId);
+                delegate.addRegister(address, register);
+                logger.info("Initialized holding register {} with value {} for server {}",
+                        address, value, serverId);
             } catch (Exception e) {
                 logger.error("Error initializing holding register {}: {}", address, e.getMessage());
             }
@@ -334,8 +485,9 @@ public class ModbusServer {
             try {
                 SimpleInputRegister register = new SimpleInputRegister(value);
                 inputRegisters.put(address, register);
-                delegate.addInputRegister(register);
-                logger.info("Initialized input register {} with value {} for server {}", address, value, serverId);
+                delegate.addInputRegister(address, register);
+                logger.info("Initialized input register {} with value {} for server {}",
+                        address, value, serverId);
             } catch (Exception e) {
                 logger.error("Error initializing input register {}: {}", address, e.getMessage());
             }
@@ -345,7 +497,7 @@ public class ModbusServer {
             try {
                 SimpleDigitalOut coil = new SimpleDigitalOut(value);
                 coils.put(address, coil);
-                delegate.addDigitalOut(coil);
+                delegate.addDigitalOut(address, coil);
                 logger.info("Initialized coil {} with value {} for server {}", address, value, serverId);
             } catch (Exception e) {
                 logger.error("Error initializing coil {}: {}", address, e.getMessage());
@@ -356,20 +508,30 @@ public class ModbusServer {
             try {
                 SimpleDigitalIn discreteInput = new SimpleDigitalIn(value);
                 discreteInputs.put(address, discreteInput);
-                delegate.addDigitalIn(discreteInput);
-                logger.info("Initialized discrete input {} with value {} for server {}", address, value, serverId);
+                delegate.addDigitalIn(address, discreteInput);
+                logger.info("Initialized discrete input {} with value {} for server {}",
+                        address, value, serverId);
             } catch (Exception e) {
                 logger.error("Error initializing discrete input {}: {}", address, e.getMessage());
             }
         }
 
-        // Update methods
+        // Enhanced update methods with better change detection
         public void updateHoldingRegister(int address, int value) {
             Register register = holdingRegisters.get(address);
-            if (register != null && register.getValue() != value) {
+            if (register == null) {
+                // Register doesn't exist, create it
+                SimpleRegister newRegister = new SimpleRegister(value);
+                holdingRegisters.put(address, newRegister);
+                delegate.addRegister(address, newRegister);
+                logger.info("Created and updated holding register {} to {} for server {}",
+                        address, value, serverId);
+            } else if (register.getValue() != value) {
+                // Update existing register
                 try {
                     register.setValue(value);
-                    logger.info("Updated holding register {} to {} for server {}", address, value, serverId);
+                    logger.info("Updated holding register {} from {} to {} for server {}",
+                            address, register.getValue(), value, serverId);
                 } catch (Exception e) {
                     logger.error("Error updating holding register {}: {}", address, e.getMessage());
                 }
@@ -378,7 +540,13 @@ public class ModbusServer {
 
 //        public void updateInputRegister(int address, int value) {
 //            InputRegister register = inputRegisters.get(address);
-//            if (register != null && register.getValue() != value) {
+//            if (register == null) {
+//                SimpleInputRegister newRegister = new SimpleInputRegister(value);
+//                inputRegisters.put(address, newRegister);
+//                delegate.addInputRegister(address, newRegister);
+//                logger.info("Created and updated input register {} to {} for server {}",
+//                        address, value, serverId);
+//            } else if (register.getValue() != value) {
 //                try {
 //                    register.setValue(value);
 //                    logger.info("Updated input register {} to {} for server {}",
@@ -391,7 +559,12 @@ public class ModbusServer {
 
         public void updateCoil(int address, boolean value) {
             DigitalOut coil = coils.get(address);
-            if (coil != null && coil.isSet() != value) {
+            if (coil == null) {
+                SimpleDigitalOut newCoil = new SimpleDigitalOut(value);
+                coils.put(address, newCoil);
+                delegate.addDigitalOut(address, newCoil);
+                logger.info("Created and updated coil {} to {} for server {}", address, value, serverId);
+            } else if (coil.isSet() != value) {
                 try {
                     coil.set(value);
                     logger.info("Updated coil {} to {} for server {}", address, value, serverId);
@@ -403,7 +576,13 @@ public class ModbusServer {
 
 //        public void updateDiscreteInput(int address, boolean value) {
 //            DigitalIn discreteInput = discreteInputs.get(address);
-//            if (discreteInput != null && discreteInput.isSet() != value) {
+//            if (discreteInput == null) {
+//                SimpleDigitalIn newInput = new SimpleDigitalIn(value);
+//                discreteInputs.put(address, newInput);
+//                delegate.addDigitalIn(address, newInput);
+//                logger.info("Created and updated discrete input {} to {} for server {}",
+//                        address, value, serverId);
+//            } else if (discreteInput.isSet() != value) {
 //                try {
 //                    discreteInput.set(value);
 //                    logger.info("Updated discrete input {} to {} for server {}",
@@ -420,6 +599,7 @@ public class ModbusServer {
             logger.info("Client reading holding register {} from server {}", ref, serverId);
             Register register = holdingRegisters.get(ref);
             if (register != null) {
+                logger.info("Returning holding register {} value: {}", ref, register.getValue());
                 return register;
             }
             throw new IllegalAddressException("Register " + ref + " not found");
@@ -427,7 +607,8 @@ public class ModbusServer {
 
         @Override
         public Register[] getRegisterRange(int ref, int count) throws IllegalAddressException {
-            logger.info("Client reading {} holding registers starting at {} from server {}", count, ref, serverId);
+            logger.info("Client reading {} holding registers starting at {} from server {}",
+                    count, ref, serverId);
             Register[] registers = new Register[count];
             for (int i = 0; i < count; i++) {
                 Register register = holdingRegisters.get(ref + i);
@@ -451,7 +632,8 @@ public class ModbusServer {
 
         @Override
         public InputRegister[] getInputRegisterRange(int ref, int count) throws IllegalAddressException {
-            logger.info("Client reading {} input registers starting at {} from server {}", count, ref, serverId);
+            logger.info("Client reading {} input registers starting at {} from server {}",
+                    count, ref, serverId);
             InputRegister[] registers = new InputRegister[count];
             for (int i = 0; i < count; i++) {
                 InputRegister register = inputRegisters.get(ref + i);
@@ -499,7 +681,8 @@ public class ModbusServer {
 
         @Override
         public DigitalIn[] getDigitalInRange(int ref, int count) throws IllegalAddressException {
-            logger.info("Client reading {} discrete inputs starting at {} from server {}", count, ref, serverId);
+            logger.info("Client reading {} discrete inputs starting at {} from server {}",
+                    count, ref, serverId);
             DigitalIn[] inputArray = new DigitalIn[count];
             for (int i = 0; i < count; i++) {
                 DigitalIn input = discreteInputs.get(ref + i);
@@ -562,5 +745,4 @@ public class ModbusServer {
             return delegate.getFIFOCount();
         }
     }
-
 }

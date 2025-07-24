@@ -14,5 +14,18 @@
                 </settings>
             </channel>
         </device>
+        <device id="test">
+            <deviceAddress>127.0.0.1:505</deviceAddress>
+            <settings>TCP</settings>
+            <channel id="test_B_19">
+                <channelAddress>2:HOLDING_REGISTERS:1002:INT16</channelAddress>
+                <valueType>INTEGER</valueType>
+                <samplingInterval>2000</samplingInterval>
+                <loggingInterval>2000</loggingInterval>
+                <settings>
+                    <setting id="TIMEOUT">1000</setting>
+                </settings>
+            </channel>
+        </device>
     </driver>
 </configuration>
