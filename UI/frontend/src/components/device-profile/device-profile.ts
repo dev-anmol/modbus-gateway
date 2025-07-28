@@ -84,6 +84,9 @@ export class DeviceProfile implements OnInit, OnDestroy {
       this.sub3 = this.profileService.createDeviceProfile(profile).subscribe({
         next: (res) => {
           this.generateToast('Device Profile Created', this.successFlag);
+          setTimeout(() => {
+            this.router.navigate(['/profile']);
+          }, 800);
         },
         error: (err) => {
           console.log(err);

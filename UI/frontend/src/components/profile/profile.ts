@@ -10,15 +10,20 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
 import { ProfileModel } from '../../models/profile.type';
 import { Subscription } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [ToastModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
+  providers: [MessageService],
 })
 export class Profile implements OnInit, OnDestroy {
   private router = inject(Router);
+  private messageService = inject(MessageService);
+
   private profileService = inject(ProfileService);
   public deviceProfile: WritableSignal<ProfileModel[]> = signal([]);
   public header: WritableSignal<String[]> = signal([
@@ -30,6 +35,7 @@ export class Profile implements OnInit, OnDestroy {
   ]);
   public sub1!: Subscription;
   public sub2!: Subscription;
+  public successFlag!: boolean;
 
   ngOnInit(): void {
     this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
@@ -45,9 +51,11 @@ export class Profile implements OnInit, OnDestroy {
   }
 
   deleteDeviceProfile(Id: number) {
+    console.log("delete profile id")
     this.profileService.deleteDeviceProfile(Id).subscribe({
       next: (res) => {
-        console.log(res);
+        this.successFlag = true;
+        this.generateToast('Device Profile Deleted', this.successFlag);
         this.deviceProfile.update((profiles) =>
           profiles.filter((profile) => profile.Id !== Id)
         );
@@ -72,6 +80,16 @@ export class Profile implements OnInit, OnDestroy {
 
   handleNavigation() {
     this.router.navigate(['/profile/0']);
+  }
+
+  generateToast(msg: string, flag: boolean) {
+    console.log("toast")
+    this.messageService.add({
+      severity: flag ? 'success' : 'error',
+      summary: msg,
+      life: 3000,
+      closable: true,
+    });
   }
 
   ngOnDestroy(): void {
