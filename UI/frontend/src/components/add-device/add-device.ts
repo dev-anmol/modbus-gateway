@@ -10,11 +10,11 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Subscription } from 'rxjs';
+import { DeviceModel } from '../../models/device.type';
 import { ProfileModel } from '../../models/profile.type';
 import { DeviceService } from '../../services/device/device.service';
 import { ProfileService } from '../../services/profile/profile.service';
-import { Subscription } from 'rxjs';
-import { DeviceModel } from '../../models/device.type';
 
 @Component({
   selector: 'app-add-device',
@@ -81,7 +81,12 @@ export class AddDevice implements OnInit, OnDestroy {
     };
     this.sub3 = this.deviceService.updateDevice(this.id(), device).subscribe({
       next: (res) => {
-        this.router.navigate(['/device']);
+        this.successFlag = true;
+        this.generateToast('Device Updated Successfully', this.successFlag);
+
+        setTimeout(() => {
+          this.router.navigate(['/device']);
+        }, 800);
       },
       error: (error) => {
         console.log(error);
