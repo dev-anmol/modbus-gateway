@@ -14,16 +14,16 @@
                 </settings>
             </channel>
         </device>
-        <device id="test">
+        <device id="devTest2">
             <deviceAddress>127.0.0.1:505</deviceAddress>
             <settings>TCP</settings>
-            <channel id="test_B_19">
-                <channelAddress>2:HOLDING_REGISTERS:1002:INT16</channelAddress>
+            <channel id="devTest2_A_18">
+                <channelAddress>2:HOLDING_REGISTERS:1000:INT16</channelAddress>
                 <valueType>INTEGER</valueType>
-                <samplingInterval>2000</samplingInterval>
-                <loggingInterval>2000</loggingInterval>
+                <samplingInterval>1000</samplingInterval>
+                <loggingInterval>3000</loggingInterval>
                 <settings>
-                    <setting id="TIMEOUT">1000</setting>
+                    <setting id="TIMEOUT">3000</setting>
                 </settings>
             </channel>
         </device>

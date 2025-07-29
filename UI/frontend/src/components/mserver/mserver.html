@@ -2,7 +2,7 @@
     <div class="container-holder flex flex-col gap-14">
       <div class="flex justify-between items-end">
         <div class="flex flex-col gap-4">
-          <p class="text-xl font-semibold text-neutral-800">Server</p>
+          <p class="text-[16px] font-semibold text-neutral-800">Server</p>
           <div>
             <input
               type="text"
@@ -31,9 +31,9 @@
         >
           <tr class="text-neutral-700 text-center text-base font-semibold">
             @for (item of header(); track $index) {
-            <th class="py-3 px-2">{{ item }}</th>
+            <th class="py-3 px-2 text-xs">{{ item }}</th>
             }
-            <th class="py-3 px-2">Actions</th>
+            <th class="py-3 px-2 text-xs">Actions</th>
           </tr>
         </thead>
   

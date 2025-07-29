@@ -16,6 +16,11 @@ public class ModbusDataHolder {
     private final Map<Integer, Boolean> coils = new ConcurrentHashMap<>();
     private final Map<Integer, Boolean> discreteInputs = new ConcurrentHashMap<>();
 
+//    private final Map<String, Integer> holdingRegistersWithUnit = new ConcurrentHashMap<>();
+//    private final Map<String, Integer> inputRegistersWithUnit = new ConcurrentHashMap<>();
+//    private final Map<String, Boolean> coilsWithUnit = new ConcurrentHashMap<>();
+//    private final Map<String, Boolean> discreteInputsWithUnit = new ConcurrentHashMap<>();
+
     private ModbusDataHolder() {}
 
     /**
@@ -34,10 +39,16 @@ public class ModbusDataHolder {
         return channelData.get(channelId);
     }
 
-    // Holding Registers
+//     Holding Registers
     public void setHoldingRegister(int address, int value) {
         holdingRegisters.put(address, value);
     }
+
+//    public void setHoldingRegisterWithUnit(int unitId, int address, int value) {
+//        String key = unitId + ":" + address;
+//        holdingRegistersWithUnit.put(key, value);
+//    }
+
 
     public Integer getHoldingRegister(int address) {
         return holdingRegisters.get(address);

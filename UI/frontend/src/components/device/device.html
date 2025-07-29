@@ -2,7 +2,7 @@
   <div class="container-holder flex flex-col gap-14">
     <div class="flex justify-between items-end">
       <div class="flex flex-col gap-4">
-        <p class="text-xl font-semibold text-neutral-800">Device</p>
+        <p class="text-[16px] font-semibold text-neutral-800">Device</p>
         <div>
           <input
             type="text"
@@ -12,57 +12,63 @@
         </div>
       </div>
       <button
-      class= "bg-neutral-800 text-white/90 rounded-md px-4 py-2 text-xs cursor-pointer"
-      (click)="handleNavigation()">New</button>
+        class="bg-neutral-800 text-white/90 rounded-md px-4 py-2 text-xs cursor-pointer"
+        (click)="handleNavigation()"
+      >
+        New
+      </button>
     </div>
   </div>
 </div>
 
 <!-- device profile list -->
 <div
-  class="container-wrapper w-full overflow-x-auto flex items-center justify-center mt-8 rounded-xl"
+  class="container-wrapper w-full overflow-x-auto flex items-center justify-center mt-8"
 >
-  <div class="w-[90%] rounded-xl">
+  <div class="w-[90%]">
     <table
-      class="table table-sm w-full min-w-[600px] bg-white/90 rounded-xl shadow-lg border border-gray-200"
+      class="table table-sm w-full min-w-[600px] min-h-[200px] bg-white/90 shadow-lg border border-gray-200"
     >
       <thead
         class="bg-gradient-to-r from-neutral-200 to-neutral-50 border-b border-gray-200 text-xs"
       >
         <tr class="text-neutral-700 text-center text-base font-semibold">
           @for (item of header(); track $index) {
-          <th class="py-3 px-2">{{ item }}</th>
+          <th class="py-3 px-2 text-xs">{{ item }}</th>
           }
-          <th class="py-3 px-2">Actions</th>
+          <th class="py-3 px-2 text-xs">Actions</th>
         </tr>
       </thead>
 
-      <tbody class="text-center">
-        @for(device of this.devices(); track $index ) {
-        <tr
-          class="hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0"
-        >
-          <td class="py-2 px-2">{{ $index + 1 }}</td>
-          <td class="py-2 px-2">{{ device.Name }}</td>
-          <td class="py-2 px-2">{{ device.IPAddress }}</td>
-          <td class="py-2 px-2">{{ device.DeviceProfileId }}</td>
-          <td class="py-2 px-2">{{ device.Mode }}</td>
-          <td class="py-2 px-2 flex gap-2 justify-center">
-            <button
-              class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
-              (click)="navigateToManageDevice(device.Id)"
-              >
-              Manage Device
-            </button>
-
-            <button
-            class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
-            (click)="deleteDevice(device.Id)"
-            >
-            Delete
-          </button>
-          </td>
-        </tr>
+      <tbody class="text-center h-full w-full">
+        @if (this.devices().length === 0) {
+          <tr>
+            <td colspan="6" class="py-4 text-gray-400">No devices found.</td>
+          </tr>
+        } @else {
+          @for(device of this.devices(); track $index) {
+            <tr class="hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0">
+              <td class="py-2 px-2">{{ $index + 1 }}</td>
+              <td class="py-2 px-2">{{ device.Name }}</td>
+              <td class="py-2 px-2">{{ device.IPAddress }}</td>
+              <td class="py-2 px-2">{{ device.DeviceProfileId }}</td>
+              <td class="py-2 px-2">{{ device.Mode }}</td>
+              <td class="py-2 px-2 flex gap-2 justify-center">
+                <button
+                  class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
+                  (click)="navigateToManageDevice(device.Id)"
+                >
+                  Manage Device
+                </button>
+                <button
+                  class="bg-neutral-800 text-white/90 rounded-md px-4 py-1 text-xs cursor-pointer"
+                  (click)="deleteDevice(device.Id)"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          }
         }
       </tbody>
     </table>

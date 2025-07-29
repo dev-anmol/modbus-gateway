@@ -16,6 +16,8 @@ exports.getAddressMappings = async (req, res) => {
         if (data.recordset && data.recordset.length > 0) {
             const mappings = data.recordset;
             res.status(200).send(mappings);
+        } else {
+            res.status(204).send("No mapping Founds for the ");
         }
     } catch (err) {
         console.error('Error while fetching mappings', err);

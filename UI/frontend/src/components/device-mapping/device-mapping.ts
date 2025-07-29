@@ -83,6 +83,7 @@ export class DeviceMapping implements OnInit {
   getDeviceMappings() {
     this.mappingService.getAddressMappings(this.id()).subscribe({
       next: (res) => {
+        console.log('Initial response', res);
         const mapped = res.map((item: any) => ({
           id: item.Id,
           parameter: item.Parameter,
@@ -138,6 +139,8 @@ export class DeviceMapping implements OnInit {
   saveDeviceWithMappings() {
     const mappings = this.mappings();
 
+    console.log(mappings);
+
     for (let row of mappings) {
       if (
         !row.registerAddress ||
@@ -160,11 +163,12 @@ export class DeviceMapping implements OnInit {
       deviceProfileId: this.id(),
     }));
 
+    console.log('final payload', payload);
+
     this.mappingService
       .saveOrUpdateAddressMappings(this.id(), payload)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.successFlag = true;
           this.generateToast('Device Address Mapping Added', this.successFlag);
           setTimeout(() => this.router.navigate(['/profile']), 800);

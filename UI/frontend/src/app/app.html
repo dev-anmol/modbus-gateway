@@ -1,22 +1,25 @@
 <div class="min-h-screen bg-neutral-100 geist flex flex-col gap-10">
-  <!-- Header -->
-  <div>
-    <app-header></app-header>
+  <!-- Header with dynamic classes -->
+  <div class="w-full">
+    <div [class]="getHeaderClasses()">
+      <app-header></app-header>
+    </div>
   </div>
 
   <!-- Main content area -->
-  <div class="flex flex-1 overflow-hidden">
-    <!-- Sidebar (fixed width) -->
+  <div class="flex overflow-hidden">
     <app-sidebar
       [isOpen]="sidebarOpen()"
       [position]="'left'"
       (onToggle)="handleSidebarToggle($event)"
       (onClose)="handleSidebarClose()"
-      class="w-60 transition-all duration-300 md:block hidden"
+      class="transition-all duration-300 md:block hidden"
     ></app-sidebar>
 
-    <!-- Main content (flex-grow) -->
-    <div class="flex-1 text-neutral-700 p-8 text-sm overflow-auto">
+    <div
+      [class]="getMainContentClasses()"
+      class="text-neutral-700 p-8 text-sm overflow-auto"
+    >
       <router-outlet></router-outlet>
     </div>
   </div>
