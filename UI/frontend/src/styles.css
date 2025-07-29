@@ -1,73 +1,52 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-/* Tailwind Utility Classes */
-
-/* @layer utilities { */
-#container-wrapper {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 2rem 4rem;
-}
-
-.container-holder {
-  width: 70%;
-  padding: 1rem;
-}
-
-.device-mapping-wrapper {
-  width: 70%;
-  padding: 0.5rem;
-}
-
-.container-holder-mobile {
-  width: 100%;
-}
-.custom-input {
-  border-width: 1px;
-  border-color: rgba(82, 82, 82, 0.2); /* Tailwind's neutral-600 is #525252 */
-  padding-top: 0.1rem; /* py-2 */
-  padding-bottom: 0.1rem;
-  padding-left: 0.25rem; /* pl-1 */
-  outline: none; /* focus:outline-none */
-  font-size: 14px; /* text-md (usually 16px in Tailwind) */
-  font-weight: 400; /* font-normal */
-}
-
-.custom-input::placeholder {
-  color: #9ca3af; /* Tailwind's gray-400 */
-}
-
-@media (max-width: 640px) {
-  .container-holder {
+@layer utilities {
+  .container-wrapper {
     width: 100%;
   }
-}
 
-.geist {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500;
-  font-style: normal;
-}
+  .device-mapping-wrapper {
+    width: 70%;
+  }
 
-*::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+  .custom-input {
+    border-width: 1px;
+    border-color: rgba(82, 82, 82, 0.2); /* Tailwind's neutral-600 is #525252 */
+    padding-top: 0.1rem; /* py-2 */
+    padding-bottom: 0.1rem;
+    padding-left: 0.25rem; /* pl-1 */
+    outline: none; /* focus:outline-none */
+    font-size: 14px; /* text-md (usually 16px in Tailwind) */
+    font-weight: 400; /* font-normal */
+  }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #555555 #fff;
-}
+  .custom-input::placeholder {
+    color: #9ca3af; /* Tailwind's gray-400 */
+  }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.container-wrapper::-webkit-scrollbar {
-  display: none;
-}
+  .geist {
+    font-family: "Geist", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+  }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.container-wrapper {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  *::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #555555 #fff;
+  }
+
+  .container-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .container-wrapper {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }

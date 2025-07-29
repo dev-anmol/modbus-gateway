@@ -4,13 +4,12 @@ import { Injectable, signal, WritableSignal } from '@angular/core';
   providedIn: 'root',
 })
 export class Sidebar {
-  private _isSideBarOpen: WritableSignal<boolean> = signal(true);
+  private _isSideBarOpen: WritableSignal<boolean> = signal(false);
   readonly isSideBarOpen = this._isSideBarOpen.asReadonly();
 
   constructor() {}
 
-  updateState(state: boolean) {
-    this._isSideBarOpen.set(state)
-
+  updateState() {
+    this._isSideBarOpen.update((prev) => !prev);
   }
 }
