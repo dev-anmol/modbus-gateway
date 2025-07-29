@@ -28,35 +28,41 @@
             </td>
             <td>
               <input
-                type="text"
+                type="number"
                 class="custom-input"
                 [(ngModel)]="mapping.registerAddress"
                 placeholder="Register Address e.g 1001"
               />
             </td>
+            <!-- FIXED: Register Type with change handler -->
             <td>
               <select
                 class="focus:outline-none custom-input"
                 [(ngModel)]="mapping.registerType"
+                (change)="onRegisterTypeChange(mapping, idx)"
               >
+                <option value="">Select Register Type</option>
                 @for (register of registers(); track $index) {
                 <option [value]="register">{{ register }}</option>
                 }
               </select>
             </td>
+            <!-- FIXED: Dynamic Data Type Selection -->
             <td>
               <select
                 class="focus:outline-none custom-input"
                 [(ngModel)]="mapping.dataType"
+                [disabled]="!mapping.registerType"
               >
-                @for (datatype of dataTypes(); track $index) {
-                <option [value]="datatype">{{ datatype }}</option>
+                <option value="">Select Data Type</option>
+                @for (dataType of getAvailableDataTypes(mapping.registerType); track $index) {
+                <option [value]="dataType.value">{{ dataType.label }}</option>
                 }
               </select>
             </td>
             <td>
               <input
-                type="text"
+                type="number"
                 class="custom-input w-20"
                 [(ngModel)]="mapping.interval"
                 placeholder="in ms"
@@ -75,6 +81,19 @@
               </button>
             </td>
           </tr>
+          <!-- FIXED: Add validation hint row -->
+          @if (mapping.registerType) {
+          <tr>
+            <td colspan="7" class="text-xs text-gray-500 italic">
+              @if (mapping.registerType === 'COILS' || mapping.registerType === 'DISCRETE_INPUTS') {
+                ℹ️ Coils and Discrete Inputs only support Boolean values (true/false)
+              }
+              @if (mapping.registerType === 'HOLDING_REGISTERS' || mapping.registerType === 'INPUT_REGISTERS') {
+                ℹ️ Registers support numeric data types (integers, floats, etc.)
+              }
+            </td>
+          </tr>
+          }
           }
         </tbody>
       </table>

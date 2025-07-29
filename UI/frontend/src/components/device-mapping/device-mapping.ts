@@ -54,7 +54,8 @@ export class DeviceMapping implements OnInit {
     'Action',
   ]);
 
-  public dataTypes: WritableSignal<string[]> = signal([
+  // FIXED: Base data types (not used directly in template anymore)
+  public allDataTypes: WritableSignal<string[]> = signal([
     'BOOLEAN',
     'INT16',
     'UINT16',
@@ -100,6 +101,102 @@ export class DeviceMapping implements OnInit {
     });
   }
 
+  // FIXED: Dynamic data types based on register selection
+  getAvailableDataTypes(registerType: string): Array<{value: string, label: string}> {
+    switch (registerType?.toUpperCase()) {
+      case 'COILS':
+      case 'DISCRETE_INPUTS':
+        return [
+          { value: 'BOOLEAN', label: 'Boolean' }
+        ];
+      
+      case 'HOLDING_REGISTERS':
+      case 'INPUT_REGISTERS':
+        return [
+          { value: 'INT16', label: 'Integer 16-bit' },
+          { value: 'UINT16', label: 'Unsigned Integer 16-bit' },
+          { value: 'INT32', label: 'Integer 32-bit' },
+          { value: 'UINT32', label: 'Unsigned Integer 32-bit' },
+          { value: 'LONG', label: 'Long' },
+          { value: 'FLOAT', label: 'Float' },
+          { value: 'DOUBLE', label: 'Double' }
+        ];
+      
+      default:
+        return [];
+    }
+  }
+
+  // FIXED: Auto-set data type when register type changes
+  onRegisterTypeChange(mapping: DeviceMappingRow, index: number) {
+    const availableTypes = this.getAvailableDataTypes(mapping.registerType);
+    if (availableTypes.length > 0) {
+      // Auto-select the first valid data type
+      mapping.dataType = availableTypes[0].value;
+      
+      // Update the signal to trigger change detection
+      this.mappings.update((mappings) => {
+        const newMappings = [...mappings];
+        newMappings[index] = { ...mapping };
+        return newMappings;
+      });
+    }
+  }
+
+  // FIXED: Validation for register type and data type combination
+  private isValidCombination(registerType: string, dataType: string): boolean {
+    const coilTypes = ['COILS', 'DISCRETE_INPUTS'];
+    const registerTypes = ['HOLDING_REGISTERS', 'INPUT_REGISTERS'];
+    
+    if (coilTypes.includes(registerType?.toUpperCase())) {
+      return dataType?.toUpperCase() === 'BOOLEAN';
+    }
+    
+    if (registerTypes.includes(registerType?.toUpperCase())) {
+      return ['INT16', 'INT32', 'UINT16', 'UINT32', 'LONG', 'FLOAT', 'DOUBLE']
+        .includes(dataType?.toUpperCase());
+    }
+    
+    return false;
+  }
+
+  // FIXED: Enhanced validation
+  private validateMapping(mapping: DeviceMappingRow): { isValid: boolean; errors: string[] } {
+    const errors: string[] = [];
+    
+    if (!mapping.parameter?.trim()) {
+      errors.push('Parameter is required');
+    }
+    
+    if (!mapping.registerAddress?.trim()) {
+      errors.push('Register Address is required');
+    } else if (isNaN(Number(mapping.registerAddress))) {
+      errors.push('Register Address must be a number');
+    }
+    
+    if (!mapping.registerType) {
+      errors.push('Register Type is required');
+    }
+    
+    if (!mapping.dataType) {
+      errors.push('Data Type is required');
+    }
+    
+    if (!mapping.interval?.trim()) {
+      errors.push('Interval is required');
+    } else if (isNaN(Number(mapping.interval))) {
+      errors.push('Interval must be a number');
+    }
+    
+    // Check valid combination
+    if (mapping.registerType && mapping.dataType && 
+        !this.isValidCombination(mapping.registerType, mapping.dataType)) {
+      errors.push(`Invalid combination: ${mapping.registerType} with ${mapping.dataType}`);
+    }
+    
+    return { isValid: errors.length === 0, errors };
+  }
+
   addRow() {
     this.mappings.update((mappings) => [
       ...mappings,
@@ -121,6 +218,7 @@ export class DeviceMapping implements OnInit {
       newMappings.splice(index, 1);
       return newMappings;
     });
+    
     if (mappingId) {
       this.mappingService.deleteAddressMapping(mappingId).subscribe({
         next: (response) => {
@@ -136,21 +234,26 @@ export class DeviceMapping implements OnInit {
     }
   }
 
+  // FIXED: Enhanced validation in save method
   saveDeviceWithMappings() {
     const mappings = this.mappings();
-
     console.log(mappings);
 
-    for (let row of mappings) {
-      if (
-        !row.registerAddress ||
-        !row.dataType ||
-        !row.parameter ||
-        !row.registerType
-      ) {
-        this.generateWarning('Please fill all required fields');
-        return;
+    // Validate all mappings
+    const validationErrors: string[] = [];
+    let hasErrors = false;
+
+    for (let i = 0; i < mappings.length; i++) {
+      const validation = this.validateMapping(mappings[i]);
+      if (!validation.isValid) {
+        hasErrors = true;
+        validationErrors.push(`Row ${i + 1}: ${validation.errors.join(', ')}`);
       }
+    }
+
+    if (hasErrors) {
+      this.generateWarning('Validation Errors:\n' + validationErrors.join('\n'));
+      return;
     }
 
     const payload = mappings.map((row: any) => ({
@@ -185,7 +288,7 @@ export class DeviceMapping implements OnInit {
     this.messageService.add({
       severity: flag ? 'success' : 'error',
       summary: msg,
-      detail: 'Invalid Fields',
+      detail: flag ? 'Success' : 'Error occurred',
       life: 3000,
       closable: true,
     });
@@ -194,9 +297,9 @@ export class DeviceMapping implements OnInit {
   generateWarning(msg: string) {
     this.messageService.add({
       severity: 'warn',
-      summary: msg,
-      detail: 'Invalid Fields',
-      life: 3000,
+      summary: 'Validation Warning',
+      detail: msg,
+      life: 5000,
       closable: true,
     });
   }
