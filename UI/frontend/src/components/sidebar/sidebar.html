@@ -8,10 +8,13 @@
   [class.right-0]="position() === 'right'"
   [style.width]="width()"
 >
-  <div
-    class="flex items-center justify-between p-6 border-b border-white/20"
-  >
-    <p class="text-lg font-bold cursor-pointer text-neutral-800" [routerLink]="'/'">RightWatts</p>
+  <div class="flex items-center justify-between p-6 border-b border-white/20">
+    <p
+      class="text-lg font-bold cursor-pointer text-neutral-700"
+      [routerLink]="'/'"
+    >
+      RightWatts
+    </p>
     <button
       (click)="closeSidebar()"
       class="p-2 rounded-lg hover:bg-slate-700/50 transition-colors duration-200 group"
@@ -40,25 +43,11 @@
         (click)="handleNavigation('device')"
         class="flex border border-neutral-600/20 items-center cursor-pointer space-x-3 px-4 py-3 rounded-lg hover:bg-neutral-300 transition-all duration-200 group"
       >
-        <svg
-          class="w-5 h-5 text-neutral-600 group-hover:text-blue-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
-          ></path>
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"
-          ></path>
-        </svg>
+        <lucide-angular
+          [img]="DeviceIcon"
+          class="my-icon text-neutral-600"
+          [size]="16"
+        ></lucide-angular>
         <span class="text-sm text-neutral-700">Modbus Device</span>
       </a>
 
@@ -66,50 +55,25 @@
         (click)="handleNavigation('profile')"
         class="flex border border-neutral-600/20 items-center cursor-pointer space-x-3 px-4 py-3 rounded-lg hover:bg-neutral-300 transition-all duration-200 group"
       >
-        <svg
-          class="w-5 h-5 text-neutral-600 group-hover:text-blue-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
-          ></path>
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"
-          ></path>
-        </svg>
+        <lucide-angular
+          [img]="ProfileIcon"
+          class="my-icon text-neutral-600"
+          [size]="16"
+        ></lucide-angular>
         <span class="text-sm text-neutral-700">Device Profile</span>
       </a>
-
 
       <a
         (click)="handleNavigation('modbus-server')"
         class="border border-neutral-600/20 flex items-center cursor-pointer space-x-3 px-4 py-3 rounded-lg hover:bg-neutral-300 transition-all duration-200 group"
       >
-        <svg
-          class="w-5 h-5 text-neutral-600 group-hover:text-green-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-          ></path>
-        </svg>
+        <lucide-angular
+          [img]="ServerIcon"
+          class="my-icon text-neutral-600"
+          [size]="16"
+        ></lucide-angular>
         <span class="text-sm text-neutral-700">Openmuc Server</span>
       </a>
-
-      
     </nav>
   </div>
 </div>

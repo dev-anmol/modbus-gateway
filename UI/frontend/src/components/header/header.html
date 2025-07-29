@@ -1,10 +1,18 @@
-<div #header class="p-4 fixed flex text-sm items-center justify-center text-center w-full z-40">
-    <div class="w-full md:w-[50%] z-40 rounded-xl px-8 py-3 flex items-center bg-neutral-200/50 justify-between text-neutral-700 backdrop-blur-sm shadow-md">
-      <div class="cursor-pointer">
-        Modbus Gateway
+<div
+  #header
+  class="p-4 fixed flex text-sm items-center justify-center text-center w-full z-40"
+>
+  <div
+    class="w-full md:w-[50%] z-40 rounded-xl px-8 py-3 flex items-center bg-neutral-200/50 justify-between text-neutral-700 backdrop-blur-sm shadow-md"
+  >
+    <div class="flex items-center gap-4">
+      <div class="block md:hidden">
+        <lucide-angular [img]="Menu" [size]="18"></lucide-angular>
       </div>
 
-      <div class="cursor-pointer">OpenMUC</div>
+      <div class="cursor-pointer">Modbus Gateway</div>
     </div>
+
+    <div class="cursor-pointer">OpenMUC</div>
   </div>
-  
+</div>

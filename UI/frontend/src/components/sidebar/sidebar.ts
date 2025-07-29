@@ -1,15 +1,23 @@
 import { Component, signal, input, output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import {LucideAngularModule, Server, NotebookIcon, Monitor} from 'lucide-angular'
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css'
 })
 export class Sidebar {
+
+  readonly ServerIcon  = Server;
+  readonly ProfileIcon = NotebookIcon;
+  readonly DeviceIcon = Monitor;
+
+
+
   isOpen = input<boolean>(true);
   position = input<'left' | 'right'>('left');
   width = input<string>('230px');
