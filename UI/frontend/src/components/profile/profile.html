@@ -3,7 +3,7 @@
   <div class="container-holder flex flex-col gap-14">
     <div class="flex justify-between items-end">
       <div class="flex flex-col gap-4">
-        <p class="text-[16px] font-semibold text-neutral-800">Device Profile</p>
+        <p class="text-[16px] font-semibold text-neutral-700">Device Profile</p>
         <div>
           <input
             type="text"
@@ -24,16 +24,16 @@
 
 <!-- device profile list -->
 <div
-  class="container-wrapper w-full overflow-x-auto flex items-center justify-center mt-8 rounded-xl"
+  class="container-wrapper w-full overflow-x-auto flex items-center justify-center mt-8"
 >
-  <div class="w-[90%] rounded-xl">
+  <div class="w-[90%]">
     <table
-      class="table table-sm w-full min-w-[600px] min-h-[200px] bg-white/90 rounded-xl shadow-lg border border-gray-200"
+      class="table table-sm w-full min-w-[600px] bg-white/90 border border-gray-200"
     >
       <thead
         class="bg-gradient-to-r from-neutral-200 to-neutral-50 border-b border-gray-200"
       >
-        <tr class="text-neutral-700 text-center">
+        <tr class="text-neutral-600 text-center">
           @for (item of header(); track $index) {
           <th class="py-3 px-2 text-xs">{{ item }}</th>
           }
@@ -41,7 +41,7 @@
         </tr>
       </thead>
 
-      <tbody class="text-center h-full w-full">
+      <tbody class="text-center">
         @if(this.deviceProfile().length === 0) {
         <tr>
           <td colspan="6" class="py-4 text-gray-400">No Profile found.</td>
