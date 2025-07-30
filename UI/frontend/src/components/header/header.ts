@@ -22,13 +22,17 @@ import {
 } from 'lucide-angular';
 import { Sidebar } from '../../services/global/sidebar';
 import { Router } from '@angular/router';
+import { Updateconfig } from '../../services/updateconfig';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 gsap.registerPlugin(ScrollTrigger); // Register once
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.html',
-  imports: [LucideAngularModule],
-  styleUrls: ['./header.css'], // Corrected
+  imports: [LucideAngularModule, ToastModule],
+  styleUrls: ['./header.css'],
+  providers: [MessageService]
 })
 export class Header implements AfterViewInit, OnDestroy {
   readonly Menu = MenuIcon;
@@ -39,7 +43,10 @@ export class Header implements AfterViewInit, OnDestroy {
   @ViewChild('header') headerRef!: ElementRef;
   private sidebarService = inject(Sidebar);
   private router = inject(Router);
+  private updateConfigService = inject(Updateconfig);
+  private messageService = inject(MessageService);
   private gsapContext!: gsap.Context;
+  public successFlag : boolean = false;
   public isMobile = computed(() => this.sidebarService.isSideBarOpen());
   constructor(@Inject(PLATFORM_ID) private platfromId: Object) {}
 
@@ -69,6 +76,32 @@ export class Header implements AfterViewInit, OnDestroy {
         });
       }, this.headerRef.nativeElement);
     }
+  }
+
+  updateOpenMUCConfigurations() {
+    console.log("triggered")
+    this.updateConfigService.restartApplication().subscribe({
+      next: (response) => {
+        this.successFlag = true;
+        console.log(response);
+        this.generateToast('Configuration updated successfully', this.successFlag)
+      },
+      error: (error) => {
+        this.successFlag = false;
+        this.generateToast('Error Updating Configurations', this.successFlag)
+      },
+    });
+  }
+
+
+  generateToast(msg:string, flag : boolean) {
+    this.messageService.add({
+      severity: flag ? 'success' : 'error',
+      summary: msg,
+      life: 3000,
+      closable: true,
+    })
+
   }
 
   ngOnDestroy(): void {

@@ -101,13 +101,11 @@ public class ModbusDataReaderService {
                 && !device.getSamplingInterval().isEmpty();
     }
 
-    // FIXED: Wrap in safety method to prevent task failure
     private void readDeviceDataSafely(Device device, List<Mapping> mappingList) {
         try {
             readDeviceData(device, mappingList);
         } catch (Exception e) {
             logger.error("Error reading device data for {} (will retry): {}", device.getName(), e.getMessage());
-            // Task continues running for next iteration
         }
     }
 
@@ -169,8 +167,10 @@ public class ModbusDataReaderService {
                 case "HOLDING_REGISTERS":
                     Integer holdingRegValue = extractIntValue(value);
                     if (holdingRegValue != null) {
-                        dataStore.setHoldingRegister(address, holdingRegValue);
-                        logger.debug("Set holding register {}: {}", address, holdingRegValue);
+                        // FIXED: Store with unit ID context
+                        dataStore.setHoldingRegisterForUnit(unitId, address, holdingRegValue);
+                        logger.debug("Set holding register {} for unit {} with value {}",
+                                address, unitId, holdingRegValue);
                     } else {
                         logger.warn("Cannot extract integer from value for register {}: {}", address, value.getClass());
                     }
@@ -179,7 +179,9 @@ public class ModbusDataReaderService {
                 case "INPUT_REGISTERS":
                     Integer inputRegValue = extractIntValue(value);
                     if (inputRegValue != null) {
-                        dataStore.setInputRegister(address, inputRegValue);
+                        dataStore.setInputRegisterForUnit(unitId, address, inputRegValue);
+                        logger.debug("Set input register {} for unit {} with value {}",
+                                address, unitId, inputRegValue);
                     } else {
                         logger.warn("Invalid value type for input register {}: {}", address, value.getClass());
                     }
@@ -188,7 +190,9 @@ public class ModbusDataReaderService {
                 case "COILS":
                     Boolean coilRegValue = extractBoolValue(value);
                     if (coilRegValue != null) {
-                        dataStore.setCoil(address, coilRegValue);
+                        dataStore.setCoilForUnit(unitId, address, coilRegValue);
+                        logger.debug("Set coil {} for unit {} with value {}",
+                                address, unitId, coilRegValue);
                     } else {
                         logger.warn("Invalid value type for coil {}: {}", address, value.getClass());
                     }
@@ -197,7 +201,9 @@ public class ModbusDataReaderService {
                 case "DISCRETE_INPUTS":
                     Boolean discreteRegValue = extractBoolValue(value);
                     if (discreteRegValue != null) {
-                        dataStore.setDiscreteInput(address, discreteRegValue);
+                        dataStore.setDiscreteInputForUnit(unitId, address, discreteRegValue);
+                        logger.debug("Set discrete input {} for unit {} with value {}",
+                                address, unitId, discreteRegValue);
                     } else {
                         logger.warn("Invalid value type for discrete input {}: {}", address, value.getClass());
                     }

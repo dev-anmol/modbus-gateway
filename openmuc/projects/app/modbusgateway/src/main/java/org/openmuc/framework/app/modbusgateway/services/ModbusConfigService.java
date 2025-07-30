@@ -102,6 +102,31 @@ public class ModbusConfigService {
         }
     }
 
+    public static void refreshConfiguration() {
+        logger.info("Refreshing Modbus gateway configuration...");
+
+        try {
+            // Fetch latest data from APIs
+            deviceList = getDeviceData();
+            profileList = getProfileData();
+            mappingList = getMappingData();
+            serverList = getServerData();
+
+            // Regenerate channels.xml
+            if (deviceList != null && profileList != null && mappingList != null) {
+                generateChannelsXml();
+                logger.info("Configuration refreshed successfully - channels.xml updated");
+            } else {
+                logger.error("Failed to refresh configuration - missing data from APIs");
+                throw new RuntimeException("Configuration refresh failed: Missing required data");
+            }
+        } catch (Exception e) {
+            logger.error("Error during configuration refresh: {}", e.getMessage(), e);
+            throw new RuntimeException("Configuration refresh failed: " + e.getMessage());
+        }
+    }
+
+
     public static List<Profile> getProfileData() {
         logger.info("Get Profile Data Method Activated");
         try {

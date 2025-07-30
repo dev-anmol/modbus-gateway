@@ -26,7 +26,6 @@ dependencies {
     // OpenMUC bundles
     //------------------------------------------------------------------------------------------------------
 //**************************************
-    osgibundles group: 'org.openmuc.framework', name: 'openmuc-datalogger-sql', version: openmucVersion
 
     //add your database engine specific bundle for h2 or postgresql here:
     osgibundles group: 'org.postgresql', name: 'postgresql', version: '42.7.2'

@@ -145,13 +145,7 @@ public class ModbusServer {
 
     private void createModbusServer(Server serverConfig) throws Exception {
         String serverKey = serverConfig.getName();
-
         logger.info("Creating Modbus server: {} on port {}", serverKey, serverConfig.getPort());
-
-        DynamicProcessImage processImage = new DynamicProcessImage(serverKey);
-        processImages.put(serverKey, processImage);
-
-        initializeProcessImageForServer(processImage, serverConfig);
 
         ModbusSlave modbusSlave = ModbusSlaveFactory.createTCPSlave(
                 InetAddress.getByName(serverConfig.getIPAddress()),
@@ -161,84 +155,113 @@ public class ModbusServer {
         );
 
         Set<Integer> unitIds = getUnitIdsForServer(serverConfig);
+
+        // FIXED: Create separate process image for each unit ID
         for (Integer unitId : unitIds) {
+            String imageKey = serverKey + "_unit" + unitId;
+            DynamicProcessImage processImage = new DynamicProcessImage(imageKey);
+            processImages.put(imageKey, processImage);
+
+            // Initialize process image for this specific unit ID
+            initializeProcessImageForUnit(processImage, serverConfig, unitId);
+
             modbusSlave.addProcessImage(unitId, processImage);
-            logger.info("Added process image for server {} with unit ID {}", serverKey, unitId);
+            logger.info("Added separate process image for server {} with unit ID {}", serverKey, unitId);
         }
 
         modbusSlave.open();
         activeServers.put(serverKey, modbusSlave);
-
         logger.info("Successfully started Modbus server: {} on {}:{}",
                 serverKey, serverConfig.getIPAddress(), serverConfig.getPort());
     }
 
-    private void initializeProcessImageForServer(DynamicProcessImage processImage, Server serverConfig) {
+    private void initializeProcessImageForUnit(DynamicProcessImage processImage, Server serverConfig, int unitId) {
         if (deviceConfigs == null || deviceConfigs.isEmpty() ||
                 mappingConfigs == null || mappingConfigs.isEmpty()) {
-            logger.warn("Empty device/mapping list – skipping process-image setup");
+            logger.warn("Empty device/mapping list – skipping process-image setup for unit {}", unitId);
             return;
         }
 
-        String serverKey = serverConfig.getName();
-        Set<Integer> serverRegisters = serverToRegistersMapping.get(serverKey);
-
-        List<Device> relevantDevices = getDevicesForServer(serverConfig);
-
-        for (Device device : relevantDevices) {
-            List<Mapping> deviceMappings = getMappingsForDevice(device);
-
-            for (Mapping mapping : deviceMappings) {
-                int address = Integer.parseInt(mapping.getRegisterAddress());
-                serverRegisters.add(address);
-
-                // Initialize with current data from holder if available
-                String channelId = device.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
-                Object currentValue = dataHolder.getChannelData(channelId);
-
-                switch (mapping.getRegisterType().toLowerCase()) {
-                    case "holding_registers":
-                        int holdingValue = 0;
-                        if (currentValue instanceof Number) {
-                            holdingValue = ((Number) currentValue).intValue();
-                        }
-                        processImage.initializeHoldingRegister(address, holdingValue);
-                        // Also update the data holder register mapping
-                        dataHolder.setHoldingRegister(address, holdingValue);
-                        break;
-
-                    case "input_registers":
-                        int inputValue = 0;
-                        if (currentValue instanceof Number) {
-                            inputValue = ((Number) currentValue).intValue();
-                        }
-                        processImage.initializeInputRegister(address, inputValue);
-                        dataHolder.setInputRegister(address, inputValue);
-                        break;
-
-                    case "coils":
-                        boolean coilValue = false;
-                        if (currentValue instanceof Boolean) {
-                            coilValue = (Boolean) currentValue;
-                        }
-                        processImage.initializeCoil(address, coilValue);
-                        dataHolder.setCoil(address, coilValue);
-                        break;
-
-                    case "discrete_inputs":
-                        boolean discreteValue = false;
-                        if (currentValue instanceof Boolean) {
-                            discreteValue = (Boolean) currentValue;
-                        }
-                        processImage.initializeDiscreteInput(address, discreteValue);
-                        dataHolder.setDiscreteInput(address, discreteValue);
-                        break;
-                }
-
-                logger.info("Initialized {} register at address {} with value {} for device {}",
-                        mapping.getRegisterType(), address, currentValue, device.getName());
+        // Find the device for this unit ID
+        Device targetDevice = null;
+        for (Device device : deviceConfigs) {
+            if (device.getUnitId() == unitId) {
+                targetDevice = device;
+                break;
             }
         }
+
+        if (targetDevice == null) {
+            logger.warn("No device found for unit ID {}", unitId);
+            return;
+        }
+
+        List<Mapping> deviceMappings = getMappingsForDevice(targetDevice);
+        for (Mapping mapping : deviceMappings) {
+            int address = Integer.parseInt(mapping.getRegisterAddress());
+
+            // Get unit-specific data
+            String channelId = targetDevice.getName() + "_" + mapping.getParameter() + "_" + mapping.getId();
+            Object currentValue = dataHolder.getChannelData(channelId);
+
+            switch (mapping.getRegisterType().toLowerCase()) {
+                case "holding_registers":
+                    int holdingValue = extractIntValueFromObject(currentValue, 0);
+                    processImage.initializeHoldingRegister(address, holdingValue);
+                    dataHolder.setHoldingRegisterForUnit(unitId, address, holdingValue);
+                    break;
+
+                case "input_registers":
+                    int inputValue = extractIntValueFromObject(currentValue, 0);
+                    processImage.initializeInputRegister(address, inputValue);
+                    dataHolder.setInputRegisterForUnit(unitId, address, inputValue);
+                    break;
+
+                case "coils":
+                    boolean coilValue = extractBoolValueFromObject(currentValue, false);
+                    processImage.initializeCoil(address, coilValue);
+                    dataHolder.setCoilForUnit(unitId, address, coilValue);
+                    break;
+
+                case "discrete_inputs":
+                    boolean discreteValue = extractBoolValueFromObject(currentValue, false);
+                    processImage.initializeDiscreteInput(address, discreteValue);
+                    dataHolder.setDiscreteInputForUnit(unitId, address, discreteValue);
+                    break;
+            }
+
+            logger.info("Initialized {} register at address {} with value {} for unit ID {}",
+                    mapping.getRegisterType(), address, currentValue, unitId);
+        }
+    }
+
+    // FIXED: Helper methods to extract values with defaults (no hardcoded values)
+    private int extractIntValueFromObject(Object value, int defaultValue) {
+        if (value instanceof Number) {
+            return ((Number) value).intValue();
+        }
+        if (value instanceof org.openmuc.framework.data.Value) {
+            try {
+                return ((org.openmuc.framework.data.Value) value).asInt();
+            } catch (Exception e) {
+                logger.debug("Cannot convert OpenMUC value to int: {}", e.getMessage());
+            }
+        }
+        return defaultValue;
+    }
+
+    private boolean extractBoolValueFromObject(Object value, boolean defaultValue) {
+        if (value instanceof Boolean) {
+            return (Boolean) value;
+        }
+        if (value instanceof org.openmuc.framework.data.Value) {
+            try {
+                return ((org.openmuc.framework.data.Value) value).asBoolean();
+            } catch (Exception e) {
+                logger.debug("Cannot convert OpenMUC value to boolean: {}", e.getMessage());
+            }
+        }
+        return defaultValue;
     }
 
     private Set<Integer> getUnitIdsForServer(Server serverConfig) {
@@ -389,39 +412,70 @@ public class ModbusServer {
 
     private void synchronizeRegistersToProcessImages() {
         for (Map.Entry<String, DynamicProcessImage> entry : processImages.entrySet()) {
-            String serverKey = entry.getKey();
+            String imageKey = entry.getKey();
             DynamicProcessImage processImage = entry.getValue();
 
             try {
-                // Synchronize holding registers
-                Map<Integer, Integer> holdingRegs = dataHolder.getAllHoldingRegisters();
-                for (Map.Entry<Integer, Integer> regEntry : holdingRegs.entrySet()) {
-                    processImage.updateHoldingRegister(regEntry.getKey(), regEntry.getValue());
-                }
+                // Extract unit ID from image key (e.g., "server1_unit1" -> 1)
+                int unitId = extractUnitIdFromImageKey(imageKey);
 
-                // Synchronize coils
-                Map<Integer, Boolean> coils = dataHolder.getAllCoils();
-                for (Map.Entry<Integer, Boolean> coilEntry : coils.entrySet()) {
-                    processImage.updateCoil(coilEntry.getKey(), coilEntry.getValue());
-                }
-
-                // Synchronize input registers
-//                Map<Integer, Integer> inputRegs = dataHolder.getAllInputRegisters();
-//                for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
-//                    processImage.updateInputRegister(regEntry.getKey(), regEntry.getValue());
-//                }
-//
-//                // Synchronize discrete inputs
-//                Map<Integer, Boolean> discreteInputs = dataHolder.getAllDiscreteInputs();
-//                for (Map.Entry<Integer, Boolean> diEntry : discreteInputs.entrySet()) {
-//                    processImage.updateDiscreteInput(diEntry.getKey(), diEntry.getValue());
-//                }
+                // Synchronize unit-specific data
+                synchronizeUnitDataToProcessImage(processImage, unitId);
 
             } catch (Exception e) {
-                logger.error("Error synchronizing data for server {}: {}", serverKey, e.getMessage());
+                logger.error("Error synchronizing data for image {}: {}", imageKey, e.getMessage());
             }
         }
     }
+
+    // FIXED: Helper method to extract unit ID from image key (no hardcoded values)
+    private int extractUnitIdFromImageKey(String imageKey) {
+        try {
+            String[] parts = imageKey.split("_unit");
+            if (parts.length == 2) {
+                return Integer.parseInt(parts[1]);
+            }
+        } catch (NumberFormatException e) {
+            logger.warn("Cannot extract unit ID from image key: {}", imageKey);
+        }
+        // Return the first available unit ID instead of hardcoded 1
+        if (deviceConfigs != null && !deviceConfigs.isEmpty()) {
+            return deviceConfigs.get(0).getUnitId();
+        }
+        return 1; // Last resort default
+    }
+
+    // FIXED: Synchronize unit-specific data to process image
+    private void synchronizeUnitDataToProcessImage(DynamicProcessImage processImage, int unitId) {
+        // Synchronize holding registers for this unit
+        Map<Integer, Integer> holdingRegs = dataHolder.getHoldingRegistersForUnit(unitId);
+        for (Map.Entry<Integer, Integer> regEntry : holdingRegs.entrySet()) {
+            processImage.updateHoldingRegister(regEntry.getKey(), regEntry.getValue());
+        }
+
+        // Synchronize coils for this unit
+        Map<Integer, Boolean> coils = dataHolder.getCoilsForUnit(unitId);
+        for (Map.Entry<Integer, Boolean> coilEntry : coils.entrySet()) {
+            processImage.updateCoil(coilEntry.getKey(), coilEntry.getValue());
+        }
+
+        // Synchronize input registers for this unit
+        Map<Integer, Integer> inputRegs = dataHolder.getInputRegistersForUnit(unitId);
+        for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
+            // Add updateInputRegister method to DynamicProcessImage if needed
+            logger.debug("Input register {} for unit {} has value {}",
+                    regEntry.getKey(), unitId, regEntry.getValue());
+        }
+
+        // Synchronize discrete inputs for this unit
+        Map<Integer, Boolean> discreteInputs = dataHolder.getDiscreteInputsForUnit(unitId);
+        for (Map.Entry<Integer, Boolean> diEntry : discreteInputs.entrySet()) {
+            // Add updateDiscreteInput method to DynamicProcessImage if needed
+            logger.debug("Discrete input {} for unit {} has value {}",
+                    diEntry.getKey(), unitId, diEntry.getValue());
+        }
+    }
+
 
     @Deactivate
     private void deactivate() {

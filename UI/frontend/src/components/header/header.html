@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div
   #header
   class="p-4 fixed flex text-sm items-center justify-center text-center w-full z-40"
@@ -13,12 +14,21 @@
       <div class="cursor-pointer">Modbus Gateway</div>
     </div>
 
-    <div class="cursor-pointer">OpenMUC</div>
+    <div>
+      <button
+        class="text-xs font-semibold rounded-md px-3 py-1 cursor-pointer tracking-wide border border-white/20 bg-neutral-800 text-neutral-200 hover:bg-neutral-800 duration-300"
+        (click)="updateOpenMUCConfigurations()"
+      >
+      update config
+      </button>
+    </div>
   </div>
 </div>
 
 @if (isMobile()) {
-<div class="bg-white p-4 rounded-lg absolute top-20 z-50 left-5 transition-all delay-300">
+<div
+  class="bg-white p-4 rounded-lg absolute top-20 z-50 left-5 transition-all delay-300"
+>
   <nav class="space-y-2">
     <a
       (click)="handleNavigation('device'); handleToggle()"

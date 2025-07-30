@@ -2340,63 +2340,907 @@ org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
 2025-07-28 15:06:47.193494+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.079543+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.754303+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.099492+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.101485+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.104479+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.106476+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.108467+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.109463+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.110460+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.112455+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.113454+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.114452+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.115448+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.763825+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.116444+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.118443+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.121432+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.123447+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.124423+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.126418+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.126418+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.128413+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.129410+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.130408+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.132402+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.779463+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.133400+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.134416+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.137391+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.138387+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.139384+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.140381+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
-2025-07-28 16:44:46.142376+05:30 jdbc[3]: exception
+2025-07-28 16:32:39.795088+05:30 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:19.132381+05:30 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:374)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1292)
+	at org.h2.engine.Database.closeImpl(Database.java:1254)
+	at org.h2.engine.Database.close(Database.java:1173)
+	at org.h2.engine.Database.onShutdown(Database.java:1158)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator [2.3.232/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:926)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:890)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:693)
+	at org.h2.mvstore.MVStore.close(MVStore.java:643)
+	at org.h2.mvstore.db.Store.close(Store.java:364)
+	... 6 more
+Caused by: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator
+	at org.h2.mvstore.RandomAccessStore.findChunksToMove(RandomAccessStore.java:516)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:479)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1893)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
+	... 13 more
+Caused by: java.lang.ClassNotFoundException: Unable to load class 'org.h2.mvstore.Chunk$PositionComparator' because the bundle wiring for com.h2database is no longer valid.
+	at org.apache.felix.framework.BundleWiringImpl.findClassOrResourceByDelegation(BundleWiringImpl.java:1542)
+	at org.apache.felix.framework.BundleWiringImpl.access$300(BundleWiringImpl.java:79)
+	at org.apache.felix.framework.BundleWiringImpl$BundleClassLoader.loadClass(BundleWiringImpl.java:1976)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	... 18 more
+2025-07-28 16:35:36.441180+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.452152+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.453148+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.454145+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.455142+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.456139+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.457137+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.458134+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.459131+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.460129+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.460129+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.461126+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.462124+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.463121+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.463121+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.465116+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.466114+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.466114+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.467110+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.468109+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.469106+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.469106+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.470103+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.470103+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.471101+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.471101+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.472096+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.473095+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.473095+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:35:36.474092+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:36:10.550198+05:30 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:374)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1292)
+	at org.h2.engine.Database.closeImpl(Database.java:1254)
+	at org.h2.engine.Database.close(Database.java:1173)
+	at org.h2.engine.Database.onShutdown(Database.java:1158)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator [2.3.232/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:926)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:890)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:693)
+	at org.h2.mvstore.MVStore.close(MVStore.java:643)
+	at org.h2.mvstore.db.Store.close(Store.java:364)
+	... 6 more
+Caused by: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator
+	at org.h2.mvstore.RandomAccessStore.findChunksToMove(RandomAccessStore.java:516)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:479)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1893)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
+	... 13 more
+Caused by: java.lang.ClassNotFoundException: Unable to load class 'org.h2.mvstore.Chunk$PositionComparator' because the bundle wiring for com.h2database is no longer valid.
+	at org.apache.felix.framework.BundleWiringImpl.findClassOrResourceByDelegation(BundleWiringImpl.java:1542)
+	at org.apache.felix.framework.BundleWiringImpl.access$300(BundleWiringImpl.java:79)
+	at org.apache.felix.framework.BundleWiringImpl$BundleClassLoader.loadClass(BundleWiringImpl.java:1976)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	... 18 more
+2025-07-28 16:38:21.358480+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.369450+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.369450+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.370448+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.370448+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.371445+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.372443+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.372443+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.373440+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.374438+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.374438+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.375435+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.375435+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.376432+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.377429+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.378428+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.378428+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.379426+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.380423+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.380423+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.381420+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.381420+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.382418+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.382418+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.383415+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.383415+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.384413+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.384413+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.385413+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:38:21.385413+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.503811+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.511790+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.512789+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.513786+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.513786+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.514783+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.515780+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.515780+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.516778+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.517775+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.518773+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.518773+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.519770+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.520766+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.521764+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.523759+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.524756+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.525753+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.526751+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.526751+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.527748+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.528745+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.529743+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.529743+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.530740+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.531737+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.532736+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.533732+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.533732+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:40:14.534730+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:41:40.864268+05:30 database: close
+org.h2.message.DbException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.mvstore.db.Store.close(Store.java:374)
+	at org.h2.engine.Database.closeOpenFilesAndUnlock(Database.java:1292)
+	at org.h2.engine.Database.closeImpl(Database.java:1254)
+	at org.h2.engine.Database.close(Database.java:1173)
+	at org.h2.engine.Database.onShutdown(Database.java:1158)
+	at org.h2.engine.OnExitDatabaseCloser.onShutdown(OnExitDatabaseCloser.java:85)
+	at org.h2.engine.OnExitDatabaseCloser.run(OnExitDatabaseCloser.java:114)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: IO Exception: "Closing" [90028-232]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 8 more
+Caused by: org.h2.mvstore.MVStoreException: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator [2.3.232/3]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:996)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:926)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:463)
+	at org.h2.mvstore.RandomAccessStore.compactStore(RandomAccessStore.java:443)
+	at org.h2.mvstore.FileStore.compactStore(FileStore.java:890)
+	at org.h2.mvstore.FileStore.stop(FileStore.java:275)
+	at org.h2.mvstore.MVStore.closeStore(MVStore.java:693)
+	at org.h2.mvstore.MVStore.close(MVStore.java:643)
+	at org.h2.mvstore.db.Store.close(Store.java:364)
+	... 6 more
+Caused by: java.lang.NoClassDefFoundError: org/h2/mvstore/Chunk$PositionComparator
+	at org.h2.mvstore.RandomAccessStore.findChunksToMove(RandomAccessStore.java:516)
+	at org.h2.mvstore.RandomAccessStore.compactMoveChunks(RandomAccessStore.java:479)
+	at org.h2.mvstore.RandomAccessStore.lambda$compactMoveChunks$1(RandomAccessStore.java:468)
+	at org.h2.mvstore.FileStore.executeFileStoreOperation(FileStore.java:1893)
+	at org.h2.mvstore.MVStore.executeFilestoreOperation(MVStore.java:922)
+	... 13 more
+Caused by: java.lang.ClassNotFoundException: Unable to load class 'org.h2.mvstore.Chunk$PositionComparator' because the bundle wiring for com.h2database is no longer valid.
+	at org.apache.felix.framework.BundleWiringImpl.findClassOrResourceByDelegation(BundleWiringImpl.java:1542)
+	at org.apache.felix.framework.BundleWiringImpl.access$300(BundleWiringImpl.java:79)
+	at org.apache.felix.framework.BundleWiringImpl$BundleClassLoader.loadClass(BundleWiringImpl.java:1976)
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:527)
+	... 18 more
+2025-07-28 16:42:49.991091+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.006707+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.013876+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.015871+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.017866+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.019859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.020856+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.022852+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.022852+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.023848+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.024846+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.025843+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.026842+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.026842+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.027838+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.028837+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.028837+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.029833+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.030832+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.030832+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.031828+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.033837+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.034819+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.034819+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.035817+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.035817+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.036815+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.036815+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.039748+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:42:50.040656+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.317787+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.331750+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.332747+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.333745+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.334742+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.336737+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.337748+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.339731+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.340727+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.342723+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.343718+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.345716+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.346712+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.347708+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.349703+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.351698+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.352695+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.354688+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.356685+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.358680+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.361672+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.363684+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.366659+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.368654+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.369649+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.373643+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.375633+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.377629+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.379624+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-28 16:48:37.380619+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.114237+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.167613+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.183247+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.183247+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.183247+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.198859+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.214479+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.214479+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.214479+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:35:28.214479+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS device-[*]1_A_31(time TIMESTAMP NOT NULL,\000aflag SMALLINT NOT NULL,""VALUE"" INTEGER,INDEX device-1_A_31Index(time),PRIMARY KEY (time));"; expected "Numeric"; SQL statement:
+CREATE TABLE IF NOT EXISTS device-1_A_31(time TIMESTAMP NOT NULL,
+flag SMALLINT NOT NULL,"VALUE" INTEGER,INDEX device-1_A_31Index(time),PRIMARY KEY (time)); [42001-232]
+2025-07-29 18:35:28.230101+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS device-[*]2_B_32(time TIMESTAMP NOT NULL,\000aflag SMALLINT NOT NULL,""VALUE"" INTEGER,INDEX device-2_B_32Index(time),PRIMARY KEY (time));"; expected "Numeric"; SQL statement:
+CREATE TABLE IF NOT EXISTS device-2_B_32(time TIMESTAMP NOT NULL,
+flag SMALLINT NOT NULL,"VALUE" INTEGER,INDEX device-2_B_32Index(time),PRIMARY KEY (time)); [42001-232]
+2025-07-29 18:35:30.021969+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:30.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:30.0',1,0); [42001-232]
+2025-07-29 18:35:33.001170+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:33.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:33.0',1,0); [42001-232]
+2025-07-29 18:35:36.000941+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:36.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:36.0',1,0); [42001-232]
+2025-07-29 18:35:39.001177+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:39.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:39.0',1,0); [42001-232]
+2025-07-29 18:35:42.001567+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:42.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:42.0',1,0); [42001-232]
+2025-07-29 18:35:45.000746+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:45.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:45.0',1,0); [42001-232]
+2025-07-29 18:35:48.007827+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:48.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:48.0',1,0); [42001-232]
+2025-07-29 18:35:51.002933+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:51.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:51.0',1,0); [42001-232]
+2025-07-29 18:35:54.088171+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:54.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:54.0',1,0); [42001-232]
+2025-07-29 18:35:57.016046+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:35:57.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:35:57.0',1,0); [42001-232]
+2025-07-29 18:36:00.000753+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:00.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:00.0',1,0); [42001-232]
+2025-07-29 18:36:03.002141+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:03.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:03.0',1,0); [42001-232]
+2025-07-29 18:36:06.000552+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:06.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:06.0',1,0); [42001-232]
+2025-07-29 18:36:09.001539+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:09.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:09.0',1,0); [42001-232]
+2025-07-29 18:36:12.000995+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:12.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:12.0',1,0); [42001-232]
+2025-07-29 18:36:15.002123+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:15.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:15.0',1,0); [42001-232]
+2025-07-29 18:36:18.001571+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:18.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:18.0',1,0); [42001-232]
+2025-07-29 18:36:21.001516+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:21.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:21.0',1,0); [42001-232]
+2025-07-29 18:36:24.001089+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:24.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:24.0',1,0); [42001-232]
+2025-07-29 18:36:27.001782+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:27.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:27.0',1,0); [42001-232]
+2025-07-29 18:36:30.001843+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:30.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:30.0',1,0); [42001-232]
+2025-07-29 18:36:33.005162+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:33.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:33.0',1,0); [42001-232]
+2025-07-29 18:36:36.001075+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:36.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:36.0',1,0); [42001-232]
+2025-07-29 18:36:39.001986+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:39.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:39.0',1,0); [42001-232]
+2025-07-29 18:36:42.002022+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:42.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:42.0',1,0); [42001-232]
+2025-07-29 18:36:45.001666+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:45.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:45.0',1,0); [42001-232]
+2025-07-29 18:36:48.001704+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:48.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:48.0',1,0); [42001-232]
+2025-07-29 18:36:51.001455+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:51.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:51.0',1,0); [42001-232]
+2025-07-29 18:36:54.000716+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:54.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:54.0',1,0); [42001-232]
+2025-07-29 18:36:57.001767+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:36:57.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:36:57.0',1,0); [42001-232]
+2025-07-29 18:37:00.000594+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:00.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:00.0',1,0); [42001-232]
+2025-07-29 18:37:03.000955+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:03.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:03.0',1,0); [42001-232]
+2025-07-29 18:37:06.001199+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:06.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:06.0',1,0); [42001-232]
+2025-07-29 18:37:09.002069+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:09.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:09.0',1,0); [42001-232]
+2025-07-29 18:37:12.001460+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:12.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:12.0',1,0); [42001-232]
+2025-07-29 18:37:15.001496+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:15.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:15.0',1,0); [42001-232]
+2025-07-29 18:37:18.001194+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:18.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:18.0',1,0); [42001-232]
+2025-07-29 18:37:21.001094+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:21.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:21.0',1,0); [42001-232]
+2025-07-29 18:37:24.000627+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:24.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:24.0',1,0); [42001-232]
+2025-07-29 18:37:27.001980+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:27.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:27.0',1,0); [42001-232]
+2025-07-29 18:37:30.015364+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:30.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:30.0',1,0); [42001-232]
+2025-07-29 18:37:33.001220+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:33.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:33.0',1,0); [42001-232]
+2025-07-29 18:37:53.943511+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.950486+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.951484+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.952481+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.952481+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.953478+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.953478+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.954476+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.955492+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.956469+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.957465+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.957465+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.958464+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.959460+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.959460+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.960457+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.961454+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.961454+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.962453+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.962453+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.963454+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.963454+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.964447+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.964447+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.965444+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.966458+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.967442+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.968436+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.968436+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.969433+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: No data is available [2000-232]
+2025-07-29 18:37:53.982477+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS device-[*]1_A_31(time TIMESTAMP NOT NULL,\000aflag SMALLINT NOT NULL,""VALUE"" INTEGER,INDEX device-1_A_31Index(time),PRIMARY KEY (time));"; expected "Numeric"; SQL statement:
+CREATE TABLE IF NOT EXISTS device-1_A_31(time TIMESTAMP NOT NULL,
+flag SMALLINT NOT NULL,"VALUE" INTEGER,INDEX device-1_A_31Index(time),PRIMARY KEY (time)); [42001-232]
+2025-07-29 18:37:53.983475+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE IF NOT EXISTS device-[*]2_B_32(time TIMESTAMP NOT NULL,\000aflag SMALLINT NOT NULL,""VALUE"" INTEGER,INDEX device-2_B_32Index(time),PRIMARY KEY (time));"; expected "Numeric"; SQL statement:
+CREATE TABLE IF NOT EXISTS device-2_B_32(time TIMESTAMP NOT NULL,
+flag SMALLINT NOT NULL,"VALUE" INTEGER,INDEX device-2_B_32Index(time),PRIMARY KEY (time)); [42001-232]
+2025-07-29 18:37:54.003457+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:54.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:54.0',1,0); [42001-232]
+2025-07-29 18:37:54.003457+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:54.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:54.0',1,0); [42001-232]
+2025-07-29 18:37:57.000526+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:57.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:57.0',1,0); [42001-232]
+2025-07-29 18:37:57.000526+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:37:57.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:37:57.0',1,0); [42001-232]
+2025-07-29 18:38:00.002208+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:00.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:00.0',1,0); [42001-232]
+2025-07-29 18:38:00.002208+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:00.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:00.0',1,0); [42001-232]
+2025-07-29 18:38:03.001444+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:03.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:03.0',1,0); [42001-232]
+2025-07-29 18:38:03.001444+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:03.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:03.0',1,0); [42001-232]
+2025-07-29 18:38:06.000510+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:06.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:06.0',1,0); [42001-232]
+2025-07-29 18:38:06.000510+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:06.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:06.0',1,0); [42001-232]
+2025-07-29 18:38:09.001691+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:09.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:09.0',1,0); [42001-232]
+2025-07-29 18:38:09.001691+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:09.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:09.0',1,0); [42001-232]
+2025-07-29 18:38:12.001022+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:12.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:12.0',1,0); [42001-232]
+2025-07-29 18:38:12.001022+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:12.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:12.0',1,0); [42001-232]
+2025-07-29 18:38:15.001781+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:15.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:15.0',1,0); [42001-232]
+2025-07-29 18:38:15.007817+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:15.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:15.0',9,0); [42001-232]
+2025-07-29 18:38:18.000803+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:18.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:18.0',1,0); [42001-232]
+2025-07-29 18:38:18.000803+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:18.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:18.0',9,0); [42001-232]
+2025-07-29 18:38:21.001744+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:21.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:21.0',1,0); [42001-232]
+2025-07-29 18:38:21.001744+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:21.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:21.0',9,0); [42001-232]
+2025-07-29 18:38:24.000774+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:24.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:24.0',1,0); [42001-232]
+2025-07-29 18:38:24.000774+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:24.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:24.0',9,0); [42001-232]
+2025-07-29 18:38:27.001392+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:27.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:27.0',1,0); [42001-232]
+2025-07-29 18:38:27.001392+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:27.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:27.0',9,0); [42001-232]
+2025-07-29 18:38:30.010536+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:30.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:30.0',1,0); [42001-232]
+2025-07-29 18:38:30.016559+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:30.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:30.0',9,0); [42001-232]
+2025-07-29 18:38:33.001265+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:33.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:33.0',1,0); [42001-232]
+2025-07-29 18:38:33.001265+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:33.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:33.0',9,0); [42001-232]
+2025-07-29 18:38:36.001095+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:36.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:36.0',1,0); [42001-232]
+2025-07-29 18:38:36.001095+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:36.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:36.0',9,0); [42001-232]
+2025-07-29 18:38:39.000943+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:39.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:39.0',1,0); [42001-232]
+2025-07-29 18:38:39.000943+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:39.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:39.0',9,0); [42001-232]
+2025-07-29 18:38:42.001991+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:42.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:42.0',1,0); [42001-232]
+2025-07-29 18:38:42.001991+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:42.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:42.0',9,0); [42001-232]
+2025-07-29 18:38:45.000938+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:45.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:45.0',1,0); [42001-232]
+2025-07-29 18:38:45.000938+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:45.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:45.0',9,0); [42001-232]
+2025-07-29 18:38:48.001907+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:48.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:48.0',1,0); [42001-232]
+2025-07-29 18:38:48.001907+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:48.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:48.0',9,0); [42001-232]
+2025-07-29 18:38:51.001253+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:51.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:51.0',1,0); [42001-232]
+2025-07-29 18:38:51.001253+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:51.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:51.0',9,0); [42001-232]
+2025-07-29 18:38:54.000670+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:54.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:54.0',1,0); [42001-232]
+2025-07-29 18:38:54.000670+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:54.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:54.0',9,0); [42001-232]
+2025-07-29 18:38:57.002526+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:57.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:57.0',1,0); [42001-232]
+2025-07-29 18:38:57.021876+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:38:57.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:38:57.0',9,0); [42001-232]
+2025-07-29 18:39:00.016955+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:00.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:00.0',1,0); [42001-232]
+2025-07-29 18:39:00.016955+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:00.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:00.0',9,0); [42001-232]
+2025-07-29 18:39:03.031179+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:03.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:03.0',1,0); [42001-232]
+2025-07-29 18:39:03.031179+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:03.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:03.0',9,0); [42001-232]
+2025-07-29 18:39:06.008789+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:06.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:06.0',1,0); [42001-232]
+2025-07-29 18:39:06.024410+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:06.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:06.0',9,0); [42001-232]
+2025-07-29 18:39:09.001456+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:09.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:09.0',1,0); [42001-232]
+2025-07-29 18:39:09.001456+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:09.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:09.0',9,0); [42001-232]
+2025-07-29 18:39:12.000560+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:12.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:12.0',1,0); [42001-232]
+2025-07-29 18:39:12.000560+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:12.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:12.0',9,0); [42001-232]
+2025-07-29 18:39:15.001188+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]1_A_31 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:15.0',1,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-1_A_31 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:15.0',1,0); [42001-232]
+2025-07-29 18:39:15.001188+05:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "INSERT INTO device-[*]2_B_32 (time,flag,""VALUE"") VALUES ('2025-07-29 18:39:15.0',9,0);"; expected "Numeric"; SQL statement:
+INSERT INTO device-2_B_32 (time,flag,"VALUE") VALUES ('2025-07-29 18:39:15.0',9,0); [42001-232]
