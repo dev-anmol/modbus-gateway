@@ -462,7 +462,7 @@ public class ModbusServer {
         // Synchronize input registers for this unit
         Map<Integer, Integer> inputRegs = dataHolder.getInputRegistersForUnit(unitId);
         for (Map.Entry<Integer, Integer> regEntry : inputRegs.entrySet()) {
-            // Add updateInputRegister method to DynamicProcessImage if needed
+            // input register is read-only
             logger.debug("Input register {} for unit {} has value {}",
                     regEntry.getKey(), unitId, regEntry.getValue());
         }
@@ -470,7 +470,7 @@ public class ModbusServer {
         // Synchronize discrete inputs for this unit
         Map<Integer, Boolean> discreteInputs = dataHolder.getDiscreteInputsForUnit(unitId);
         for (Map.Entry<Integer, Boolean> diEntry : discreteInputs.entrySet()) {
-            // Add updateDiscreteInput method to DynamicProcessImage if needed
+            // discrete inputs are read-only
             logger.debug("Discrete input {} for unit {} has value {}",
                     diEntry.getKey(), unitId, diEntry.getValue());
         }
