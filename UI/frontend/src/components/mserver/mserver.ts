@@ -1,5 +1,6 @@
 import {
   Component,
+  computed,
   inject,
   OnDestroy,
   OnInit,
@@ -28,6 +29,32 @@ export class Mserver implements OnInit, OnDestroy {
     'Pool Size',
   ]);
   public sub1!: Subscription;
+  public searchTerm: WritableSignal<String> = signal('');
+
+  filteredServers = computed(() => {
+    const allServers = this.serverProfile();
+    const search = this.searchTerm()?.toLowerCase().trim();
+
+    if (!search) {
+      return allServers;
+    }
+
+    return allServers.filter((server) => {
+      server.Name.includes(search) ||
+        server.ServerPort.includes(search) ||
+        server.ServerIpAddress.includes(search) ||
+        server.PoolSize.includes(search);
+    });
+  });
+
+  findServer(e: Event) {
+    const target = e.target as HTMLInputElement;
+    this.searchTerm.set(target.value);
+  }
+
+  clearSearch() {
+    this.searchTerm.set('');
+  }
 
   ngOnInit(): void {
     this.sub1 = this.mserverService.getServerDetails().subscribe({
@@ -48,11 +75,11 @@ export class Mserver implements OnInit, OnDestroy {
 
   deleteSeverProfile(Id: Number) {
     this.mserverService.deleteServerProfile(Id).subscribe({
-      next : (res) => {
+      next: (res) => {
         console.log(res);
-        this.serverProfile.update((servers) => 
+        this.serverProfile.update((servers) =>
           servers.filter((server) => server.Id !== Id)
-        )
+        );
       },
       error(err) {
         console.log(err);
