@@ -1,13 +1,13 @@
 <div class="container-wrapper md:p-4 p-2">
   <div class="w-[60%] pl-8 max-sm:w-[100%] flex flex-col gap-14">
-    <div class="flex justify-between items-end mt-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mt-10 gap-6">
       <div class="flex flex-col gap-4">
         <p class="text-[16px] font-semibold text-neutral-700/90">Server</p>
         <div class="relative">
           <input
             type="text"
             class="border border-neutral-300 py-2 pl-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm placeholder:text-xs text-gray-400 font-normal bg-white shadow-sm"
-            placeholder="Search Servers"
+            placeholder="Search by name, port, Ip or pool size "
             (input)="findServer($event)"
             [value]="searchTerm()"
           />
