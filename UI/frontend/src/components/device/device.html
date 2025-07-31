@@ -3,12 +3,22 @@
     <div class="flex justify-between items-end mt-10">
       <div class="flex flex-col gap-4">
         <p class="text-[16px] font-semibold text-neutral-700/95">Device</p>
-        <div>
+        <div class="relative">
           <input
             type="text"
-            class="border border-neutral-300 py-2 pl-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm placeholder:text-xs text-gray-400 font-normal bg-white shadow-sm"
-            placeholder="Search Devices"
+            class="border border-neutral-300 py-2 pl-2 pr-8 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-200 text-sm placeholder:text-xs text-gray-400 font-normal bg-white shadow-sm w-full"
+            placeholder="Search by name, IP, profile, or mode..."
+            (input)="findDevices($event)"
+            [value]="searchTerm()"
           />
+          @if (searchTerm()) {
+            <button
+              (click)="clearSearch()"
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 text-sm"
+            >
+              ✕
+            </button>
+          }
         </div>
       </div>
       <button
@@ -41,12 +51,18 @@
       </thead>
 
       <tbody class="text-center">
-        @if (this.devices().length === 0) {
+        @if (filteredDevices().length === 0) {
           <tr>
-            <td colspan="6" class="py-4 text-gray-400">No devices found.</td>
+            <td colspan="6" class="py-4 text-gray-400">
+              @if (searchTerm()) {
+                No devices found matching "{{ searchTerm() }}".
+              } @else {
+                No devices found.
+              }
+            </td>
           </tr>
         } @else {
-          @for(device of this.devices(); track $index) {
+          @for(device of filteredDevices(); track $index) {
             <tr class="hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0">
               <td class="py-2 px-2">{{ $index + 1 }}</td>
               <td class="py-2 px-2">{{ device.Name }}</td>

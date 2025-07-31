@@ -5,6 +5,7 @@ import {
   OnInit,
   signal,
   WritableSignal,
+  computed,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceModel } from '../../models/device.type';
@@ -25,6 +26,24 @@ export class Device implements OnInit, OnDestroy {
   private deviceService = inject(DeviceService);
   private messageService = inject(MessageService);
   public devices: WritableSignal<DeviceModel[]> = signal([]);
+  public searchTerm: WritableSignal<string> = signal('');
+  
+  public filteredDevices = computed(() => {
+    const search = this.searchTerm().toLowerCase().trim();
+    const allDevices = this.devices();
+    
+    if (!search) {
+      return allDevices;
+    }
+    
+    return allDevices.filter(device => 
+      device.Name?.toLowerCase().includes(search) ||
+      device.IPAddress?.toLowerCase().includes(search) ||
+      device.DeviceProfileId?.toString().includes(search) ||
+      device.Mode?.toLowerCase().includes(search)
+    );
+  });
+
   public header: WritableSignal<String[]> = signal([
     'Id',
     'Device Name',
@@ -46,6 +65,15 @@ export class Device implements OnInit, OnDestroy {
         console.log('Error While Fetching Devices', err);
       },
     });
+  }
+
+  findDevices(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm.set(target.value);
+  }
+
+  clearSearch() {
+    this.searchTerm.set('');
   }
 
   navigateToManageDevice(id: number) {
