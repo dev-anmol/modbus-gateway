@@ -5,6 +5,7 @@ import {
   WritableSignal,
   signal,
   OnDestroy,
+  computed,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from '../../services/profile/profile.service';
@@ -36,6 +37,32 @@ export class Profile implements OnInit, OnDestroy {
   public sub1!: Subscription;
   public sub2!: Subscription;
   public successFlag!: boolean;
+  public searchTerm: WritableSignal<string> = signal('');
+
+  filteredProfiles = computed(() => {
+    const allProfiles = this.deviceProfile();
+    const search = this.searchTerm().toLowerCase().trim();
+
+    if(!search) {
+      return allProfiles;
+    }
+
+    return allProfiles.filter(profile => 
+      profile.ProfileName?.toLowerCase().includes(search) ||
+      profile.ProfileModel?.toLowerCase().includes(search) ||
+      profile.DeviceMake?.toLowerCase().includes(search)
+    )
+
+  })
+
+  findProfiles(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.searchTerm.set(target.value);
+  }
+
+  clearSearch() {
+    this.searchTerm.set('');
+  }
 
   ngOnInit(): void {
     this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
@@ -49,6 +76,7 @@ export class Profile implements OnInit, OnDestroy {
       },
     });
   }
+
 
   deleteDeviceProfile(Id: number) {
     console.log("delete profile id")
