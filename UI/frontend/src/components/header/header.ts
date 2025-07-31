@@ -22,7 +22,7 @@ import {
 } from 'lucide-angular';
 import { Sidebar } from '../../services/global/sidebar';
 import { Router } from '@angular/router';
-import { Updateconfig } from '../../services/updateconfig';
+import { Updateconfig } from '../../services/udpate-config/updateconfig';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 gsap.registerPlugin(ScrollTrigger); // Register once
@@ -32,7 +32,7 @@ gsap.registerPlugin(ScrollTrigger); // Register once
   templateUrl: './header.html',
   imports: [LucideAngularModule, ToastModule],
   styleUrls: ['./header.css'],
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class Header implements AfterViewInit, OnDestroy {
   readonly Menu = MenuIcon;
@@ -46,7 +46,7 @@ export class Header implements AfterViewInit, OnDestroy {
   private updateConfigService = inject(Updateconfig);
   private messageService = inject(MessageService);
   private gsapContext!: gsap.Context;
-  public successFlag : boolean = false;
+  public successFlag: boolean = false;
   public isMobile = computed(() => this.sidebarService.isSideBarOpen());
   constructor(@Inject(PLATFORM_ID) private platfromId: Object) {}
 
@@ -79,29 +79,35 @@ export class Header implements AfterViewInit, OnDestroy {
   }
 
   updateOpenMUCConfigurations() {
-    console.log("triggered")
+    console.log('triggered');
     this.updateConfigService.restartApplication().subscribe({
       next: (response) => {
-        this.successFlag = true;
-        console.log(response);
-        this.generateToast('Configuration updated successfully', this.successFlag)
+        if (!response.error) {
+          this.successFlag = true;
+          console.log(response);
+          this.generateToast(
+            'Configuration updated successfully',
+            this.successFlag
+          );
+        } else {
+          this.successFlag = false;
+          this.generateToast('Error Updating Configurations', this.successFlag);
+        }
       },
       error: (error) => {
         this.successFlag = false;
-        this.generateToast('Error Updating Configurations', this.successFlag)
+        this.generateToast('Error Updating Configurations', this.successFlag);
       },
     });
   }
 
-
-  generateToast(msg:string, flag : boolean) {
+  generateToast(msg: string, flag: boolean) {
     this.messageService.add({
       severity: flag ? 'success' : 'error',
       summary: msg,
       life: 3000,
       closable: true,
-    })
-
+    });
   }
 
   ngOnDestroy(): void {
