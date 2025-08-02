@@ -27,5 +27,18 @@
                 </settings>
             </channel>
         </device>
+        <device id="device">
+            <deviceAddress>127.0.0.1:503</deviceAddress>
+            <settings>TCP</settings>
+            <channel id="device_A_31">
+                <channelAddress>3:HOLDING_REGISTERS:1000:INT16</channelAddress>
+                <valueType>INTEGER</valueType>
+                <samplingInterval>3000</samplingInterval>
+                <loggingInterval>1000</loggingInterval>
+                <settings>
+                    <setting id="TIMEOUT">3000</setting>
+                </settings>
+            </channel>
+        </device>
     </driver>
 </configuration>

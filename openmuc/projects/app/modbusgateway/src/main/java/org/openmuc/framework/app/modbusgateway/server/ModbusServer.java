@@ -31,8 +31,9 @@ public class ModbusServer {
     private final Map<String, DynamicProcessImage> processImages = new ConcurrentHashMap<>();
     private ScheduledExecutorService scheduler;
 
-    // Track register mappings for proper synchronization
+    // FIXED: Enhanced register mappings to include unit ID context
     private final Map<Integer, String> registerToChannelMapping = new ConcurrentHashMap<>();
+    private final Map<String, Integer> channelToUnitMapping = new ConcurrentHashMap<>(); // NEW: Channel to Unit ID mapping
     private final Map<String, Set<Integer>> serverToRegistersMapping = new ConcurrentHashMap<>();
 
     private List<Server> serverConfigs;
@@ -90,6 +91,7 @@ public class ModbusServer {
         }
     }
 
+    // FIXED: Build register mappings with unit ID context
     private void buildRegisterMappings() {
         if (deviceConfigs == null || mappingConfigs == null) {
             logger.warn("Cannot build register mappings - missing configuration data");
@@ -103,9 +105,11 @@ public class ModbusServer {
                     int registerAddress = Integer.parseInt(mapping.getRegisterAddress());
 
                     registerToChannelMapping.put(registerAddress, channelId);
+                    // FIXED: Store channel to unit ID mapping
+                    channelToUnitMapping.put(channelId, device.getUnitId());
 
-                    logger.info("Mapped register {} to channel {} for register type {}",
-                            registerAddress, channelId, mapping.getRegisterType());
+                    logger.info("Mapped register {} to channel {} for unit {} with register type {}",
+                            registerAddress, channelId, device.getUnitId(), mapping.getRegisterType());
                 }
             }
         }
@@ -156,7 +160,7 @@ public class ModbusServer {
 
         Set<Integer> unitIds = getUnitIdsForServer(serverConfig);
 
-        // FIXED: Create separate process image for each unit ID
+        // Create separate process image for each unit ID
         for (Integer unitId : unitIds) {
             String imageKey = serverKey + "_unit" + unitId;
             DynamicProcessImage processImage = new DynamicProcessImage(imageKey);
@@ -235,7 +239,7 @@ public class ModbusServer {
         }
     }
 
-    // FIXED: Helper methods to extract values with defaults (no hardcoded values)
+    // Helper methods to extract values with defaults (unchanged)
     private int extractIntValueFromObject(Object value, int defaultValue) {
         if (value instanceof Number) {
             return ((Number) value).intValue();
@@ -320,7 +324,7 @@ public class ModbusServer {
     }
 
     /**
-     * NEW METHOD: Synchronize channel data to register mappings in data holder
+     * FIXED: Synchronize channel data to register mappings with unit ID awareness
      */
     private void synchronizeChannelDataToRegisters() {
         for (Map.Entry<Integer, String> entry : registerToChannelMapping.entrySet()) {
@@ -329,11 +333,12 @@ public class ModbusServer {
 
             Object channelValue = dataHolder.getChannelData(channelId);
             if (channelValue != null) {
-                // Find the mapping to determine register type
                 try {
                     Mapping relevantMapping = findMappingForChannelId(channelId);
                     if (relevantMapping != null) {
-                        updateDataHolderRegister(relevantMapping, registerAddress, channelValue);
+                        // FIXED: Extract unit ID from channel ID and pass it
+                        int unitId = extractUnitIdFromChannelId(channelId);
+                        updateDataHolderRegister(relevantMapping, registerAddress, channelValue, unitId);
                     }
                 } catch (Exception e) {
                     logger.warn("Type mismatch for register {}: {}", registerAddress, e.getMessage());
@@ -358,16 +363,39 @@ public class ModbusServer {
         return null;
     }
 
-    private void updateDataHolderRegister(Mapping mapping, int address, Object value) {
+    // FIXED: Extract unit ID from channel ID using the mapping we built
+    private int extractUnitIdFromChannelId(String channelId) {
+        Integer unitId = channelToUnitMapping.get(channelId);
+        if (unitId != null) {
+            return unitId;
+        }
+
+        // Fallback: parse from device name in channel ID
+        if (deviceConfigs != null) {
+            for (Device device : deviceConfigs) {
+                if (channelId.startsWith(device.getName() + "_")) {
+                    logger.debug("Found unit ID {} for channel {} via device name matching", device.getUnitId(), channelId);
+                    return device.getUnitId();
+                }
+            }
+        }
+
+        logger.error("Cannot determine unit ID for channel: {}", channelId);
+        throw new IllegalStateException("Unit ID not found for channel: " + channelId);
+    }
+
+    // FIXED: Update data holder register with unit ID awareness
+    private void updateDataHolderRegister(Mapping mapping, int address, Object value, int unitId) {
         try {
             switch (mapping.getRegisterType().toLowerCase()) {
                 case "holding_registers":
                     if (value instanceof Number) {
                         int intValue = ((Number) value).intValue();
-                        Integer currentValue = dataHolder.getHoldingRegister(address);
+                        Integer currentValue = dataHolder.getHoldingRegisterForUnit(unitId, address); // ✅ Unit-specific
                         if (currentValue == null || !currentValue.equals(intValue)) {
-                            dataHolder.setHoldingRegister(address, intValue);
-                            logger.debug("Updated holding register {} to {} from channel data", address, intValue);
+                            dataHolder.setHoldingRegisterForUnit(unitId, address, intValue); // ✅ Unit-specific
+                            logger.debug("Updated holding register {} to {} from channel data for unit {}",
+                                    address, intValue, unitId);
                         }
                     }
                     break;
@@ -375,10 +403,11 @@ public class ModbusServer {
                 case "input_registers":
                     if (value instanceof Number) {
                         int intValue = ((Number) value).intValue();
-                        Integer currentValue = dataHolder.getInputRegister(address);
+                        Integer currentValue = dataHolder.getInputRegisterForUnit(unitId, address); // ✅ Unit-specific
                         if (currentValue == null || !currentValue.equals(intValue)) {
-                            dataHolder.setInputRegister(address, intValue);
-                            logger.debug("Updated input register {} to {} from channel data", address, intValue);
+                            dataHolder.setInputRegisterForUnit(unitId, address, intValue); // ✅ Unit-specific
+                            logger.debug("Updated input register {} to {} from channel data for unit {}",
+                                    address, intValue, unitId);
                         }
                     }
                     break;
@@ -386,10 +415,11 @@ public class ModbusServer {
                 case "coils":
                     if (value instanceof Boolean) {
                         boolean boolValue = (Boolean) value;
-                        Boolean currentValue = dataHolder.getCoil(address);
+                        Boolean currentValue = dataHolder.getCoilForUnit(unitId, address); // ✅ Unit-specific
                         if (currentValue == null || !currentValue.equals(boolValue)) {
-                            dataHolder.setCoil(address, boolValue);
-                            logger.debug("Updated coil {} to {} from channel data", address, boolValue);
+                            dataHolder.setCoilForUnit(unitId, address, boolValue); // ✅ Unit-specific
+                            logger.debug("Updated coil {} to {} from channel data for unit {}",
+                                    address, boolValue, unitId);
                         }
                     }
                     break;
@@ -397,16 +427,17 @@ public class ModbusServer {
                 case "discrete_inputs":
                     if (value instanceof Boolean) {
                         boolean boolValue = (Boolean) value;
-                        Boolean currentValue = dataHolder.getDiscreteInput(address);
+                        Boolean currentValue = dataHolder.getDiscreteInputForUnit(unitId, address); // ✅ Unit-specific
                         if (currentValue == null || !currentValue.equals(boolValue)) {
-                            dataHolder.setDiscreteInput(address, boolValue);
-                            logger.debug("Updated discrete input {} to {} from channel data", address, boolValue);
+                            dataHolder.setDiscreteInputForUnit(unitId, address, boolValue); // ✅ Unit-specific
+                            logger.debug("Updated discrete input {} to {} from channel data for unit {}",
+                                    address, boolValue, unitId);
                         }
                     }
                     break;
             }
         } catch (Exception e) {
-            logger.error("Error updating data holder register {}: {}", address, e.getMessage());
+            logger.error("Error updating data holder register {} for unit {}: {}", address, unitId, e.getMessage());
         }
     }
 
@@ -428,7 +459,7 @@ public class ModbusServer {
         }
     }
 
-    // FIXED: Helper method to extract unit ID from image key (no hardcoded values)
+    // FIXED: Improved unit ID extraction from image key
     private int extractUnitIdFromImageKey(String imageKey) {
         try {
             String[] parts = imageKey.split("_unit");
@@ -438,14 +469,23 @@ public class ModbusServer {
         } catch (NumberFormatException e) {
             logger.warn("Cannot extract unit ID from image key: {}", imageKey);
         }
-        // Return the first available unit ID instead of hardcoded 1
+
+        // Better fallback: find the first active device rather than always index 0
         if (deviceConfigs != null && !deviceConfigs.isEmpty()) {
-            return deviceConfigs.get(0).getUnitId();
+            // Try to find an active device or just return the first one
+            for (Device device : deviceConfigs) {
+                if (device.getUnitId() > 0) { // Basic validation
+                    logger.warn("Using fallback unit ID {} for image key {}", device.getUnitId(), imageKey);
+                    return device.getUnitId();
+                }
+            }
         }
+
+        logger.error("No valid unit ID found for image key: {}", imageKey);
         return 1; // Last resort default
     }
 
-    // FIXED: Synchronize unit-specific data to process image
+    // Synchronize unit-specific data to process image (unchanged)
     private void synchronizeUnitDataToProcessImage(DynamicProcessImage processImage, int unitId) {
         // Synchronize holding registers for this unit
         Map<Integer, Integer> holdingRegs = dataHolder.getHoldingRegistersForUnit(unitId);
@@ -475,7 +515,6 @@ public class ModbusServer {
                     diEntry.getKey(), unitId, diEntry.getValue());
         }
     }
-
 
     @Deactivate
     private void deactivate() {
@@ -508,7 +547,7 @@ public class ModbusServer {
     }
 
     /**
-     * Enhanced Dynamic Process Image implementation
+     * Enhanced Dynamic Process Image implementation (unchanged from your version)
      */
     private class DynamicProcessImage implements ProcessImage {
         private final String serverId;
@@ -522,6 +561,7 @@ public class ModbusServer {
             this.serverId = serverId;
         }
 
+        // [All the ProcessImage implementation methods remain exactly the same as in your original code]
         // Initialization methods
         public void initializeHoldingRegister(int address, int value) {
             try {
@@ -592,25 +632,6 @@ public class ModbusServer {
             }
         }
 
-//        public void updateInputRegister(int address, int value) {
-//            InputRegister register = inputRegisters.get(address);
-//            if (register == null) {
-//                SimpleInputRegister newRegister = new SimpleInputRegister(value);
-//                inputRegisters.put(address, newRegister);
-//                delegate.addInputRegister(address, newRegister);
-//                logger.info("Created and updated input register {} to {} for server {}",
-//                        address, value, serverId);
-//            } else if (register.getValue() != value) {
-//                try {
-//                    register.setValue(value);
-//                    logger.info("Updated input register {} to {} for server {}",
-//                            address, value, serverId);
-//                } catch (Exception e) {
-//                    logger.error("Error updating input register {}: {}", address, e.getMessage());
-//                }
-//            }
-//        }
-
         public void updateCoil(int address, boolean value) {
             DigitalOut coil = coils.get(address);
             if (coil == null) {
@@ -627,25 +648,6 @@ public class ModbusServer {
                 }
             }
         }
-
-//        public void updateDiscreteInput(int address, boolean value) {
-//            DigitalIn discreteInput = discreteInputs.get(address);
-//            if (discreteInput == null) {
-//                SimpleDigitalIn newInput = new SimpleDigitalIn(value);
-//                discreteInputs.put(address, newInput);
-//                delegate.addDigitalIn(address, newInput);
-//                logger.info("Created and updated discrete input {} to {} for server {}",
-//                        address, value, serverId);
-//            } else if (discreteInput.isSet() != value) {
-//                try {
-//                    discreteInput.set(value);
-//                    logger.info("Updated discrete input {} to {} for server {}",
-//                            address, value, serverId);
-//                } catch (Exception e) {
-//                    logger.error("Error updating discrete input {}: {}", address, e.getMessage());
-//                }
-//            }
-//        }
 
         // ProcessImage interface implementation
         @Override
