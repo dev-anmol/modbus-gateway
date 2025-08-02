@@ -179,6 +179,20 @@ export class AddDevice implements OnInit, OnDestroy {
     });
   }
 
+  handleManageProfile() {
+    this.router.navigate(['/profile']);
+  }
+
+  handleManageProfileNavigation() {
+    const selectedProfileId = this.deviceForm.get('deviceProfileId')?.value;
+    console.log(selectedProfileId);
+    if (selectedProfileId) {
+      this.router.navigate([`/profile/${selectedProfileId}`]);
+    } else {
+      this.generateToast('Please select a device profile first', false);
+    }
+  }
+
   fetchAllDeviceProfiles() {
     this.sub1 = this.profileService.getAllDeviceProfiles().subscribe({
       next: (response) => {

@@ -56,6 +56,15 @@
           placeholder="Enter Sampling Interval (ms)"
         />
       </div>
+      <div>
+        <button
+          type="button"
+          class="text-indigo-500 text-sm cursor-pointer"
+          (click)="handleManageAddressMapping()"
+        >
+          Manage Address Mapping
+        </button>
+      </div>
 
       <div class="text-center">
         <button
@@ -65,6 +74,8 @@
         {{ isEditMode ? 'Update' : 'Add' }}
         </button>
       </div>
+
+     
     </form>
   </div>
 </div>

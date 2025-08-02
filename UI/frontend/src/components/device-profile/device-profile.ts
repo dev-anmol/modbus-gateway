@@ -96,6 +96,10 @@ export class DeviceProfile implements OnInit, OnDestroy {
     }
   }
 
+  handleManageAddressMapping() {
+    this.router.navigate([`/device-mapping/${this.id()}`]);
+  }
+
   generateToast(msg: string, flag: boolean) {
     this.messageService.add({
       severity: flag ? 'success' : 'error',

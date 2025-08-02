@@ -21,7 +21,6 @@ export class DeviceService {
   }
 
   getDeviceById(Id: number) {
-    console.log(Id);
     return this.http.get<DeviceModel>(`${environment.apiBaseUrl}/device/${Id}`);
   }
 
