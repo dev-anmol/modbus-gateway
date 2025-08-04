@@ -2,7 +2,7 @@
 <configuration>
     <driver id="modbus">
         <device id="device-1">
-            <deviceAddress>127.0.0.1:502</deviceAddress>
+            <deviceAddress>127.0.0.1:505</deviceAddress>
             <settings>TCP</settings>
             <channel id="device-1_A_31">
                 <channelAddress>1:HOLDING_REGISTERS:1000:INT16</channelAddress>
@@ -15,26 +15,13 @@
             </channel>
         </device>
         <device id="device-2">
-            <deviceAddress>127.0.0.1:505</deviceAddress>
+            <deviceAddress>127.0.0.1:504</deviceAddress>
             <settings>TCP</settings>
             <channel id="device-2_B_32">
                 <channelAddress>2:COILS:1002:BOOLEAN</channelAddress>
                 <valueType>BOOLEAN</valueType>
                 <samplingInterval>3000</samplingInterval>
                 <loggingInterval>3000</loggingInterval>
-                <settings>
-                    <setting id="TIMEOUT">3000</setting>
-                </settings>
-            </channel>
-        </device>
-        <device id="device">
-            <deviceAddress>127.0.0.1:503</deviceAddress>
-            <settings>TCP</settings>
-            <channel id="device_A_31">
-                <channelAddress>3:HOLDING_REGISTERS:1000:INT16</channelAddress>
-                <valueType>INTEGER</valueType>
-                <samplingInterval>3000</samplingInterval>
-                <loggingInterval>1000</loggingInterval>
                 <settings>
                     <setting id="TIMEOUT">3000</setting>
                 </settings>

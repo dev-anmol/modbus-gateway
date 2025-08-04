@@ -391,9 +391,9 @@ public class ModbusServer {
                 case "holding_registers":
                     if (value instanceof Number) {
                         int intValue = ((Number) value).intValue();
-                        Integer currentValue = dataHolder.getHoldingRegisterForUnit(unitId, address); // ✅ Unit-specific
+                        Integer currentValue = dataHolder.getHoldingRegisterForUnit(unitId, address);
                         if (currentValue == null || !currentValue.equals(intValue)) {
-                            dataHolder.setHoldingRegisterForUnit(unitId, address, intValue); // ✅ Unit-specific
+                            dataHolder.setHoldingRegisterForUnit(unitId, address, intValue);
                             logger.debug("Updated holding register {} to {} from channel data for unit {}",
                                     address, intValue, unitId);
                         }
@@ -403,9 +403,9 @@ public class ModbusServer {
                 case "input_registers":
                     if (value instanceof Number) {
                         int intValue = ((Number) value).intValue();
-                        Integer currentValue = dataHolder.getInputRegisterForUnit(unitId, address); // ✅ Unit-specific
+                        Integer currentValue = dataHolder.getInputRegisterForUnit(unitId, address);
                         if (currentValue == null || !currentValue.equals(intValue)) {
-                            dataHolder.setInputRegisterForUnit(unitId, address, intValue); // ✅ Unit-specific
+                            dataHolder.setInputRegisterForUnit(unitId, address, intValue);
                             logger.debug("Updated input register {} to {} from channel data for unit {}",
                                     address, intValue, unitId);
                         }
@@ -415,9 +415,9 @@ public class ModbusServer {
                 case "coils":
                     if (value instanceof Boolean) {
                         boolean boolValue = (Boolean) value;
-                        Boolean currentValue = dataHolder.getCoilForUnit(unitId, address); // ✅ Unit-specific
+                        Boolean currentValue = dataHolder.getCoilForUnit(unitId, address);
                         if (currentValue == null || !currentValue.equals(boolValue)) {
-                            dataHolder.setCoilForUnit(unitId, address, boolValue); // ✅ Unit-specific
+                            dataHolder.setCoilForUnit(unitId, address, boolValue);
                             logger.debug("Updated coil {} to {} from channel data for unit {}",
                                     address, boolValue, unitId);
                         }
@@ -427,9 +427,9 @@ public class ModbusServer {
                 case "discrete_inputs":
                     if (value instanceof Boolean) {
                         boolean boolValue = (Boolean) value;
-                        Boolean currentValue = dataHolder.getDiscreteInputForUnit(unitId, address); // ✅ Unit-specific
+                        Boolean currentValue = dataHolder.getDiscreteInputForUnit(unitId, address);
                         if (currentValue == null || !currentValue.equals(boolValue)) {
-                            dataHolder.setDiscreteInputForUnit(unitId, address, boolValue); // ✅ Unit-specific
+                            dataHolder.setDiscreteInputForUnit(unitId, address, boolValue);
                             logger.debug("Updated discrete input {} to {} from channel data for unit {}",
                                     address, boolValue, unitId);
                         }
